@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+~   Licensed under the Apache License, Version 2.0 (the "License");
+~   you may not use this file except in compliance with the License.
+~   You may obtain a copy of the License at
+~
+~   http://www.apache.org/licenses/LICENSE-2.0
+~
+~   Unless required by applicable law or agreed to in writing, software
+~   distributed under the License is distributed on an "AS IS" BASIS,
+~   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+~   See the License for the specific language governing permissions and
+~   limitations under the License.
+-->
+<FindBugsFilter>
+    <Match>
+        <Class name="mesos.internal.Messages" />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$Archive$Framework' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$Archive' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticateMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticateMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationCompletedMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationCompletedMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationErrorMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationErrorMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationFailedMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationFailedMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationMechanismsMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationMechanismsMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationStartMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationStartMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationStepMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$AuthenticationStepMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$DeactivateFrameworkMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ExecutorRegisteredMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ExecutorReregisteredMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ExecutorToFrameworkMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ExitedExecutorMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$FrameworkErrorMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$FrameworkErrorMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$FrameworkExpiredMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$FrameworkRegisteredMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$FrameworkReregisteredMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$FrameworkToExecutorMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$HeartbeatMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$KillTaskMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$LaunchTasksMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$LostSlaveMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ProjdReadyMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ProjdReadyMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ProjdUpdateResourcesMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ReconcileTasksMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ReconnectExecutorMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RegisterExecutorMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RegisterFrameworkMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RegisterProjdMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RegisterProjdMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RegisterSlaveMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ReregisterExecutorMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ReregisterFrameworkMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ReregisterSlaveMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RescindResourceOfferMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ResourceOffersMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ResourceRequestMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ReviveOffersMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RoleInfo$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RoleInfo' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$RunTaskMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ShutdownExecutorMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ShutdownExecutorMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ShutdownFrameworkMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ShutdownMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$ShutdownMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$SlaveRegisteredMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$SlaveReregisteredMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$StatusUpdate' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$StatusUpdateAcknowledgementMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$StatusUpdateMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$StatusUpdateRecord' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$SubmitSchedulerRequest$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$SubmitSchedulerRequest' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$SubmitSchedulerResponse$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$SubmitSchedulerResponse' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$Task' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$UnregisterFrameworkMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$UnregisterSlaveMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$UpdateFrameworkMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Entry$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Entry' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Entry' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Operation$Expunge$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Operation$Expunge' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Operation$Expunge' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Operation$Snapshot' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Operation$Snapshot' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Operation' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.state.State$Operation' />
+    </Match>
+</FindBugsFilter>
