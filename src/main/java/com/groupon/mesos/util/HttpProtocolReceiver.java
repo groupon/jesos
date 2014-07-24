@@ -45,6 +45,7 @@ import io.undertow.server.HttpHandler;
 import io.undertow.server.HttpServerExchange;
 import io.undertow.server.handlers.BlockingHandler;
 import io.undertow.server.handlers.CanonicalPathHandler;
+import io.undertow.server.handlers.GracefulShutdownHandler;
 import io.undertow.server.handlers.PathHandler;
 import mesos.internal.Messages;
 
@@ -59,6 +60,8 @@ public class HttpProtocolReceiver
     private static final Log LOG = Log.getLog(HttpProtocolReceiver.class);
 
     private final Undertow httpServer;
+    private final GracefulShutdownHandler shutdownHandler;
+
     private final EventBus eventBus;
     private final UPID localAddress;
 
@@ -79,9 +82,11 @@ public class HttpProtocolReceiver
         final PathHandler pathHandler = new PathHandler();
         pathHandler.addPrefixPath(localAddress.getId(), new CanonicalPathHandler(new BlockingHandler(this)));
 
+        this.shutdownHandler = new GracefulShutdownHandler(pathHandler);
+
         this.httpServer = Undertow.builder()
             .addHttpListener(localAddress.getPort(), localAddress.getHost())
-            .setHandler(pathHandler)
+            .setHandler(shutdownHandler)
             .build();
     }
 
@@ -89,6 +94,14 @@ public class HttpProtocolReceiver
     public void close()
         throws IOException
     {
+        shutdownHandler.shutdown();
+        try {
+            shutdownHandler.awaitShutdown();
+        }
+        catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+
         httpServer.stop();
     }
 
