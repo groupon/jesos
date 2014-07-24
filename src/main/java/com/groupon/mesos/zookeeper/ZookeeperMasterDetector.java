@@ -74,6 +74,7 @@ public class ZookeeperMasterDetector
     private final PathChildrenCache pathChildrenCache;
     private final EventBus eventBus;
 
+    // TODO this can be replaced by pathChildrenCache I think
     private final SortedMap<String, MasterInfo> nodeCache = new TreeMap<>();
     private final BlockingQueue<SettableFuture<MasterInfo>> futures = new LinkedBlockingQueue<>();
     private final AtomicBoolean running = new AtomicBoolean(false);
