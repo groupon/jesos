@@ -14,8 +14,16 @@
 package com.groupon.mesos.util;
 
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
+import java.net.NetworkInterface;
 import java.net.ServerSocket;
+import java.net.SocketException;
+import java.net.UnknownHostException;
+import java.util.Collections;
+import java.util.List;
+
+import com.google.common.collect.ImmutableList;
 
 public final class NetworkUtil
 {
@@ -37,5 +45,81 @@ public final class NetworkUtil
         }
 
         return port;
+    }
+
+    //
+    // ========================================================================
+    //
+    // This code was taken from https://github.com/airlift/airlift/blob/master/node/src/main/java/io/airlift/node/NodeInfo.java
+    //
+    // ========================================================================
+    //
+
+    public static String findPublicIp()
+        throws UnknownHostException
+    {
+        // Check if local host address is a good v4 address
+        InetAddress localAddress = InetAddress.getLocalHost();
+        if (isV4Address(localAddress) && getGoodAddresses().contains(localAddress)) {
+            return localAddress.getHostAddress();
+        }
+
+        // check all up network interfaces for a good v4 address
+        for (InetAddress address : getGoodAddresses()) {
+            if (isV4Address(address)) {
+                return address.getHostAddress();
+            }
+        }
+
+        // just return the local host address
+        // it is most likely that this is a disconnected developer machine
+        return localAddress.getHostAddress();
+    }
+
+    private static List<InetAddress> getGoodAddresses()
+    {
+        ImmutableList.Builder<InetAddress> list = ImmutableList.builder();
+        for (NetworkInterface networkInterface : getGoodNetworkInterfaces()) {
+            for (InetAddress address : Collections.list(networkInterface.getInetAddresses())) {
+                if (isGoodAddress(address)) {
+                    list.add(address);
+                }
+            }
+        }
+        return list.build();
+    }
+
+    private static List<NetworkInterface> getGoodNetworkInterfaces()
+    {
+        try {
+            ImmutableList.Builder<NetworkInterface> builder = ImmutableList.builder();
+            for (NetworkInterface networkInterface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+                try {
+                    if (!networkInterface.isLoopback() && networkInterface.isUp()) {
+                        builder.add(networkInterface);
+                    }
+                }
+                catch (SocketException se) {
+                    continue; // Ignore that network interface.
+                }
+            }
+            return builder.build();
+        }
+        catch (SocketException se) {
+            // Return empty list.
+            return ImmutableList.of();
+        }
+    }
+
+    private static boolean isV4Address(InetAddress address)
+    {
+        return address.getAddress().length == 4;
+    }
+
+    private static boolean isGoodAddress(InetAddress address)
+    {
+        return !address.isAnyLocalAddress() &&
+                !address.isLoopbackAddress() &&
+                !address.isMulticastAddress();
     }
 }

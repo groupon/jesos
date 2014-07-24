@@ -113,7 +113,7 @@ public class HttpProtocolSender
             .tag(tag)
             .build();
 
-        LOG.debug("Sending to URL %s: %s", url, message);
+        LOG.debug("Sending from %s to URL %s: %s", sender, url, message);
         client.newCall(request).enqueue(this);
     }
 

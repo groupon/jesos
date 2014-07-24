@@ -26,7 +26,6 @@ import static org.apache.mesos.Protos.TaskState.TASK_STAGING;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -48,6 +47,7 @@ import com.groupon.mesos.util.CloseableExecutors;
 import com.groupon.mesos.util.HttpProtocolReceiver;
 import com.groupon.mesos.util.HttpProtocolSender;
 import com.groupon.mesos.util.Log;
+import com.groupon.mesos.util.NetworkUtil;
 import com.groupon.mesos.util.TimeUtil;
 import com.groupon.mesos.util.UPID;
 import com.groupon.mesos.util.UUIDUtil;
@@ -104,7 +104,9 @@ public abstract class InternalExecutorDriver
         LOG.debug("Framework ID:     %s", frameworkId.getValue());
         LOG.debug("Executor ID:      %s", executorId.getValue());
 
-        final String hostName = InetAddress.getLocalHost().getHostName();
+        // Enforce using of the IP, when using the hostname this might "flap" between IPs which in turn
+        // confuses the heck out of Mesos.
+        final String hostName = NetworkUtil.findPublicIp();
 
         LOG.debug("Host name:        %s", hostName);
 

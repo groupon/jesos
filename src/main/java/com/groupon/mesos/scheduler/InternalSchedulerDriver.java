@@ -25,7 +25,6 @@ import static org.apache.mesos.Protos.Status.DRIVER_STOPPED;
 
 import java.io.Closeable;
 import java.io.IOException;
-import java.net.InetAddress;
 import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
@@ -54,6 +53,7 @@ import com.groupon.mesos.util.CloseableExecutors;
 import com.groupon.mesos.util.HttpProtocolReceiver;
 import com.groupon.mesos.util.HttpProtocolSender;
 import com.groupon.mesos.util.Log;
+import com.groupon.mesos.util.NetworkUtil;
 import com.groupon.mesos.util.TimeUtil;
 import com.groupon.mesos.util.UPID;
 import com.groupon.mesos.util.UUIDUtil;
@@ -144,8 +144,7 @@ public abstract class InternalSchedulerDriver
         final FrameworkInfo.Builder frameworkInfoBuilder = FrameworkInfo.newBuilder(frameworkInfo);
 
         if (!frameworkInfo.hasHostname()) {
-            final InetAddress localHostName = InetAddress.getLocalHost();
-            frameworkInfoBuilder.setHostname(localHostName.getHostName());
+            frameworkInfoBuilder.setHostname(NetworkUtil.findPublicIp());
         }
 
         if (!frameworkInfo.hasUser() || "".equals(frameworkInfo.getUser())) {
