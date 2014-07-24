@@ -44,6 +44,7 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.Message;
 import com.groupon.mesos.executor.ExecutorMessageEnvelope.RemoteMessageEnvelope;
 import com.groupon.mesos.util.CloseableExecutors;
+import com.groupon.mesos.util.EventBusExceptionHandler;
 import com.groupon.mesos.util.HttpProtocolReceiver;
 import com.groupon.mesos.util.HttpProtocolSender;
 import com.groupon.mesos.util.Log;
@@ -115,7 +116,7 @@ public abstract class InternalExecutorDriver
         this.callbackExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(5, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("executor-callback-%d").build())));
         this.eventBusExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(10, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("executor-driver-%d").build())));
 
-        this.eventBus = new AsyncEventBus("mesos-executor", eventBusExecutor);
+        this.eventBus = new AsyncEventBus(eventBusExecutor, new EventBusExceptionHandler("executor-bus"));
 
         this.localMessageProcessor = new LocalExecutorMessageProcessor(context, eventBus);
 

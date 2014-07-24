@@ -50,6 +50,7 @@ import com.google.protobuf.Message;
 import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.RemoteMessageEnvelope;
 import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.StatusUpdateMessageEnvelope;
 import com.groupon.mesos.util.CloseableExecutors;
+import com.groupon.mesos.util.EventBusExceptionHandler;
 import com.groupon.mesos.util.HttpProtocolReceiver;
 import com.groupon.mesos.util.HttpProtocolSender;
 import com.groupon.mesos.util.Log;
@@ -156,7 +157,7 @@ public abstract class InternalSchedulerDriver
         this.callbackExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(5, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("scheduler-callback-%d").build())));
         this.eventBusExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(10, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("scheduler-driver-%d").build())));
 
-        this.eventBus = new AsyncEventBus("mesos-scheduler", eventBusExecutor);
+        this.eventBus = new AsyncEventBus(eventBusExecutor, new EventBusExceptionHandler("scheduler-bus"));
 
         this.localMessageProcessor = new LocalSchedulerMessageProcessor(context, eventBus);
 
