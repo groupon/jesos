@@ -638,9 +638,6 @@ public abstract class InternalSchedulerDriver
                 if (context.hasOffer(offer, launchTask.getSlaveId())) {
                     context.addSlave(launchTask.getSlaveId(), context.getOffer(offer, launchTask.getSlaveId()));
                 }
-                else {
-                    LOG.warn("Attempting to launch task %s with wrong slave id %s", launchTask.getTaskId().getValue(), launchTask.getSlaveId().getValue());
-                }
             }
             context.removeAllOffers(offer);
         }
