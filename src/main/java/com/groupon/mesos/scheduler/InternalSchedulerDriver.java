@@ -29,7 +29,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -37,8 +36,6 @@ import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Throwables;
 import com.google.common.collect.ImmutableList;
-import com.google.common.eventbus.AsyncEventBus;
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.io.Closer;
 import com.google.common.util.concurrent.FutureCallback;
@@ -50,10 +47,10 @@ import com.google.protobuf.Message;
 import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.RemoteMessageEnvelope;
 import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.StatusUpdateMessageEnvelope;
 import com.groupon.mesos.util.CloseableExecutors;
-import com.groupon.mesos.util.EventBusExceptionHandler;
 import com.groupon.mesos.util.HttpProtocolReceiver;
 import com.groupon.mesos.util.HttpProtocolSender;
 import com.groupon.mesos.util.Log;
+import com.groupon.mesos.util.ManagedEventBus;
 import com.groupon.mesos.util.NetworkUtil;
 import com.groupon.mesos.util.TimeUtil;
 import com.groupon.mesos.util.UPID;
@@ -108,9 +105,8 @@ public abstract class InternalSchedulerDriver
     private final HttpProtocolSender sender;
 
     private final ScheduledExecutorService callbackExecutor;
-    private final ExecutorService eventBusExecutor;
 
-    private final EventBus eventBus;
+    private final ManagedEventBus eventBus;
 
     private final Closer closer = Closer.create();
 
@@ -155,9 +151,8 @@ public abstract class InternalSchedulerDriver
         context = new SchedulerDriverContext(frameworkInfoBuilder.build());
 
         this.callbackExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(5, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("scheduler-callback-%d").build())));
-        this.eventBusExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(10, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("scheduler-driver-%d").build())));
 
-        this.eventBus = new AsyncEventBus(eventBusExecutor, new EventBusExceptionHandler("scheduler-bus"));
+        this.eventBus = closer.register(new ManagedEventBus("scheduler"));
 
         this.localMessageProcessor = new LocalSchedulerMessageProcessor(context, eventBus);
 
@@ -264,7 +259,7 @@ public abstract class InternalSchedulerDriver
         }
 
         try {
-            eventBusExecutor.awaitTermination(1, TimeUnit.DAYS);
+            eventBus.awaitTermination();
         }
         catch (final InterruptedException e) {
             Thread.currentThread().interrupt();

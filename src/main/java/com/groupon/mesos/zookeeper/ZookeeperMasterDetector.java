@@ -35,12 +35,12 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
 import com.google.common.collect.Sets;
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.google.common.util.concurrent.ListenableFuture;
 import com.google.common.util.concurrent.SettableFuture;
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.groupon.mesos.util.Log;
+import com.groupon.mesos.util.ManagedEventBus;
 import com.groupon.mesos.util.UPID;
 
 import org.I0Itec.zkclient.IZkChildListener;
@@ -66,13 +66,13 @@ public class ZookeeperMasterDetector
     private final String password;
 
     private final ZkClient client;
-    private final EventBus eventBus;
+    private final ManagedEventBus eventBus;
 
     private final SortedMap<String, MasterInfo> nodeCache = new TreeMap<>();
     private final BlockingQueue<SettableFuture<MasterInfo>> futures = new LinkedBlockingQueue<>();
     private final AtomicBoolean running = new AtomicBoolean(false);
 
-    public ZookeeperMasterDetector(final String master, final EventBus eventBus) throws IOException
+    public ZookeeperMasterDetector(final String master, final ManagedEventBus eventBus) throws IOException
     {
 
         checkNotNull(master, "master is null");

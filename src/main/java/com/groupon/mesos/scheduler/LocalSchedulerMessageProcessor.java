@@ -23,7 +23,6 @@ import java.util.List;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.ExecutorToFrameworkMessageEnvelope;
 import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.FrameworkErrorMessageEnvelope;
@@ -35,6 +34,7 @@ import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.RescindResourceOffer
 import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.ResourceOffersMessageEnvelope;
 import com.groupon.mesos.scheduler.SchedulerMessageEnvelope.StatusUpdateMessageEnvelope;
 import com.groupon.mesos.util.Log;
+import com.groupon.mesos.util.ManagedEventBus;
 import com.groupon.mesos.util.UPID;
 
 import org.apache.mesos.Protos.FrameworkID;
@@ -63,10 +63,10 @@ class LocalSchedulerMessageProcessor
     private static final Log LOG = Log.getLog(LocalSchedulerMessageProcessor.class);
 
     private final SchedulerDriverContext context;
-    private final EventBus eventBus;
+    private final ManagedEventBus eventBus;
 
     LocalSchedulerMessageProcessor(final SchedulerDriverContext context,
-                                   final EventBus eventBus)
+                                   final ManagedEventBus eventBus)
     {
         this.context = checkNotNull(context, "context is null");
         this.eventBus = checkNotNull(eventBus, "eventBus is null");

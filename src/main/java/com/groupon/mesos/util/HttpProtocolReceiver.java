@@ -38,7 +38,6 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import com.google.common.eventbus.EventBus;
 
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -62,7 +61,7 @@ public class HttpProtocolReceiver
     private final Undertow httpServer;
     private final GracefulShutdownHandler shutdownHandler;
 
-    private final EventBus eventBus;
+    private final ManagedEventBus eventBus;
     private final UPID localAddress;
 
     private final Class<?> messageBaseClass;
@@ -73,7 +72,7 @@ public class HttpProtocolReceiver
 
     public HttpProtocolReceiver(final UPID localAddress,
                                 final Class<?> messageBaseClass,
-                                final EventBus eventBus)
+                                final ManagedEventBus eventBus)
     {
         this.localAddress = localAddress;
         this.messageBaseClass = messageBaseClass;

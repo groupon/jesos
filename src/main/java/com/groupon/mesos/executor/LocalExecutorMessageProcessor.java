@@ -21,7 +21,6 @@ import static org.apache.mesos.Protos.Status.DRIVER_ABORTED;
 import java.util.concurrent.ConcurrentMap;
 
 import com.google.common.collect.Maps;
-import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
 import com.groupon.mesos.executor.ExecutorMessageEnvelope.ExecutorRegisteredMessageEnvelope;
 import com.groupon.mesos.executor.ExecutorMessageEnvelope.ExecutorReregisteredMessageEnvelope;
@@ -33,6 +32,7 @@ import com.groupon.mesos.executor.ExecutorMessageEnvelope.RunTaskMessageEnvelope
 import com.groupon.mesos.executor.ExecutorMessageEnvelope.ShutdownExecutorMessageEnvelope;
 import com.groupon.mesos.executor.ExecutorMessageEnvelope.StatusUpdateAcknowledgementMessageEnvelope;
 import com.groupon.mesos.util.Log;
+import com.groupon.mesos.util.ManagedEventBus;
 import com.groupon.mesos.util.UUIDUtil;
 
 import org.apache.mesos.Executor;
@@ -59,10 +59,10 @@ class LocalExecutorMessageProcessor
     private final ConcurrentMap<TaskID, TaskInfo> tasks = Maps.newConcurrentMap();
 
     private final ExecutorDriverContext context;
-    private final EventBus eventBus;
+    private final ManagedEventBus eventBus;
 
     LocalExecutorMessageProcessor(final ExecutorDriverContext context,
-                                  final EventBus eventBus)
+                                  final ManagedEventBus eventBus)
     {
         this.context = checkNotNull(context, "context is null");
         this.eventBus = checkNotNull(eventBus, "eventBus is null");
