@@ -28,12 +28,14 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import com.google.common.base.Function;
 import com.google.common.base.Objects;
 import com.google.common.base.Predicates;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Iterables;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.common.eventbus.EventBus;
 import com.google.common.eventbus.Subscribe;
@@ -43,10 +45,13 @@ import com.google.protobuf.InvalidProtocolBufferException;
 import com.groupon.mesos.util.Log;
 import com.groupon.mesos.util.UPID;
 
-import org.I0Itec.zkclient.IZkChildListener;
-import org.I0Itec.zkclient.ZkClient;
-import org.I0Itec.zkclient.exception.ZkMarshallingError;
-import org.I0Itec.zkclient.serialize.ZkSerializer;
+import org.apache.curator.framework.CuratorFramework;
+import org.apache.curator.framework.CuratorFrameworkFactory;
+import org.apache.curator.framework.recipes.cache.ChildData;
+import org.apache.curator.framework.recipes.cache.PathChildrenCache;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheEvent;
+import org.apache.curator.framework.recipes.cache.PathChildrenCacheListener;
+import org.apache.curator.retry.BoundedExponentialBackoffRetry;
 import org.apache.mesos.Protos.MasterInfo;
 
 /**
@@ -65,9 +70,11 @@ public class ZookeeperMasterDetector
     private final String user;
     private final String password;
 
-    private final ZkClient client;
+    private final CuratorFramework curatorFramework;
+    private final PathChildrenCache pathChildrenCache;
     private final EventBus eventBus;
 
+    // TODO this can be replaced by pathChildrenCache I think
     private final SortedMap<String, MasterInfo> nodeCache = new TreeMap<>();
     private final BlockingQueue<SettableFuture<MasterInfo>> futures = new LinkedBlockingQueue<>();
     private final AtomicBoolean running = new AtomicBoolean(false);
@@ -104,32 +111,44 @@ public class ZookeeperMasterDetector
         checkState(!zookeeperPath.equals(""), "A zookeeper path must be given! (%s)", zookeeperPath);
 
         checkState(user == null && password == null, "Current version of Zkclient does not support authentication!");
+        // TODO - Curator supports authorization but the correct scheme, etc. needs to be constructed
 
-        this.client = new ZkClient(authority);
-        this.client.setZkSerializer(new MasterInfoZkSerializer());
+        // TODO make configurable
+        curatorFramework = CuratorFrameworkFactory.builder().connectString(authority).retryPolicy(new BoundedExponentialBackoffRetry(1000, 10000, 3)).build();
+        pathChildrenCache = new PathChildrenCache(curatorFramework, zookeeperPath, true);  // TODO it appears that the data isn't currently used - but there is unused code that seems to want it
+        PathChildrenCacheListener listener = new PathChildrenCacheListener() {
+            @Override
+            public void childEvent(CuratorFramework curatorFramework, PathChildrenCacheEvent event) throws Exception {
+                if ( (event.getType() == PathChildrenCacheEvent.Type.CHILD_ADDED) || (event.getType() == PathChildrenCacheEvent.Type.CHILD_REMOVED) || (event.getType() == PathChildrenCacheEvent.Type.CHILD_UPDATED)) {
+                    // TODO - does this always have to be a complete list? PathChildrenCache returns changes for each individual node
+                    processChildDataList(pathChildrenCache.getCurrentData());
+                }
+            }
+        };
+        pathChildrenCache.getListenable().addListener(listener);
     }
 
     @Override
     public void close() throws IOException
     {
         if (running.getAndSet(false)) {
-            this.client.close();
+            pathChildrenCache.close();
+            curatorFramework.close();
         }
     }
 
     public void start()
     {
         if (!running.getAndSet(true)) {
-            processChildList(client.getChildren(zookeeperPath));
-
-            client.subscribeChildChanges(zookeeperPath, new IZkChildListener() {
-                @Override
-                public void handleChildChange(final String parentPath, final List<String> currentChildren) throws Exception
-                {
-                    checkState(zookeeperPath.equals(parentPath), "Received Event for %s (expected %s)", parentPath, zookeeperPath);
-                    processChildList(currentChildren);
-                }
-            });
+            curatorFramework.start();
+            try {
+                pathChildrenCache.start(PathChildrenCache.StartMode.BUILD_INITIAL_CACHE);
+                processChildDataList(pathChildrenCache.getCurrentData());
+            }
+            catch ( Exception e ) {
+                LOG.error("Could not start ZooKeeper cache", e);
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -151,7 +170,7 @@ public class ZookeeperMasterDetector
 
         for (final String node : nodesToAdd) {
             final String path = zookeeperPath + "/" + node;
-            final MasterInfo masterInfo = client.readData(path);
+            final MasterInfo masterInfo = deserialize(pathChildrenCache.getCurrentData(path));
             nodeCache.put(node, masterInfo);
         }
 
@@ -195,8 +214,22 @@ public class ZookeeperMasterDetector
         }
     }
 
+    private void processChildDataList(final List<ChildData> childrenData)
+    {
+        List<String> children = Lists.transform(childrenData, new Function<ChildData, String>()
+        {
+            @Override
+            public String apply(ChildData childData)
+            {
+                return childData.getPath();
+            }
+        });
+        processChildList(children);
+    }
+
     private void processChildList(final List<String> children)
     {
+        // TODO - does this always have to be a complete list? PathChildrenCache returns changes for each individual node
         final Set<String> masterNodes = ImmutableSet.copyOf(Iterables.filter(children, Predicates.containsPattern("^info_")));
         eventBus.post(new MasterUpdateMessage(masterNodes));
     }
@@ -210,25 +243,20 @@ public class ZookeeperMasterDetector
         return nodeCache.get(key);
     }
 
-    private static class MasterInfoZkSerializer implements ZkSerializer
+    private MasterInfo deserialize(ChildData childData)
     {
-        @Override
-        public byte[] serialize(final Object data) throws ZkMarshallingError
-        {
-            checkState(data instanceof MasterInfo, "%s is not a MasterInfo!", data.getClass().getSimpleName());
-            return ((MasterInfo) data).toByteArray();
-        }
+        checkNotNull(childData, "childData is null");
+        return deserialize(childData.getData());
+    }
 
-        @Override
-        public Object deserialize(final byte[] bytes) throws ZkMarshallingError
-        {
-            checkNotNull(bytes, "bytes is null");
-            try {
-                return MasterInfo.parseFrom(bytes);
-            }
-            catch (final InvalidProtocolBufferException e) {
-                return new ZkMarshallingError(e);
-            }
+    private MasterInfo deserialize(final byte[] bytes)
+    {
+        checkNotNull(bytes, "bytes is null");
+        try {
+            return MasterInfo.parseFrom(bytes);
+        }
+        catch (final InvalidProtocolBufferException e) {
+            throw new RuntimeException(e);
         }
     }
 }
