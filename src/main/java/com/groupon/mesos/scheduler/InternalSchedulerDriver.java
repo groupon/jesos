@@ -251,27 +251,6 @@ public abstract class InternalSchedulerDriver
             LOG.warn(e, "While stopping");
         }
 
-        try {
-            callbackExecutor.awaitTermination(1, TimeUnit.DAYS);
-        }
-        catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        try {
-            eventBus.awaitTermination();
-        }
-        catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        try {
-            sender.drainRequests();
-        }
-        catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
         context.setStateMachine(DRIVER_STOPPED);
 
         // If the driver was aborted, preserve that

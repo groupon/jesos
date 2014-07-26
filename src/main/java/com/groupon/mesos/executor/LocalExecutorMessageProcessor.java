@@ -90,6 +90,12 @@ class LocalExecutorMessageProcessor
                     {
                         executor.registered(executorDriver, message.getExecutorInfo(), message.getFrameworkInfo(), message.getSlaveInfo());
                     }
+
+                    @Override
+                    public String toString()
+                    {
+                        return "callback for registered()";
+                    }
                 };
             }
         });
@@ -116,6 +122,12 @@ class LocalExecutorMessageProcessor
                     public void run()
                     {
                         executor.reregistered(executorDriver, message.getSlaveInfo());
+                    }
+
+                    @Override
+                    public String toString()
+                    {
+                        return "callback for reregistered()";
                     }
                 };
             }
@@ -173,6 +185,12 @@ class LocalExecutorMessageProcessor
                     {
                         executor.launchTask(executorDriver, task);
                     }
+
+                    @Override
+                    public String toString()
+                    {
+                        return "callback for launchTask()";
+                    }
                 };
             }
         });
@@ -199,6 +217,12 @@ class LocalExecutorMessageProcessor
                     public void run()
                     {
                         executor.killTask(executorDriver, message.getTaskId());
+                    }
+
+                    @Override
+                    public String toString()
+                    {
+                        return "callback for killTask()";
                     }
                 };
             }
@@ -243,6 +267,12 @@ class LocalExecutorMessageProcessor
                     {
                         executor.frameworkMessage(executorDriver, message.getData().toByteArray());
                     }
+
+                    @Override
+                    public String toString()
+                    {
+                        return "callback for frameworkMessage()";
+                    }
                 };
             }
         });
@@ -268,6 +298,12 @@ class LocalExecutorMessageProcessor
                     {
                         executorDriver.abort();
                         executor.shutdown(executorDriver);
+                    }
+
+                    @Override
+                    public String toString()
+                    {
+                        return "callback for abort()";
                     }
                 };
             }

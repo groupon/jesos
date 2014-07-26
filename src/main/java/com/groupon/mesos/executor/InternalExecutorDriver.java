@@ -31,7 +31,6 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 import com.google.common.base.Throwables;
 import com.google.common.eventbus.Subscribe;
@@ -201,27 +200,6 @@ public abstract class InternalExecutorDriver
         }
         catch (final IOException e) {
             LOG.warn(e, "While stopping");
-        }
-
-        try {
-            callbackExecutor.awaitTermination(1, TimeUnit.DAYS);
-        }
-        catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        try {
-            eventBus.awaitTermination();
-        }
-        catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
-
-        try {
-            sender.drainRequests();
-        }
-        catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
         }
 
         context.setStateMachine(DRIVER_STOPPED);

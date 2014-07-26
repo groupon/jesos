@@ -49,7 +49,7 @@ public class ManagedEventBus implements Closeable
     public ManagedEventBus(String name)
     {
         checkNotNull(name, "name is null");
-        this.executor = Executors.newScheduledThreadPool(10, new ThreadFactoryBuilder().setDaemon(true).setNameFormat(name + "-%d").build());
+        this.executor = Executors.newScheduledThreadPool(10, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("eventbus-" + name + "-%d").build());
         this.eventBus = new AsyncEventBus(executor, new EventBusExceptionHandler(name));
     }
 
@@ -70,18 +70,18 @@ public class ManagedEventBus implements Closeable
         if (finished.getAndSet(true)) {
             eventBus.register(this);
             eventBus.post(pillHolder.get());
-        }
-    }
 
-    public void awaitTermination()
-        throws InterruptedException
-    {
-        checkState(finished.get(), "event bus already finished");
-        PoisonPill pill = pillHolder.getAndSet(null);
-        if (pill != null) {
-            pill.awaitTermination(1, TimeUnit.DAYS);
+            PoisonPill pill = pillHolder.getAndSet(null);
+            if (pill != null) {
+                try {
+                    pill.awaitTermination(1, TimeUnit.DAYS);
+                }
+                catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
+            }
         }
-        executor.awaitTermination(1, TimeUnit.DAYS);
     }
 
     @Subscribe
@@ -136,5 +136,4 @@ public class ManagedEventBus implements Closeable
             LOG.error(e, "Could not call %s/%s on bus %s", context.getSubscriber().getClass().getSimpleName(), context.getSubscriberMethod().getName(), name);
         }
     }
-
 }

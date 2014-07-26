@@ -20,7 +20,6 @@ import static com.google.common.base.Preconditions.checkState;
 import java.io.Closeable;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Collection;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
@@ -69,26 +68,20 @@ public class HttpProtocolSender
     @Override
     public void close() throws IOException
     {
-        closed.set(true);
-    }
-
-    public void drainRequests()
-        throws InterruptedException
-    {
-        if (!closed.get()) {
-            return;
-        }
-
-        // Drain all outstanding requests.
-        while (!inFlight.isEmpty()) {
-            final Collection<SettableFuture<Void>> futures = inFlight.values();
-
-            try {
-                // Wait for all outstanding futures to complete
-                Futures.allAsList(futures).get();
-            }
-            catch (final ExecutionException e) {
-                LOG.warn(e.getCause(), "While waiting for in flight requests to drain");
+        if (!closed.getAndSet(true)) {
+            // Drain all outstanding requests.
+            while (!inFlight.isEmpty()) {
+                try {
+                    // Wait for all outstanding futures to complete
+                    Futures.allAsList(inFlight.values()).get();
+                }
+                catch (final ExecutionException e) {
+                    LOG.warn(e.getCause(), "While waiting for in flight requests to drain");
+                }
+                catch (InterruptedException e) {
+                    Thread.currentThread().interrupt();
+                    return;
+                }
             }
         }
     }
