@@ -604,8 +604,8 @@ public abstract class InternalSchedulerDriver
                 else {
                     // Executor present but not framework id. Set the framework id.
                     taskInfo = TaskInfo.newBuilder(taskInfo)
-                                    .setExecutor(ExecutorInfo.newBuilder(taskInfo.getExecutor()).setFrameworkId(context.getFrameworkId()))
-                                    .build();
+                        .setExecutor(ExecutorInfo.newBuilder(taskInfo.getExecutor()).setFrameworkId(context.getFrameworkId()))
+                        .build();
                 }
             }
 

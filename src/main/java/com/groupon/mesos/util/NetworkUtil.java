@@ -59,13 +59,13 @@ public final class NetworkUtil
         throws UnknownHostException
     {
         // Check if local host address is a good v4 address
-        InetAddress localAddress = InetAddress.getLocalHost();
+        final InetAddress localAddress = InetAddress.getLocalHost();
         if (isV4Address(localAddress) && getGoodAddresses().contains(localAddress)) {
             return localAddress.getHostAddress();
         }
 
         // check all up network interfaces for a good v4 address
-        for (InetAddress address : getGoodAddresses()) {
+        for (final InetAddress address : getGoodAddresses()) {
             if (isV4Address(address)) {
                 return address.getHostAddress();
             }
@@ -78,9 +78,9 @@ public final class NetworkUtil
 
     private static List<InetAddress> getGoodAddresses()
     {
-        ImmutableList.Builder<InetAddress> list = ImmutableList.builder();
-        for (NetworkInterface networkInterface : getGoodNetworkInterfaces()) {
-            for (InetAddress address : Collections.list(networkInterface.getInetAddresses())) {
+        final ImmutableList.Builder<InetAddress> list = ImmutableList.builder();
+        for (final NetworkInterface networkInterface : getGoodNetworkInterfaces()) {
+            for (final InetAddress address : Collections.list(networkInterface.getInetAddresses())) {
                 if (isGoodAddress(address)) {
                     list.add(address);
                 }
@@ -92,34 +92,34 @@ public final class NetworkUtil
     private static List<NetworkInterface> getGoodNetworkInterfaces()
     {
         try {
-            ImmutableList.Builder<NetworkInterface> builder = ImmutableList.builder();
-            for (NetworkInterface networkInterface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
+            final ImmutableList.Builder<NetworkInterface> builder = ImmutableList.builder();
+            for (final NetworkInterface networkInterface : Collections.list(NetworkInterface.getNetworkInterfaces())) {
                 try {
                     if (!networkInterface.isLoopback() && networkInterface.isUp()) {
                         builder.add(networkInterface);
                     }
                 }
-                catch (SocketException se) {
+                catch (final SocketException se) {
                     continue; // Ignore that network interface.
                 }
             }
             return builder.build();
         }
-        catch (SocketException se) {
+        catch (final SocketException se) {
             // Return empty list.
             return ImmutableList.of();
         }
     }
 
-    private static boolean isV4Address(InetAddress address)
+    private static boolean isV4Address(final InetAddress address)
     {
         return address.getAddress().length == 4;
     }
 
-    private static boolean isGoodAddress(InetAddress address)
+    private static boolean isGoodAddress(final InetAddress address)
     {
         return !address.isAnyLocalAddress() &&
-                !address.isLoopbackAddress() &&
-                !address.isMulticastAddress();
+            !address.isLoopbackAddress() &&
+            !address.isMulticastAddress();
     }
 }

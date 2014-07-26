@@ -38,16 +38,16 @@ public class JesosSchedulerDriver
      * FrameworkInfo includes a valid FrameworkID.
      */
     public JesosSchedulerDriver(final Scheduler scheduler,
-                                 final FrameworkInfo frameworkInfo,
-                                 final String master) throws IOException
+                                final FrameworkInfo frameworkInfo,
+                                final String master) throws IOException
     {
         super(scheduler, frameworkInfo, master, null);
     }
 
     public JesosSchedulerDriver(final Scheduler scheduler,
-                                 final FrameworkInfo frameworkInfo,
-                                 final String master,
-                                 final Credential credential)
+                                final FrameworkInfo frameworkInfo,
+                                final String master,
+                                final Credential credential)
                     throws IOException
     {
         super(scheduler, frameworkInfo, master, credential);

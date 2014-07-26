@@ -78,7 +78,7 @@ public class HttpProtocolSender
                 catch (final ExecutionException e) {
                     LOG.warn(e.getCause(), "While waiting for in flight requests to drain");
                 }
-                catch (InterruptedException e) {
+                catch (final InterruptedException e) {
                     Thread.currentThread().interrupt();
                     return;
                 }

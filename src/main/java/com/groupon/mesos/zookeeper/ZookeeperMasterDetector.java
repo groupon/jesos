@@ -114,10 +114,10 @@ public class ZookeeperMasterDetector
         if (running.getAndSet(false)) {
             this.client.close();
 
-            List<DetectMessage> detectMessages = new ArrayList<>(futures.size());
+            final List<DetectMessage> detectMessages = new ArrayList<>(futures.size());
             futures.drainTo(detectMessages);
 
-            for (DetectMessage detectMessage : detectMessages) {
+            for (final DetectMessage detectMessage : detectMessages) {
                 detectMessage.getFuture().cancel(false);
             }
         }
@@ -176,10 +176,10 @@ public class ZookeeperMasterDetector
             LOG.debug("Current master is %s", UPID.create(masterInfo.getPid()).asString());
         }
 
-        List<DetectMessage> detectMessages = new ArrayList<>(futures.size());
+        final List<DetectMessage> detectMessages = new ArrayList<>(futures.size());
         futures.drainTo(detectMessages);
 
-        for (DetectMessage detectMessage : detectMessages) {
+        for (final DetectMessage detectMessage : detectMessages) {
             processDetect(detectMessage);
         }
     }

@@ -41,24 +41,24 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 public class ManagedEventBus implements Closeable
 {
     private final AsyncEventBus eventBus;
-    private AtomicBoolean finished = new AtomicBoolean(false);
-    private AtomicReference<PoisonPill> pillHolder = new AtomicReference<>(new PoisonPill());
+    private final AtomicBoolean finished = new AtomicBoolean(false);
+    private final AtomicReference<PoisonPill> pillHolder = new AtomicReference<>(new PoisonPill());
 
     private final ExecutorService executor;
 
-    public ManagedEventBus(String name)
+    public ManagedEventBus(final String name)
     {
         checkNotNull(name, "name is null");
         this.executor = Executors.newScheduledThreadPool(10, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("eventbus-" + name + "-%d").build());
         this.eventBus = new AsyncEventBus(executor, new EventBusExceptionHandler(name));
     }
 
-    public void register(Object listener)
+    public void register(final Object listener)
     {
         eventBus.register(listener);
     }
 
-    public void post(Object event)
+    public void post(final Object event)
     {
         checkState(!finished.get(), "event bus is shut down");
         eventBus.post(event);
@@ -71,12 +71,12 @@ public class ManagedEventBus implements Closeable
             eventBus.register(this);
             eventBus.post(pillHolder.get());
 
-            PoisonPill pill = pillHolder.getAndSet(null);
+            final PoisonPill pill = pillHolder.getAndSet(null);
             if (pill != null) {
                 try {
                     pill.awaitTermination(1, TimeUnit.DAYS);
                 }
-                catch (InterruptedException e) {
+                catch (final InterruptedException e) {
                     Thread.currentThread().interrupt();
                     return;
                 }
@@ -85,7 +85,7 @@ public class ManagedEventBus implements Closeable
     }
 
     @Subscribe
-    public void receivePoisonPill(PoisonPill poisonPill)
+    public void receivePoisonPill(final PoisonPill poisonPill)
     {
         // The poison pill made it through the event bus, so
         // all events that were present before are either delivered
@@ -103,7 +103,7 @@ public class ManagedEventBus implements Closeable
             future.set(null);
         }
 
-        public void awaitTermination(long timeout, TimeUnit unit)
+        public void awaitTermination(final long timeout, final TimeUnit unit)
             throws InterruptedException
         {
             try {
@@ -125,13 +125,13 @@ public class ManagedEventBus implements Closeable
 
         private final String name;
 
-        public EventBusExceptionHandler(String name)
+        public EventBusExceptionHandler(final String name)
         {
             this.name = checkNotNull(name, "name is null");
         }
 
         @Override
-        public void handleException(Throwable e, SubscriberExceptionContext context)
+        public void handleException(final Throwable e, final SubscriberExceptionContext context)
         {
             LOG.error(e, "Could not call %s/%s on bus %s", context.getSubscriber().getClass().getSimpleName(), context.getSubscriberMethod().getName(), name);
         }

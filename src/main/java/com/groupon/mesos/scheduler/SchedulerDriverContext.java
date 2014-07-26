@@ -193,10 +193,10 @@ class SchedulerDriverContext
 
         if (status != oldStatus) {
             // Fire all the futures waiting for a status change.
-            List<SettableFuture<Status>> settableFutures = new ArrayList<>(stateMachineFutures.size());
+            final List<SettableFuture<Status>> settableFutures = new ArrayList<>(stateMachineFutures.size());
             stateMachineFutures.drainTo(settableFutures);
 
-            for (SettableFuture<Status> future : settableFutures) {
+            for (final SettableFuture<Status> future : settableFutures) {
                 future.set(status);
             }
         }

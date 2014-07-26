@@ -125,10 +125,10 @@ class ExecutorDriverContext
         final Status oldStatus = stateMachine.getAndSet(status);
 
         if (status != oldStatus) {
-            List<SettableFuture<Status>> settableFutures = new ArrayList<>(stateMachineFutures.size());
+            final List<SettableFuture<Status>> settableFutures = new ArrayList<>(stateMachineFutures.size());
             stateMachineFutures.drainTo(settableFutures);
 
-            for (SettableFuture<Status> future : settableFutures) {
+            for (final SettableFuture<Status> future : settableFutures) {
                 future.set(status);
             }
         }

@@ -97,7 +97,7 @@ public class HttpProtocolReceiver
         try {
             shutdownHandler.awaitShutdown();
         }
-        catch (InterruptedException e) {
+        catch (final InterruptedException e) {
             Thread.currentThread().interrupt();
         }
 
