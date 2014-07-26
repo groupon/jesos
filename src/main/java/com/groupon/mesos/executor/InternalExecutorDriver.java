@@ -108,14 +108,22 @@ public abstract class InternalExecutorDriver
 
         this.context = new ExecutorDriverContext(hostName, slaveUpid, slaveId, frameworkId, executorId);
 
-        this.callbackExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(5, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("executor-callback-%d").build())));
-
-        this.eventBus = closer.register(new ManagedEventBus("executor"));
+        this.eventBus = new ManagedEventBus("executor");
 
         this.localMessageProcessor = new LocalExecutorMessageProcessor(context, eventBus);
 
-        this.sender = closer.register(new HttpProtocolSender(context.getDriverUPID()));
+        // Closer closes in reverse registration order.
+
+        // Close the callback executor last, so that everything that was still scheduled to be delivered to the framework still has a chance.
+        this.callbackExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(5, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("executor-callback-%d").build())));
+
         this.receiver = closer.register(new HttpProtocolReceiver(context.getDriverUPID(), ExecutorMessageEnvelope.class, eventBus));
+
+        // The sender is closed before the receiver, so that possible responses are still caught
+        this.sender = closer.register(new HttpProtocolSender(context.getDriverUPID()));
+
+        // Make sure that the event bus is drained first at shutdown.
+        closer.register(eventBus);
     }
 
     @Override

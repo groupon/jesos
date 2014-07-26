@@ -74,7 +74,6 @@ public class ZookeeperMasterDetector
 
     public ZookeeperMasterDetector(final String master, final ManagedEventBus eventBus) throws IOException
     {
-
         checkNotNull(master, "master is null");
         this.eventBus = checkNotNull(eventBus, "eventBus is null");
 
@@ -114,6 +113,13 @@ public class ZookeeperMasterDetector
     {
         if (running.getAndSet(false)) {
             this.client.close();
+
+            List<DetectMessage> detectMessages = new ArrayList<>(futures.size());
+            futures.drainTo(detectMessages);
+
+            for (DetectMessage detectMessage : detectMessages) {
+                detectMessage.getFuture().cancel(false);
+            }
         }
     }
 

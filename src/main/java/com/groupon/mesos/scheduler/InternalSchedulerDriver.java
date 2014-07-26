@@ -150,15 +150,26 @@ public abstract class InternalSchedulerDriver
 
         context = new SchedulerDriverContext(frameworkInfoBuilder.build());
 
-        this.callbackExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(5, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("scheduler-callback-%d").build())));
-
-        this.eventBus = closer.register(new ManagedEventBus("scheduler"));
+        this.eventBus = new ManagedEventBus("scheduler");
 
         this.localMessageProcessor = new LocalSchedulerMessageProcessor(context, eventBus);
 
-        this.sender = closer.register(new HttpProtocolSender(context.getDriverUPID()));
+        // Closer closes in reverse registration order.
+
+        // Close the callback executor last, so that everything that was still scheduled to be delivered to the framework still has a chance.
+        this.callbackExecutor = closer.register(CloseableExecutors.decorate(Executors.newScheduledThreadPool(5, new ThreadFactoryBuilder().setDaemon(true).setNameFormat("scheduler-callback-%d").build())));
+
         this.receiver = closer.register(new HttpProtocolReceiver(context.getDriverUPID(), SchedulerMessageEnvelope.class, eventBus));
+
+        // The sender is closed before the receiver, so that possible responses are still caught
+        this.sender = closer.register(new HttpProtocolSender(context.getDriverUPID()));
+
+        // Make sure that the event bus is drained next at shutdown.
+        closer.register(eventBus);
+
+        // Close the master detector first. No more master changes required.
         this.detector = closer.register(new ZookeeperMasterDetector(master, eventBus));
+
     }
 
     @Override
