@@ -69,7 +69,7 @@ public class ZookeeperMasterDetector
     private final ManagedEventBus eventBus;
 
     private final SortedMap<String, MasterInfo> nodeCache = new TreeMap<>();
-    private final BlockingQueue<SettableFuture<MasterInfo>> futures = new LinkedBlockingQueue<>();
+    private final BlockingQueue<DetectMessage> futures = new LinkedBlockingQueue<>();
     private final AtomicBoolean running = new AtomicBoolean(false);
 
     public ZookeeperMasterDetector(final String master, final ManagedEventBus eventBus) throws IOException
@@ -170,11 +170,11 @@ public class ZookeeperMasterDetector
             LOG.debug("Current master is %s", UPID.create(masterInfo.getPid()).asString());
         }
 
-        List<SettableFuture<MasterInfo>> settableFutures = new ArrayList<>(futures.size());
-        futures.drainTo(settableFutures);
+        List<DetectMessage> detectMessages = new ArrayList<>(futures.size());
+        futures.drainTo(detectMessages);
 
-        for (SettableFuture<MasterInfo> future : settableFutures) {
-            future.set(masterInfo);
+        for (DetectMessage detectMessage : detectMessages) {
+            processDetect(detectMessage);
         }
     }
 
@@ -191,7 +191,7 @@ public class ZookeeperMasterDetector
         }
         else {
             LOG.debug("Master unchanged, queueing");
-            futures.add(future);
+            futures.add(message);
         }
     }
 
