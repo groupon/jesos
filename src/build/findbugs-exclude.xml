@@ -218,6 +218,9 @@
         <Class name='mesos.internal.Messages$Task' />
     </Match>
     <Match>
+        <Class name='mesos.internal.Messages$TaskHealthStatus' />
+    </Match>
+    <Match>
         <Class name='mesos.internal.Messages$UnregisterFrameworkMessage' />
     </Match>
     <Match>

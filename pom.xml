@@ -20,7 +20,7 @@
     <parent>
         <groupId>org.basepom</groupId>
         <artifactId>basepom-standard-oss</artifactId>
-        <version>5</version>
+        <version>6</version>
     </parent>
 
     <groupId>com.groupon.mesos</groupId>
@@ -30,7 +30,6 @@
 
     <properties>
         <dep.mesos.version>0.19.0</dep.mesos.version>
-        <dep.guava.version>17.0</dep.guava.version>
         <dep.zkclient.version>0.4</dep.zkclient.version>
         <dep.zookeeper.version>3.3.6</dep.zookeeper.version>
         <dep.undertow.version>1.0.15.Final</dep.undertow.version>
@@ -38,8 +37,8 @@
         <dep.protobuf.version>2.5.0</dep.protobuf.version>
         <dep.leveldb.version>0.7</dep.leveldb.version>
 
-        <dep.basepom-policy.version>2</dep.basepom-policy.version>
-        <dep.kitei-rules.version>3</dep.kitei-rules.version>
+        <dep.basepom-policy.version>3</dep.basepom-policy.version>
+        <dep.kitei-rules.version>4</dep.kitei-rules.version>
     </properties>
 
     <dependencies>
