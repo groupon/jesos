@@ -40777,6 +40777,870 @@ public final class Messages {
     // @@protoc_insertion_point(class_scope:mesos.internal.Archive)
   }
 
+  public interface TaskHealthStatusOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // required .mesos.TaskID task_id = 1;
+    /**
+     * <code>required .mesos.TaskID task_id = 1;</code>
+     */
+    boolean hasTaskId();
+    /**
+     * <code>required .mesos.TaskID task_id = 1;</code>
+     */
+    org.apache.mesos.Protos.TaskID getTaskId();
+    /**
+     * <code>required .mesos.TaskID task_id = 1;</code>
+     */
+    org.apache.mesos.Protos.TaskIDOrBuilder getTaskIdOrBuilder();
+
+    // required bool healthy = 2;
+    /**
+     * <code>required bool healthy = 2;</code>
+     */
+    boolean hasHealthy();
+    /**
+     * <code>required bool healthy = 2;</code>
+     */
+    boolean getHealthy();
+
+    // optional bool kill_task = 3 [default = false];
+    /**
+     * <code>optional bool kill_task = 3 [default = false];</code>
+     *
+     * <pre>
+     * Flag to initiate task kill.
+     * </pre>
+     */
+    boolean hasKillTask();
+    /**
+     * <code>optional bool kill_task = 3 [default = false];</code>
+     *
+     * <pre>
+     * Flag to initiate task kill.
+     * </pre>
+     */
+    boolean getKillTask();
+
+    // optional int32 consecutive_failures = 4;
+    /**
+     * <code>optional int32 consecutive_failures = 4;</code>
+     *
+     * <pre>
+     * Number of consecutive counts in current status.
+     * This will not be populated if task is healthy.
+     * </pre>
+     */
+    boolean hasConsecutiveFailures();
+    /**
+     * <code>optional int32 consecutive_failures = 4;</code>
+     *
+     * <pre>
+     * Number of consecutive counts in current status.
+     * This will not be populated if task is healthy.
+     * </pre>
+     */
+    int getConsecutiveFailures();
+  }
+  /**
+   * Protobuf type {@code mesos.internal.TaskHealthStatus}
+   *
+   * <pre>
+   * Message describing task current health status that is sent by
+   * the task health checker to the command executor.
+   * The command executor reports the task status back to the
+   * on each receive. If the health checker configured faiure
+   * condition meets, then kill_task flag will be set to true which
+   * the executor on message receive will kill the task.
+   * </pre>
+   */
+  public static final class TaskHealthStatus extends
+      com.google.protobuf.GeneratedMessage
+      implements TaskHealthStatusOrBuilder {
+    // Use TaskHealthStatus.newBuilder() to construct.
+    private TaskHealthStatus(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private TaskHealthStatus(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final TaskHealthStatus defaultInstance;
+    public static TaskHealthStatus getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public TaskHealthStatus getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private TaskHealthStatus(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              org.apache.mesos.Protos.TaskID.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                subBuilder = taskId_.toBuilder();
+              }
+              taskId_ = input.readMessage(org.apache.mesos.Protos.TaskID.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(taskId_);
+                taskId_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000001;
+              break;
+            }
+            case 16: {
+              bitField0_ |= 0x00000002;
+              healthy_ = input.readBool();
+              break;
+            }
+            case 24: {
+              bitField0_ |= 0x00000004;
+              killTask_ = input.readBool();
+              break;
+            }
+            case 32: {
+              bitField0_ |= 0x00000008;
+              consecutiveFailures_ = input.readInt32();
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return mesos.internal.Messages.internal_static_mesos_internal_TaskHealthStatus_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return mesos.internal.Messages.internal_static_mesos_internal_TaskHealthStatus_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              mesos.internal.Messages.TaskHealthStatus.class, mesos.internal.Messages.TaskHealthStatus.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<TaskHealthStatus> PARSER =
+        new com.google.protobuf.AbstractParser<TaskHealthStatus>() {
+      public TaskHealthStatus parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new TaskHealthStatus(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<TaskHealthStatus> getParserForType() {
+      return PARSER;
+    }
+
+    private int bitField0_;
+    // required .mesos.TaskID task_id = 1;
+    public static final int TASK_ID_FIELD_NUMBER = 1;
+    private org.apache.mesos.Protos.TaskID taskId_;
+    /**
+     * <code>required .mesos.TaskID task_id = 1;</code>
+     */
+    public boolean hasTaskId() {
+      return ((bitField0_ & 0x00000001) == 0x00000001);
+    }
+    /**
+     * <code>required .mesos.TaskID task_id = 1;</code>
+     */
+    public org.apache.mesos.Protos.TaskID getTaskId() {
+      return taskId_;
+    }
+    /**
+     * <code>required .mesos.TaskID task_id = 1;</code>
+     */
+    public org.apache.mesos.Protos.TaskIDOrBuilder getTaskIdOrBuilder() {
+      return taskId_;
+    }
+
+    // required bool healthy = 2;
+    public static final int HEALTHY_FIELD_NUMBER = 2;
+    private boolean healthy_;
+    /**
+     * <code>required bool healthy = 2;</code>
+     */
+    public boolean hasHealthy() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>required bool healthy = 2;</code>
+     */
+    public boolean getHealthy() {
+      return healthy_;
+    }
+
+    // optional bool kill_task = 3 [default = false];
+    public static final int KILL_TASK_FIELD_NUMBER = 3;
+    private boolean killTask_;
+    /**
+     * <code>optional bool kill_task = 3 [default = false];</code>
+     *
+     * <pre>
+     * Flag to initiate task kill.
+     * </pre>
+     */
+    public boolean hasKillTask() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional bool kill_task = 3 [default = false];</code>
+     *
+     * <pre>
+     * Flag to initiate task kill.
+     * </pre>
+     */
+    public boolean getKillTask() {
+      return killTask_;
+    }
+
+    // optional int32 consecutive_failures = 4;
+    public static final int CONSECUTIVE_FAILURES_FIELD_NUMBER = 4;
+    private int consecutiveFailures_;
+    /**
+     * <code>optional int32 consecutive_failures = 4;</code>
+     *
+     * <pre>
+     * Number of consecutive counts in current status.
+     * This will not be populated if task is healthy.
+     * </pre>
+     */
+    public boolean hasConsecutiveFailures() {
+      return ((bitField0_ & 0x00000008) == 0x00000008);
+    }
+    /**
+     * <code>optional int32 consecutive_failures = 4;</code>
+     *
+     * <pre>
+     * Number of consecutive counts in current status.
+     * This will not be populated if task is healthy.
+     * </pre>
+     */
+    public int getConsecutiveFailures() {
+      return consecutiveFailures_;
+    }
+
+    private void initFields() {
+      taskId_ = org.apache.mesos.Protos.TaskID.getDefaultInstance();
+      healthy_ = false;
+      killTask_ = false;
+      consecutiveFailures_ = 0;
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      if (!hasTaskId()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!hasHealthy()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      if (!getTaskId().isInitialized()) {
+        memoizedIsInitialized = 0;
+        return false;
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        output.writeMessage(1, taskId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBool(2, healthy_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBool(3, killTask_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        output.writeInt32(4, consecutiveFailures_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (((bitField0_ & 0x00000001) == 0x00000001)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, taskId_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(2, healthy_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(3, killTask_);
+      }
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt32Size(4, consecutiveFailures_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static mesos.internal.Messages.TaskHealthStatus parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static mesos.internal.Messages.TaskHealthStatus parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(mesos.internal.Messages.TaskHealthStatus prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code mesos.internal.TaskHealthStatus}
+     *
+     * <pre>
+     * Message describing task current health status that is sent by
+     * the task health checker to the command executor.
+     * The command executor reports the task status back to the
+     * on each receive. If the health checker configured faiure
+     * condition meets, then kill_task flag will be set to true which
+     * the executor on message receive will kill the task.
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements mesos.internal.Messages.TaskHealthStatusOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return mesos.internal.Messages.internal_static_mesos_internal_TaskHealthStatus_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return mesos.internal.Messages.internal_static_mesos_internal_TaskHealthStatus_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                mesos.internal.Messages.TaskHealthStatus.class, mesos.internal.Messages.TaskHealthStatus.Builder.class);
+      }
+
+      // Construct using mesos.internal.Messages.TaskHealthStatus.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getTaskIdFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (taskIdBuilder_ == null) {
+          taskId_ = org.apache.mesos.Protos.TaskID.getDefaultInstance();
+        } else {
+          taskIdBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        healthy_ = false;
+        bitField0_ = (bitField0_ & ~0x00000002);
+        killTask_ = false;
+        bitField0_ = (bitField0_ & ~0x00000004);
+        consecutiveFailures_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000008);
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return mesos.internal.Messages.internal_static_mesos_internal_TaskHealthStatus_descriptor;
+      }
+
+      public mesos.internal.Messages.TaskHealthStatus getDefaultInstanceForType() {
+        return mesos.internal.Messages.TaskHealthStatus.getDefaultInstance();
+      }
+
+      public mesos.internal.Messages.TaskHealthStatus build() {
+        mesos.internal.Messages.TaskHealthStatus result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public mesos.internal.Messages.TaskHealthStatus buildPartial() {
+        mesos.internal.Messages.TaskHealthStatus result = new mesos.internal.Messages.TaskHealthStatus(this);
+        int from_bitField0_ = bitField0_;
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+          to_bitField0_ |= 0x00000001;
+        }
+        if (taskIdBuilder_ == null) {
+          result.taskId_ = taskId_;
+        } else {
+          result.taskId_ = taskIdBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.healthy_ = healthy_;
+        if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.killTask_ = killTask_;
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
+        result.consecutiveFailures_ = consecutiveFailures_;
+        result.bitField0_ = to_bitField0_;
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof mesos.internal.Messages.TaskHealthStatus) {
+          return mergeFrom((mesos.internal.Messages.TaskHealthStatus)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(mesos.internal.Messages.TaskHealthStatus other) {
+        if (other == mesos.internal.Messages.TaskHealthStatus.getDefaultInstance()) return this;
+        if (other.hasTaskId()) {
+          mergeTaskId(other.getTaskId());
+        }
+        if (other.hasHealthy()) {
+          setHealthy(other.getHealthy());
+        }
+        if (other.hasKillTask()) {
+          setKillTask(other.getKillTask());
+        }
+        if (other.hasConsecutiveFailures()) {
+          setConsecutiveFailures(other.getConsecutiveFailures());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        if (!hasTaskId()) {
+          
+          return false;
+        }
+        if (!hasHealthy()) {
+          
+          return false;
+        }
+        if (!getTaskId().isInitialized()) {
+          
+          return false;
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        mesos.internal.Messages.TaskHealthStatus parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (mesos.internal.Messages.TaskHealthStatus) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // required .mesos.TaskID task_id = 1;
+      private org.apache.mesos.Protos.TaskID taskId_ = org.apache.mesos.Protos.TaskID.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          org.apache.mesos.Protos.TaskID, org.apache.mesos.Protos.TaskID.Builder, org.apache.mesos.Protos.TaskIDOrBuilder> taskIdBuilder_;
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      public boolean hasTaskId() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      public org.apache.mesos.Protos.TaskID getTaskId() {
+        if (taskIdBuilder_ == null) {
+          return taskId_;
+        } else {
+          return taskIdBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      public Builder setTaskId(org.apache.mesos.Protos.TaskID value) {
+        if (taskIdBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          taskId_ = value;
+          onChanged();
+        } else {
+          taskIdBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      public Builder setTaskId(
+          org.apache.mesos.Protos.TaskID.Builder builderForValue) {
+        if (taskIdBuilder_ == null) {
+          taskId_ = builderForValue.build();
+          onChanged();
+        } else {
+          taskIdBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      public Builder mergeTaskId(org.apache.mesos.Protos.TaskID value) {
+        if (taskIdBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001) &&
+              taskId_ != org.apache.mesos.Protos.TaskID.getDefaultInstance()) {
+            taskId_ =
+              org.apache.mesos.Protos.TaskID.newBuilder(taskId_).mergeFrom(value).buildPartial();
+          } else {
+            taskId_ = value;
+          }
+          onChanged();
+        } else {
+          taskIdBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000001;
+        return this;
+      }
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      public Builder clearTaskId() {
+        if (taskIdBuilder_ == null) {
+          taskId_ = org.apache.mesos.Protos.TaskID.getDefaultInstance();
+          onChanged();
+        } else {
+          taskIdBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000001);
+        return this;
+      }
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      public org.apache.mesos.Protos.TaskID.Builder getTaskIdBuilder() {
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return getTaskIdFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      public org.apache.mesos.Protos.TaskIDOrBuilder getTaskIdOrBuilder() {
+        if (taskIdBuilder_ != null) {
+          return taskIdBuilder_.getMessageOrBuilder();
+        } else {
+          return taskId_;
+        }
+      }
+      /**
+       * <code>required .mesos.TaskID task_id = 1;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          org.apache.mesos.Protos.TaskID, org.apache.mesos.Protos.TaskID.Builder, org.apache.mesos.Protos.TaskIDOrBuilder> 
+          getTaskIdFieldBuilder() {
+        if (taskIdBuilder_ == null) {
+          taskIdBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              org.apache.mesos.Protos.TaskID, org.apache.mesos.Protos.TaskID.Builder, org.apache.mesos.Protos.TaskIDOrBuilder>(
+                  taskId_,
+                  getParentForChildren(),
+                  isClean());
+          taskId_ = null;
+        }
+        return taskIdBuilder_;
+      }
+
+      // required bool healthy = 2;
+      private boolean healthy_ ;
+      /**
+       * <code>required bool healthy = 2;</code>
+       */
+      public boolean hasHealthy() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>required bool healthy = 2;</code>
+       */
+      public boolean getHealthy() {
+        return healthy_;
+      }
+      /**
+       * <code>required bool healthy = 2;</code>
+       */
+      public Builder setHealthy(boolean value) {
+        bitField0_ |= 0x00000002;
+        healthy_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>required bool healthy = 2;</code>
+       */
+      public Builder clearHealthy() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        healthy_ = false;
+        onChanged();
+        return this;
+      }
+
+      // optional bool kill_task = 3 [default = false];
+      private boolean killTask_ ;
+      /**
+       * <code>optional bool kill_task = 3 [default = false];</code>
+       *
+       * <pre>
+       * Flag to initiate task kill.
+       * </pre>
+       */
+      public boolean hasKillTask() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional bool kill_task = 3 [default = false];</code>
+       *
+       * <pre>
+       * Flag to initiate task kill.
+       * </pre>
+       */
+      public boolean getKillTask() {
+        return killTask_;
+      }
+      /**
+       * <code>optional bool kill_task = 3 [default = false];</code>
+       *
+       * <pre>
+       * Flag to initiate task kill.
+       * </pre>
+       */
+      public Builder setKillTask(boolean value) {
+        bitField0_ |= 0x00000004;
+        killTask_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bool kill_task = 3 [default = false];</code>
+       *
+       * <pre>
+       * Flag to initiate task kill.
+       * </pre>
+       */
+      public Builder clearKillTask() {
+        bitField0_ = (bitField0_ & ~0x00000004);
+        killTask_ = false;
+        onChanged();
+        return this;
+      }
+
+      // optional int32 consecutive_failures = 4;
+      private int consecutiveFailures_ ;
+      /**
+       * <code>optional int32 consecutive_failures = 4;</code>
+       *
+       * <pre>
+       * Number of consecutive counts in current status.
+       * This will not be populated if task is healthy.
+       * </pre>
+       */
+      public boolean hasConsecutiveFailures() {
+        return ((bitField0_ & 0x00000008) == 0x00000008);
+      }
+      /**
+       * <code>optional int32 consecutive_failures = 4;</code>
+       *
+       * <pre>
+       * Number of consecutive counts in current status.
+       * This will not be populated if task is healthy.
+       * </pre>
+       */
+      public int getConsecutiveFailures() {
+        return consecutiveFailures_;
+      }
+      /**
+       * <code>optional int32 consecutive_failures = 4;</code>
+       *
+       * <pre>
+       * Number of consecutive counts in current status.
+       * This will not be populated if task is healthy.
+       * </pre>
+       */
+      public Builder setConsecutiveFailures(int value) {
+        bitField0_ |= 0x00000008;
+        consecutiveFailures_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional int32 consecutive_failures = 4;</code>
+       *
+       * <pre>
+       * Number of consecutive counts in current status.
+       * This will not be populated if task is healthy.
+       * </pre>
+       */
+      public Builder clearConsecutiveFailures() {
+        bitField0_ = (bitField0_ & ~0x00000008);
+        consecutiveFailures_ = 0;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:mesos.internal.TaskHealthStatus)
+    }
+
+    static {
+      defaultInstance = new TaskHealthStatus(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:mesos.internal.TaskHealthStatus)
+  }
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_mesos_internal_Task_descriptor;
   private static
@@ -41052,6 +41916,11 @@ public final class Messages {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mesos_internal_Archive_Framework_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_mesos_internal_TaskHealthStatus_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mesos_internal_TaskHealthStatus_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -41061,134 +41930,138 @@ public final class Messages {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\016messages.proto\022\016mesos.internal\032\013mesos." +
-      "proto\"\222\002\n\004Task\022\014\n\004name\030\001 \002(\t\022\036\n\007task_id\030" +
-      "\002 \002(\0132\r.mesos.TaskID\022(\n\014framework_id\030\003 \002" +
-      "(\0132\022.mesos.FrameworkID\022&\n\013executor_id\030\004 " +
-      "\001(\0132\021.mesos.ExecutorID\022 \n\010slave_id\030\005 \002(\013" +
-      "2\016.mesos.SlaveID\022\037\n\005state\030\006 \002(\0162\020.mesos." +
-      "TaskState\022\"\n\tresources\030\007 \003(\0132\017.mesos.Res" +
-      "ource\022#\n\010statuses\030\010 \003(\0132\021.mesos.TaskStat" +
-      "us\"+\n\010RoleInfo\022\014\n\004name\030\001 \002(\t\022\021\n\006weight\030\002" +
-      " \001(\001:\0011\"\306\001\n\014StatusUpdate\022(\n\014framework_id",
-      "\030\001 \002(\0132\022.mesos.FrameworkID\022&\n\013executor_i" +
-      "d\030\002 \001(\0132\021.mesos.ExecutorID\022 \n\010slave_id\030\003" +
-      " \001(\0132\016.mesos.SlaveID\022!\n\006status\030\004 \002(\0132\021.m" +
-      "esos.TaskStatus\022\021\n\ttimestamp\030\005 \002(\001\022\014\n\004uu" +
-      "id\030\006 \002(\014\"\244\001\n\022StatusUpdateRecord\0225\n\004type\030" +
-      "\001 \002(\0162\'.mesos.internal.StatusUpdateRecor" +
-      "d.Type\022,\n\006update\030\002 \001(\0132\034.mesos.internal." +
-      "StatusUpdate\022\014\n\004uuid\030\003 \001(\014\"\033\n\004Type\022\n\n\006UP" +
-      "DATE\020\000\022\007\n\003ACK\020\001\"&\n\026SubmitSchedulerReques" +
-      "t\022\014\n\004name\030\001 \002(\t\"\'\n\027SubmitSchedulerRespon",
-      "se\022\014\n\004okay\030\001 \002(\010\"\236\001\n\032ExecutorToFramework" +
-      "Message\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveI" +
-      "D\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Framewor" +
-      "kID\022&\n\013executor_id\030\003 \002(\0132\021.mesos.Executo" +
-      "rID\022\014\n\004data\030\004 \002(\014\"\236\001\n\032FrameworkToExecuto" +
-      "rMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.Slave" +
-      "ID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Framewo" +
-      "rkID\022&\n\013executor_id\030\003 \002(\0132\021.mesos.Execut" +
-      "orID\022\014\n\004data\030\004 \002(\014\"C\n\030RegisterFrameworkM" +
-      "essage\022\'\n\tframework\030\001 \002(\0132\024.mesos.Framew",
-      "orkInfo\"W\n\032ReregisterFrameworkMessage\022\'\n" +
-      "\tframework\030\002 \002(\0132\024.mesos.FrameworkInfo\022\020" +
-      "\n\010failover\030\003 \002(\010\"n\n\032FrameworkRegisteredM" +
+      "\n\016messages.proto\022\016mesos.internal\032\021mesos/" +
+      "mesos.proto\"\222\002\n\004Task\022\014\n\004name\030\001 \002(\t\022\036\n\007ta" +
+      "sk_id\030\002 \002(\0132\r.mesos.TaskID\022(\n\014framework_" +
+      "id\030\003 \002(\0132\022.mesos.FrameworkID\022&\n\013executor" +
+      "_id\030\004 \001(\0132\021.mesos.ExecutorID\022 \n\010slave_id" +
+      "\030\005 \002(\0132\016.mesos.SlaveID\022\037\n\005state\030\006 \002(\0162\020." +
+      "mesos.TaskState\022\"\n\tresources\030\007 \003(\0132\017.mes" +
+      "os.Resource\022#\n\010statuses\030\010 \003(\0132\021.mesos.Ta" +
+      "skStatus\"+\n\010RoleInfo\022\014\n\004name\030\001 \002(\t\022\021\n\006we" +
+      "ight\030\002 \001(\001:\0011\"\306\001\n\014StatusUpdate\022(\n\014framew",
+      "ork_id\030\001 \002(\0132\022.mesos.FrameworkID\022&\n\013exec" +
+      "utor_id\030\002 \001(\0132\021.mesos.ExecutorID\022 \n\010slav" +
+      "e_id\030\003 \001(\0132\016.mesos.SlaveID\022!\n\006status\030\004 \002" +
+      "(\0132\021.mesos.TaskStatus\022\021\n\ttimestamp\030\005 \002(\001" +
+      "\022\014\n\004uuid\030\006 \002(\014\"\244\001\n\022StatusUpdateRecord\0225\n" +
+      "\004type\030\001 \002(\0162\'.mesos.internal.StatusUpdat" +
+      "eRecord.Type\022,\n\006update\030\002 \001(\0132\034.mesos.int" +
+      "ernal.StatusUpdate\022\014\n\004uuid\030\003 \001(\014\"\033\n\004Type" +
+      "\022\n\n\006UPDATE\020\000\022\007\n\003ACK\020\001\"&\n\026SubmitScheduler" +
+      "Request\022\014\n\004name\030\001 \002(\t\"\'\n\027SubmitScheduler",
+      "Response\022\014\n\004okay\030\001 \002(\010\"\236\001\n\032ExecutorToFra" +
+      "meworkMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos." +
+      "SlaveID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Fr" +
+      "ameworkID\022&\n\013executor_id\030\003 \002(\0132\021.mesos.E" +
+      "xecutorID\022\014\n\004data\030\004 \002(\014\"\236\001\n\032FrameworkToE" +
+      "xecutorMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos" +
+      ".SlaveID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.F" +
+      "rameworkID\022&\n\013executor_id\030\003 \002(\0132\021.mesos." +
+      "ExecutorID\022\014\n\004data\030\004 \002(\014\"C\n\030RegisterFram" +
+      "eworkMessage\022\'\n\tframework\030\001 \002(\0132\024.mesos.",
+      "FrameworkInfo\"W\n\032ReregisterFrameworkMess" +
+      "age\022\'\n\tframework\030\002 \002(\0132\024.mesos.Framework" +
+      "Info\022\020\n\010failover\030\003 \002(\010\"n\n\032FrameworkRegis" +
+      "teredMessage\022(\n\014framework_id\030\001 \002(\0132\022.mes" +
+      "os.FrameworkID\022&\n\013master_info\030\002 \002(\0132\021.me" +
+      "sos.MasterInfo\"p\n\034FrameworkReregisteredM" +
       "essage\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Fra" +
       "meworkID\022&\n\013master_info\030\002 \002(\0132\021.mesos.Ma" +
-      "sterInfo\"p\n\034FrameworkReregisteredMessage" +
-      "\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Framework" +
-      "ID\022&\n\013master_info\030\002 \002(\0132\021.mesos.MasterIn" +
-      "fo\"F\n\032UnregisterFrameworkMessage\022(\n\014fram" +
-      "ework_id\030\001 \002(\0132\022.mesos.FrameworkID\"F\n\032De",
-      "activateFrameworkMessage\022(\n\014framework_id" +
-      "\030\001 \002(\0132\022.mesos.FrameworkID\"d\n\026ResourceRe" +
-      "questMessage\022(\n\014framework_id\030\001 \002(\0132\022.mes" +
-      "os.FrameworkID\022 \n\010requests\030\002 \003(\0132\016.mesos" +
-      ".Request\"C\n\025ResourceOffersMessage\022\034\n\006off" +
-      "ers\030\001 \003(\0132\014.mesos.Offer\022\014\n\004pids\030\002 \003(\t\"\242\001" +
-      "\n\022LaunchTasksMessage\022(\n\014framework_id\030\001 \002" +
-      "(\0132\022.mesos.FrameworkID\022\036\n\005tasks\030\003 \003(\0132\017." +
-      "mesos.TaskInfo\022\037\n\007filters\030\005 \002(\0132\016.mesos." +
-      "Filters\022!\n\toffer_ids\030\006 \003(\0132\016.mesos.Offer",
-      "ID\"?\n\033RescindResourceOfferMessage\022 \n\010off" +
-      "er_id\030\001 \002(\0132\016.mesos.OfferID\"?\n\023ReviveOff" +
-      "ersMessage\022(\n\014framework_id\030\001 \002(\0132\022.mesos" +
-      ".FrameworkID\"\217\001\n\016RunTaskMessage\022(\n\014frame" +
-      "work_id\030\001 \002(\0132\022.mesos.FrameworkID\022\'\n\tfra" +
-      "mework\030\002 \002(\0132\024.mesos.FrameworkInfo\022\013\n\003pi" +
-      "d\030\003 \002(\t\022\035\n\004task\030\004 \002(\0132\017.mesos.TaskInfo\"[" +
-      "\n\017KillTaskMessage\022(\n\014framework_id\030\001 \002(\0132" +
-      "\022.mesos.FrameworkID\022\036\n\007task_id\030\002 \002(\0132\r.m" +
-      "esos.TaskID\"P\n\023StatusUpdateMessage\022,\n\006up",
-      "date\030\001 \002(\0132\034.mesos.internal.StatusUpdate" +
-      "\022\013\n\003pid\030\002 \001(\t\"\236\001\n\"StatusUpdateAcknowledg" +
-      "ementMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.S" +
-      "laveID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Fra" +
-      "meworkID\022\036\n\007task_id\030\003 \002(\0132\r.mesos.TaskID" +
-      "\022\014\n\004uuid\030\004 \002(\014\"4\n\020LostSlaveMessage\022 \n\010sl" +
-      "ave_id\030\001 \002(\0132\016.mesos.SlaveID\"f\n\025Reconcil" +
-      "eTasksMessage\022(\n\014framework_id\030\001 \002(\0132\022.me" +
-      "sos.FrameworkID\022#\n\010statuses\030\002 \003(\0132\021.meso" +
-      "s.TaskStatus\"(\n\025FrameworkErrorMessage\022\017\n",
-      "\007message\030\002 \002(\t\"7\n\024RegisterSlaveMessage\022\037" +
-      "\n\005slave\030\001 \002(\0132\020.mesos.SlaveInfo\"\356\001\n\026Rere" +
-      "gisterSlaveMessage\022 \n\010slave_id\030\001 \002(\0132\016.m" +
-      "esos.SlaveID\022\037\n\005slave\030\002 \002(\0132\020.mesos.Slav" +
-      "eInfo\022+\n\016executor_infos\030\004 \003(\0132\023.mesos.Ex" +
-      "ecutorInfo\022#\n\005tasks\030\003 \003(\0132\024.mesos.intern" +
-      "al.Task\022?\n\024completed_frameworks\030\005 \003(\0132!." +
-      "mesos.internal.Archive.Framework\":\n\026Slav" +
-      "eRegisteredMessage\022 \n\010slave_id\030\001 \002(\0132\016.m" +
-      "esos.SlaveID\"<\n\030SlaveReregisteredMessage",
-      "\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\":\n\026Un" +
-      "registerSlaveMessage\022 \n\010slave_id\030\001 \002(\0132\016" +
-      ".mesos.SlaveID\"4\n\020HeartbeatMessage\022 \n\010sl" +
-      "ave_id\030\001 \002(\0132\016.mesos.SlaveID\"D\n\030Shutdown" +
-      "FrameworkMessage\022(\n\014framework_id\030\001 \002(\0132\022" +
-      ".mesos.FrameworkID\"\031\n\027ShutdownExecutorMe" +
-      "ssage\"O\n\026UpdateFrameworkMessage\022(\n\014frame" +
-      "work_id\030\001 \002(\0132\022.mesos.FrameworkID\022\013\n\003pid" +
-      "\030\002 \002(\t\"k\n\027RegisterExecutorMessage\022(\n\014fra" +
-      "mework_id\030\001 \002(\0132\022.mesos.FrameworkID\022&\n\013e",
-      "xecutor_id\030\002 \002(\0132\021.mesos.ExecutorID\"\347\001\n\031" +
-      "ExecutorRegisteredMessage\022*\n\rexecutor_in" +
-      "fo\030\002 \002(\0132\023.mesos.ExecutorInfo\022(\n\014framewo" +
-      "rk_id\030\003 \002(\0132\022.mesos.FrameworkID\022,\n\016frame" +
-      "work_info\030\004 \002(\0132\024.mesos.FrameworkInfo\022 \n" +
-      "\010slave_id\030\005 \002(\0132\016.mesos.SlaveID\022$\n\nslave" +
-      "_info\030\006 \002(\0132\020.mesos.SlaveInfo\"e\n\033Executo" +
-      "rReregisteredMessage\022 \n\010slave_id\030\001 \002(\0132\016" +
-      ".mesos.SlaveID\022$\n\nslave_info\030\002 \002(\0132\020.mes" +
-      "os.SlaveInfo\"\233\001\n\025ExitedExecutorMessage\022 ",
-      "\n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\022(\n\014fram" +
-      "ework_id\030\002 \002(\0132\022.mesos.FrameworkID\022&\n\013ex" +
-      "ecutor_id\030\003 \002(\0132\021.mesos.ExecutorID\022\016\n\006st" +
-      "atus\030\004 \002(\005\"<\n\030ReconnectExecutorMessage\022 " +
-      "\n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\"\274\001\n\031Rer" +
-      "egisterExecutorMessage\022&\n\013executor_id\030\001 " +
-      "\002(\0132\021.mesos.ExecutorID\022(\n\014framework_id\030\002" +
-      " \002(\0132\022.mesos.FrameworkID\022\036\n\005tasks\030\003 \003(\0132" +
-      "\017.mesos.TaskInfo\022-\n\007updates\030\004 \003(\0132\034.meso" +
-      "s.internal.StatusUpdate\"\'\n\024RegisterProjd",
-      "Message\022\017\n\007project\030\001 \002(\t\"$\n\021ProjdReadyMe" +
-      "ssage\022\017\n\007project\030\001 \002(\t\"D\n\033ProjdUpdateRes" +
-      "ourcesMessage\022%\n\nparameters\030\001 \001(\0132\021.meso" +
-      "s.Parameters\"C\n\027FrameworkExpiredMessage\022" +
-      "(\n\014framework_id\030\001 \002(\0132\022.mesos.FrameworkI" +
-      "D\"\"\n\017ShutdownMessage\022\017\n\007message\030\001 \001(\t\"\"\n" +
-      "\023AuthenticateMessage\022\013\n\003pid\030\001 \002(\t\"5\n\037Aut" +
-      "henticationMechanismsMessage\022\022\n\nmechanis" +
-      "ms\030\001 \003(\t\"=\n\032AuthenticationStartMessage\022\021" +
-      "\n\tmechanism\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\")\n\031Authe",
-      "nticationStepMessage\022\014\n\004data\030\001 \002(\014\" \n\036Au" +
-      "thenticationCompletedMessage\"\035\n\033Authenti" +
-      "cationFailedMessage\"+\n\032AuthenticationErr" +
-      "orMessage\022\r\n\005error\030\001 \001(\t\"\255\001\n\007Archive\0225\n\n" +
-      "frameworks\030\001 \003(\0132!.mesos.internal.Archiv" +
-      "e.Framework\032k\n\tFramework\022,\n\016framework_in" +
-      "fo\030\001 \002(\0132\024.mesos.FrameworkInfo\022\013\n\003pid\030\002 " +
-      "\001(\t\022#\n\005tasks\030\003 \003(\0132\024.mesos.internal.Task"
+      "sterInfo\"F\n\032UnregisterFrameworkMessage\022(" +
+      "\n\014framework_id\030\001 \002(\0132\022.mesos.FrameworkID",
+      "\"F\n\032DeactivateFrameworkMessage\022(\n\014framew" +
+      "ork_id\030\001 \002(\0132\022.mesos.FrameworkID\"d\n\026Reso" +
+      "urceRequestMessage\022(\n\014framework_id\030\001 \002(\013" +
+      "2\022.mesos.FrameworkID\022 \n\010requests\030\002 \003(\0132\016" +
+      ".mesos.Request\"C\n\025ResourceOffersMessage\022" +
+      "\034\n\006offers\030\001 \003(\0132\014.mesos.Offer\022\014\n\004pids\030\002 " +
+      "\003(\t\"\242\001\n\022LaunchTasksMessage\022(\n\014framework_" +
+      "id\030\001 \002(\0132\022.mesos.FrameworkID\022\036\n\005tasks\030\003 " +
+      "\003(\0132\017.mesos.TaskInfo\022\037\n\007filters\030\005 \002(\0132\016." +
+      "mesos.Filters\022!\n\toffer_ids\030\006 \003(\0132\016.mesos",
+      ".OfferID\"?\n\033RescindResourceOfferMessage\022" +
+      " \n\010offer_id\030\001 \002(\0132\016.mesos.OfferID\"?\n\023Rev" +
+      "iveOffersMessage\022(\n\014framework_id\030\001 \002(\0132\022" +
+      ".mesos.FrameworkID\"\217\001\n\016RunTaskMessage\022(\n" +
+      "\014framework_id\030\001 \002(\0132\022.mesos.FrameworkID\022" +
+      "\'\n\tframework\030\002 \002(\0132\024.mesos.FrameworkInfo" +
+      "\022\013\n\003pid\030\003 \002(\t\022\035\n\004task\030\004 \002(\0132\017.mesos.Task" +
+      "Info\"[\n\017KillTaskMessage\022(\n\014framework_id\030" +
+      "\001 \002(\0132\022.mesos.FrameworkID\022\036\n\007task_id\030\002 \002" +
+      "(\0132\r.mesos.TaskID\"P\n\023StatusUpdateMessage",
+      "\022,\n\006update\030\001 \002(\0132\034.mesos.internal.Status" +
+      "Update\022\013\n\003pid\030\002 \001(\t\"\236\001\n\"StatusUpdateAckn" +
+      "owledgementMessage\022 \n\010slave_id\030\001 \002(\0132\016.m" +
+      "esos.SlaveID\022(\n\014framework_id\030\002 \002(\0132\022.mes" +
+      "os.FrameworkID\022\036\n\007task_id\030\003 \002(\0132\r.mesos." +
+      "TaskID\022\014\n\004uuid\030\004 \002(\014\"4\n\020LostSlaveMessage" +
+      "\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\"f\n\025Re" +
+      "concileTasksMessage\022(\n\014framework_id\030\001 \002(" +
+      "\0132\022.mesos.FrameworkID\022#\n\010statuses\030\002 \003(\0132" +
+      "\021.mesos.TaskStatus\"(\n\025FrameworkErrorMess",
+      "age\022\017\n\007message\030\002 \002(\t\"7\n\024RegisterSlaveMes" +
+      "sage\022\037\n\005slave\030\001 \002(\0132\020.mesos.SlaveInfo\"\356\001" +
+      "\n\026ReregisterSlaveMessage\022 \n\010slave_id\030\001 \002" +
+      "(\0132\016.mesos.SlaveID\022\037\n\005slave\030\002 \002(\0132\020.meso" +
+      "s.SlaveInfo\022+\n\016executor_infos\030\004 \003(\0132\023.me" +
+      "sos.ExecutorInfo\022#\n\005tasks\030\003 \003(\0132\024.mesos." +
+      "internal.Task\022?\n\024completed_frameworks\030\005 " +
+      "\003(\0132!.mesos.internal.Archive.Framework\":" +
+      "\n\026SlaveRegisteredMessage\022 \n\010slave_id\030\001 \002" +
+      "(\0132\016.mesos.SlaveID\"<\n\030SlaveReregisteredM",
+      "essage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID" +
+      "\":\n\026UnregisterSlaveMessage\022 \n\010slave_id\030\001" +
+      " \002(\0132\016.mesos.SlaveID\"4\n\020HeartbeatMessage" +
+      "\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\"D\n\030Sh" +
+      "utdownFrameworkMessage\022(\n\014framework_id\030\001" +
+      " \002(\0132\022.mesos.FrameworkID\"\031\n\027ShutdownExec" +
+      "utorMessage\"O\n\026UpdateFrameworkMessage\022(\n" +
+      "\014framework_id\030\001 \002(\0132\022.mesos.FrameworkID\022" +
+      "\013\n\003pid\030\002 \002(\t\"k\n\027RegisterExecutorMessage\022" +
+      "(\n\014framework_id\030\001 \002(\0132\022.mesos.FrameworkI",
+      "D\022&\n\013executor_id\030\002 \002(\0132\021.mesos.ExecutorI" +
+      "D\"\347\001\n\031ExecutorRegisteredMessage\022*\n\rexecu" +
+      "tor_info\030\002 \002(\0132\023.mesos.ExecutorInfo\022(\n\014f" +
+      "ramework_id\030\003 \002(\0132\022.mesos.FrameworkID\022,\n" +
+      "\016framework_info\030\004 \002(\0132\024.mesos.FrameworkI" +
+      "nfo\022 \n\010slave_id\030\005 \002(\0132\016.mesos.SlaveID\022$\n" +
+      "\nslave_info\030\006 \002(\0132\020.mesos.SlaveInfo\"e\n\033E" +
+      "xecutorReregisteredMessage\022 \n\010slave_id\030\001" +
+      " \002(\0132\016.mesos.SlaveID\022$\n\nslave_info\030\002 \002(\013" +
+      "2\020.mesos.SlaveInfo\"\233\001\n\025ExitedExecutorMes",
+      "sage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\022(" +
+      "\n\014framework_id\030\002 \002(\0132\022.mesos.FrameworkID" +
+      "\022&\n\013executor_id\030\003 \002(\0132\021.mesos.ExecutorID" +
+      "\022\016\n\006status\030\004 \002(\005\"<\n\030ReconnectExecutorMes" +
+      "sage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\"\274" +
+      "\001\n\031ReregisterExecutorMessage\022&\n\013executor" +
+      "_id\030\001 \002(\0132\021.mesos.ExecutorID\022(\n\014framewor" +
+      "k_id\030\002 \002(\0132\022.mesos.FrameworkID\022\036\n\005tasks\030" +
+      "\003 \003(\0132\017.mesos.TaskInfo\022-\n\007updates\030\004 \003(\0132" +
+      "\034.mesos.internal.StatusUpdate\"\'\n\024Registe",
+      "rProjdMessage\022\017\n\007project\030\001 \002(\t\"$\n\021ProjdR" +
+      "eadyMessage\022\017\n\007project\030\001 \002(\t\"D\n\033ProjdUpd" +
+      "ateResourcesMessage\022%\n\nparameters\030\001 \001(\0132" +
+      "\021.mesos.Parameters\"C\n\027FrameworkExpiredMe" +
+      "ssage\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Fram" +
+      "eworkID\"\"\n\017ShutdownMessage\022\017\n\007message\030\001 " +
+      "\001(\t\"\"\n\023AuthenticateMessage\022\013\n\003pid\030\001 \002(\t\"" +
+      "5\n\037AuthenticationMechanismsMessage\022\022\n\nme" +
+      "chanisms\030\001 \003(\t\"=\n\032AuthenticationStartMes" +
+      "sage\022\021\n\tmechanism\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\")\n",
+      "\031AuthenticationStepMessage\022\014\n\004data\030\001 \002(\014" +
+      "\" \n\036AuthenticationCompletedMessage\"\035\n\033Au" +
+      "thenticationFailedMessage\"+\n\032Authenticat" +
+      "ionErrorMessage\022\r\n\005error\030\001 \001(\t\"\255\001\n\007Archi" +
+      "ve\0225\n\nframeworks\030\001 \003(\0132!.mesos.internal." +
+      "Archive.Framework\032k\n\tFramework\022,\n\016framew" +
+      "ork_info\030\001 \002(\0132\024.mesos.FrameworkInfo\022\013\n\003" +
+      "pid\030\002 \001(\t\022#\n\005tasks\030\003 \003(\0132\024.mesos.interna" +
+      "l.Task\"{\n\020TaskHealthStatus\022\036\n\007task_id\030\001 " +
+      "\002(\0132\r.mesos.TaskID\022\017\n\007healthy\030\002 \002(\010\022\030\n\tk",
+      "ill_task\030\003 \001(\010:\005false\022\034\n\024consecutive_fai" +
+      "lures\030\004 \001(\005"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -41525,6 +42398,12 @@ public final class Messages {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_Archive_Framework_descriptor,
               new java.lang.String[] { "FrameworkInfo", "Pid", "Tasks", });
+          internal_static_mesos_internal_TaskHealthStatus_descriptor =
+            getDescriptor().getMessageTypes().get(54);
+          internal_static_mesos_internal_TaskHealthStatus_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_mesos_internal_TaskHealthStatus_descriptor,
+              new java.lang.String[] { "TaskId", "Healthy", "KillTask", "ConsecutiveFailures", });
           return null;
         }
       };
