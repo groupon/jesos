@@ -1,9 +1,20 @@
 # Jesos - A pure Java implementation of the Apache Mesos APIs.
 
-* Requires Mesos 0.19.0 or later. Does not work with any earlier version of Mesos.
-* Only works with Zookeeper state management. Does not support local master (master must be `zk:<host1:port1>.../<path>`).
-* Does not do the SASL dance, mesos authentication is not implemented
-* Does not do Zookeeper authentication (needs ripping out zkclient to do that)
+* Requires Apache Mesos 0.19.0 or later. Does not work with any
+  earlier version of Apache Mesos. The code is built with Apache Mesos
+  0.20.1 but it will work with any older version of Apache Mesos, as
+  long as it supports the HTTP protocol (which is the 0.19.0 release
+  and later).
+
+* Only works with Apache Zookeeper state management. Does not support
+  local master (master must be `zk:<host1:port1>.../<path>`).
+
+* Does not do the SASL dance, Apache Mesos authentication is not
+  implemented
+
+* Does not do Apache Zookeeper authentication (needs ripping out
+  zkclient to do that). There is an experimental pull request to use
+  Apache Curator, but that is just that: experimental.
 
 ## Status
 
