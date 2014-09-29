@@ -55,6 +55,7 @@ public class ManagedEventBus implements Closeable
 
     public void register(final Object listener)
     {
+        checkState(!finished.get(), "event bus is shut down");
         eventBus.register(listener);
     }
 
@@ -67,14 +68,20 @@ public class ManagedEventBus implements Closeable
     @Override
     public void close() throws IOException
     {
-        if (finished.getAndSet(true)) {
+        if (!finished.getAndSet(true)) {
             eventBus.register(this);
-            eventBus.post(pillHolder.get());
 
             final PoisonPill pill = pillHolder.getAndSet(null);
             if (pill != null) {
+                eventBus.post(pill);
                 try {
                     pill.awaitTermination(1, TimeUnit.DAYS);
+
+                    // The poison pill made it through the event bus, so
+                    // all events that were present before are either delivered
+                    // or in flight. Shut down the executor now.
+                    executor.shutdown();
+                    executor.awaitTermination(1, TimeUnit.SECONDS);
                 }
                 catch (final InterruptedException e) {
                     Thread.currentThread().interrupt();
@@ -87,10 +94,6 @@ public class ManagedEventBus implements Closeable
     @Subscribe
     public void receivePoisonPill(final PoisonPill poisonPill)
     {
-        // The poison pill made it through the event bus, so
-        // all events that were present before are either delivered
-        // or in flight. Shut down the executor now.
-        executor.shutdown();
         poisonPill.trigger();
     }
 
