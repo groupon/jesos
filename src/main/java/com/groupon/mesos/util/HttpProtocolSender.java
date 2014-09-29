@@ -15,6 +15,8 @@ package com.groupon.mesos.util;
 
 import static java.lang.String.format;
 
+import static com.google.common.base.Preconditions.checkArgument;
+import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
 
 import java.io.Closeable;
@@ -92,6 +94,10 @@ public class HttpProtocolSender
             return;
         }
 
+        checkNotNull(recipient, "recipient is null");
+        checkNotNull(message, "message is null");
+        checkArgument(recipient.getHost() != null, "%s is not a valid recipient for %s", recipient, message);
+        checkArgument(recipient.getPort() > 0, "%s is not a valid recipient for %s", recipient, message);
         final String path = format("/%s/%s", recipient.getId(), message.getDescriptorForType().getFullName());
         final URL url = new URL("http", recipient.getHost(), recipient.getPort(), path);
 
