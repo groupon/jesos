@@ -15,7 +15,7 @@ package com.groupon.mesos.util;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.google.common.base.Objects;
+import com.google.common.base.MoreObjects;
 import com.google.protobuf.Message;
 
 /**
@@ -54,7 +54,7 @@ public abstract class AbstractMessageEnvelope<T extends Message>
     @Override
     public String toString()
     {
-        return Objects.toStringHelper(this.getClass())
+        return MoreObjects.toStringHelper(this.getClass())
             .add("sender", sender)
             .add("recipient", recipient)
             .add("message", message)

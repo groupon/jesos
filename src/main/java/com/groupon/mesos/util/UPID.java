@@ -28,6 +28,7 @@ import javax.annotation.Nonnull;
 
 import com.google.common.base.CharMatcher;
 import com.google.common.base.Function;
+import com.google.common.base.MoreObjects;
 import com.google.common.base.Objects;
 import com.google.common.base.Splitter;
 import com.google.common.base.Throwables;
@@ -158,7 +159,7 @@ public final class UPID
     @Override
     public String toString()
     {
-        return Objects.toStringHelper(this.getClass())
+        return MoreObjects.toStringHelper(this.getClass())
             .add("id", id)
             .add("hostAndPort", hostAndPort)
             .add("ip", ip)
