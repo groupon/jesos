@@ -28,6 +28,33 @@
     <packaging>jar</packaging>
     <version>1.0-SNAPSHOT</version>
 
+    <scm>
+        <connection>scm:git:git://github.com/groupon/jesos.git</connection>
+        <developerConnection>scm:git:git@github.com:groupon/jesos.git</developerConnection>
+        <url>https://github.com/groupon/jesos</url>
+        <tag>HEAD</tag>
+    </scm>
+
+
+    <inceptionYear>2014</inceptionYear>
+
+    <licenses>
+        <license>
+            <name>Apache License 2.0</name>
+            <url>http://www.apache.org/licenses/LICENSE-2.0.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>hgschmie</id>
+            <name>Henning Schmiedehausen</name>
+            <email>henning@schmiedehausen.org</email>
+            <timezone>-8</timezone>
+        </developer>
+    </developers>
+
     <properties>
         <dep.mesos.version>0.20.1</dep.mesos.version>
         <dep.zkclient.version>0.4</dep.zkclient.version>
