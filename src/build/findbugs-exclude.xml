@@ -259,4 +259,16 @@
     <Match>
         <Class name='mesos.internal.state.State$Operation' />
     </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$PingSlaveMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$PingSlaveMessage$Builder' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$PongSlaveMessage' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$PongSlaveMessage$Builder' />
+    </Match>
 </FindBugsFilter>

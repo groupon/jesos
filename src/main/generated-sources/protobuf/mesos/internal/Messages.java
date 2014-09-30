@@ -25427,42 +25427,43 @@ public final class Messages {
     // @@protoc_insertion_point(class_scope:mesos.internal.UnregisterSlaveMessage)
   }
 
-  public interface HeartbeatMessageOrBuilder
+  public interface PingSlaveMessageOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required .mesos.SlaveID slave_id = 1;
+    // required bool connected = 1;
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>required bool connected = 1;</code>
      */
-    boolean hasSlaveId();
+    boolean hasConnected();
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>required bool connected = 1;</code>
      */
-    org.apache.mesos.Protos.SlaveID getSlaveId();
-    /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
-     */
-    org.apache.mesos.Protos.SlaveIDOrBuilder getSlaveIdOrBuilder();
+    boolean getConnected();
   }
   /**
-   * Protobuf type {@code mesos.internal.HeartbeatMessage}
+   * Protobuf type {@code mesos.internal.PingSlaveMessage}
+   *
+   * <pre>
+   * This message is periodically sent by the master to the slave.
+   * If the slave is connected to the master, "connected" is true.
+   * </pre>
    */
-  public static final class HeartbeatMessage extends
+  public static final class PingSlaveMessage extends
       com.google.protobuf.GeneratedMessage
-      implements HeartbeatMessageOrBuilder {
-    // Use HeartbeatMessage.newBuilder() to construct.
-    private HeartbeatMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      implements PingSlaveMessageOrBuilder {
+    // Use PingSlaveMessage.newBuilder() to construct.
+    private PingSlaveMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
       super(builder);
       this.unknownFields = builder.getUnknownFields();
     }
-    private HeartbeatMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+    private PingSlaveMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
 
-    private static final HeartbeatMessage defaultInstance;
-    public static HeartbeatMessage getDefaultInstance() {
+    private static final PingSlaveMessage defaultInstance;
+    public static PingSlaveMessage getDefaultInstance() {
       return defaultInstance;
     }
 
-    public HeartbeatMessage getDefaultInstanceForType() {
+    public PingSlaveMessage getDefaultInstanceForType() {
       return defaultInstance;
     }
 
@@ -25472,7 +25473,7 @@ public final class Messages {
         getUnknownFields() {
       return this.unknownFields;
     }
-    private HeartbeatMessage(
+    private PingSlaveMessage(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
@@ -25495,17 +25496,9 @@ public final class Messages {
               }
               break;
             }
-            case 10: {
-              org.apache.mesos.Protos.SlaveID.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
-                subBuilder = slaveId_.toBuilder();
-              }
-              slaveId_ = input.readMessage(org.apache.mesos.Protos.SlaveID.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(slaveId_);
-                slaveId_ = subBuilder.buildPartial();
-              }
+            case 8: {
               bitField0_ |= 0x00000001;
+              connected_ = input.readBool();
               break;
             }
           }
@@ -25522,67 +25515,57 @@ public final class Messages {
     }
     public static final com.google.protobuf.Descriptors.Descriptor
         getDescriptor() {
-      return mesos.internal.Messages.internal_static_mesos_internal_HeartbeatMessage_descriptor;
+      return mesos.internal.Messages.internal_static_mesos_internal_PingSlaveMessage_descriptor;
     }
 
     protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
         internalGetFieldAccessorTable() {
-      return mesos.internal.Messages.internal_static_mesos_internal_HeartbeatMessage_fieldAccessorTable
+      return mesos.internal.Messages.internal_static_mesos_internal_PingSlaveMessage_fieldAccessorTable
           .ensureFieldAccessorsInitialized(
-              mesos.internal.Messages.HeartbeatMessage.class, mesos.internal.Messages.HeartbeatMessage.Builder.class);
+              mesos.internal.Messages.PingSlaveMessage.class, mesos.internal.Messages.PingSlaveMessage.Builder.class);
     }
 
-    public static com.google.protobuf.Parser<HeartbeatMessage> PARSER =
-        new com.google.protobuf.AbstractParser<HeartbeatMessage>() {
-      public HeartbeatMessage parsePartialFrom(
+    public static com.google.protobuf.Parser<PingSlaveMessage> PARSER =
+        new com.google.protobuf.AbstractParser<PingSlaveMessage>() {
+      public PingSlaveMessage parsePartialFrom(
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws com.google.protobuf.InvalidProtocolBufferException {
-        return new HeartbeatMessage(input, extensionRegistry);
+        return new PingSlaveMessage(input, extensionRegistry);
       }
     };
 
     @java.lang.Override
-    public com.google.protobuf.Parser<HeartbeatMessage> getParserForType() {
+    public com.google.protobuf.Parser<PingSlaveMessage> getParserForType() {
       return PARSER;
     }
 
     private int bitField0_;
-    // required .mesos.SlaveID slave_id = 1;
-    public static final int SLAVE_ID_FIELD_NUMBER = 1;
-    private org.apache.mesos.Protos.SlaveID slaveId_;
+    // required bool connected = 1;
+    public static final int CONNECTED_FIELD_NUMBER = 1;
+    private boolean connected_;
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>required bool connected = 1;</code>
      */
-    public boolean hasSlaveId() {
+    public boolean hasConnected() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>required bool connected = 1;</code>
      */
-    public org.apache.mesos.Protos.SlaveID getSlaveId() {
-      return slaveId_;
-    }
-    /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
-     */
-    public org.apache.mesos.Protos.SlaveIDOrBuilder getSlaveIdOrBuilder() {
-      return slaveId_;
+    public boolean getConnected() {
+      return connected_;
     }
 
     private void initFields() {
-      slaveId_ = org.apache.mesos.Protos.SlaveID.getDefaultInstance();
+      connected_ = false;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasSlaveId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getSlaveId().isInitialized()) {
+      if (!hasConnected()) {
         memoizedIsInitialized = 0;
         return false;
       }
@@ -25594,7 +25577,7 @@ public final class Messages {
                         throws java.io.IOException {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, slaveId_);
+        output.writeBool(1, connected_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -25607,7 +25590,7 @@ public final class Messages {
       size = 0;
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, slaveId_);
+          .computeBoolSize(1, connected_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -25621,53 +25604,53 @@ public final class Messages {
       return super.writeReplace();
     }
 
-    public static mesos.internal.Messages.HeartbeatMessage parseFrom(
+    public static mesos.internal.Messages.PingSlaveMessage parseFrom(
         com.google.protobuf.ByteString data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseFrom(
+    public static mesos.internal.Messages.PingSlaveMessage parseFrom(
         com.google.protobuf.ByteString data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseFrom(byte[] data)
+    public static mesos.internal.Messages.PingSlaveMessage parseFrom(byte[] data)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseFrom(
+    public static mesos.internal.Messages.PingSlaveMessage parseFrom(
         byte[] data,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws com.google.protobuf.InvalidProtocolBufferException {
       return PARSER.parseFrom(data, extensionRegistry);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseFrom(java.io.InputStream input)
+    public static mesos.internal.Messages.PingSlaveMessage parseFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseFrom(
+    public static mesos.internal.Messages.PingSlaveMessage parseFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseFrom(input, extensionRegistry);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseDelimitedFrom(java.io.InputStream input)
+    public static mesos.internal.Messages.PingSlaveMessage parseDelimitedFrom(java.io.InputStream input)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseDelimitedFrom(
+    public static mesos.internal.Messages.PingSlaveMessage parseDelimitedFrom(
         java.io.InputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
       return PARSER.parseDelimitedFrom(input, extensionRegistry);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseFrom(
+    public static mesos.internal.Messages.PingSlaveMessage parseFrom(
         com.google.protobuf.CodedInputStream input)
         throws java.io.IOException {
       return PARSER.parseFrom(input);
     }
-    public static mesos.internal.Messages.HeartbeatMessage parseFrom(
+    public static mesos.internal.Messages.PingSlaveMessage parseFrom(
         com.google.protobuf.CodedInputStream input,
         com.google.protobuf.ExtensionRegistryLite extensionRegistry)
         throws java.io.IOException {
@@ -25676,7 +25659,7 @@ public final class Messages {
 
     public static Builder newBuilder() { return Builder.create(); }
     public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(mesos.internal.Messages.HeartbeatMessage prototype) {
+    public static Builder newBuilder(mesos.internal.Messages.PingSlaveMessage prototype) {
       return newBuilder().mergeFrom(prototype);
     }
     public Builder toBuilder() { return newBuilder(this); }
@@ -25688,24 +25671,29 @@ public final class Messages {
       return builder;
     }
     /**
-     * Protobuf type {@code mesos.internal.HeartbeatMessage}
+     * Protobuf type {@code mesos.internal.PingSlaveMessage}
+     *
+     * <pre>
+     * This message is periodically sent by the master to the slave.
+     * If the slave is connected to the master, "connected" is true.
+     * </pre>
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements mesos.internal.Messages.HeartbeatMessageOrBuilder {
+       implements mesos.internal.Messages.PingSlaveMessageOrBuilder {
       public static final com.google.protobuf.Descriptors.Descriptor
           getDescriptor() {
-        return mesos.internal.Messages.internal_static_mesos_internal_HeartbeatMessage_descriptor;
+        return mesos.internal.Messages.internal_static_mesos_internal_PingSlaveMessage_descriptor;
       }
 
       protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
           internalGetFieldAccessorTable() {
-        return mesos.internal.Messages.internal_static_mesos_internal_HeartbeatMessage_fieldAccessorTable
+        return mesos.internal.Messages.internal_static_mesos_internal_PingSlaveMessage_fieldAccessorTable
             .ensureFieldAccessorsInitialized(
-                mesos.internal.Messages.HeartbeatMessage.class, mesos.internal.Messages.HeartbeatMessage.Builder.class);
+                mesos.internal.Messages.PingSlaveMessage.class, mesos.internal.Messages.PingSlaveMessage.Builder.class);
       }
 
-      // Construct using mesos.internal.Messages.HeartbeatMessage.newBuilder()
+      // Construct using mesos.internal.Messages.PingSlaveMessage.newBuilder()
       private Builder() {
         maybeForceBuilderInitialization();
       }
@@ -25717,7 +25705,6 @@ public final class Messages {
       }
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getSlaveIdFieldBuilder();
         }
       }
       private static Builder create() {
@@ -25726,11 +25713,7 @@ public final class Messages {
 
       public Builder clear() {
         super.clear();
-        if (slaveIdBuilder_ == null) {
-          slaveId_ = org.apache.mesos.Protos.SlaveID.getDefaultInstance();
-        } else {
-          slaveIdBuilder_.clear();
-        }
+        connected_ = false;
         bitField0_ = (bitField0_ & ~0x00000001);
         return this;
       }
@@ -25741,62 +25724,54 @@ public final class Messages {
 
       public com.google.protobuf.Descriptors.Descriptor
           getDescriptorForType() {
-        return mesos.internal.Messages.internal_static_mesos_internal_HeartbeatMessage_descriptor;
+        return mesos.internal.Messages.internal_static_mesos_internal_PingSlaveMessage_descriptor;
       }
 
-      public mesos.internal.Messages.HeartbeatMessage getDefaultInstanceForType() {
-        return mesos.internal.Messages.HeartbeatMessage.getDefaultInstance();
+      public mesos.internal.Messages.PingSlaveMessage getDefaultInstanceForType() {
+        return mesos.internal.Messages.PingSlaveMessage.getDefaultInstance();
       }
 
-      public mesos.internal.Messages.HeartbeatMessage build() {
-        mesos.internal.Messages.HeartbeatMessage result = buildPartial();
+      public mesos.internal.Messages.PingSlaveMessage build() {
+        mesos.internal.Messages.PingSlaveMessage result = buildPartial();
         if (!result.isInitialized()) {
           throw newUninitializedMessageException(result);
         }
         return result;
       }
 
-      public mesos.internal.Messages.HeartbeatMessage buildPartial() {
-        mesos.internal.Messages.HeartbeatMessage result = new mesos.internal.Messages.HeartbeatMessage(this);
+      public mesos.internal.Messages.PingSlaveMessage buildPartial() {
+        mesos.internal.Messages.PingSlaveMessage result = new mesos.internal.Messages.PingSlaveMessage(this);
         int from_bitField0_ = bitField0_;
         int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
           to_bitField0_ |= 0x00000001;
         }
-        if (slaveIdBuilder_ == null) {
-          result.slaveId_ = slaveId_;
-        } else {
-          result.slaveId_ = slaveIdBuilder_.build();
-        }
+        result.connected_ = connected_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
       }
 
       public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof mesos.internal.Messages.HeartbeatMessage) {
-          return mergeFrom((mesos.internal.Messages.HeartbeatMessage)other);
+        if (other instanceof mesos.internal.Messages.PingSlaveMessage) {
+          return mergeFrom((mesos.internal.Messages.PingSlaveMessage)other);
         } else {
           super.mergeFrom(other);
           return this;
         }
       }
 
-      public Builder mergeFrom(mesos.internal.Messages.HeartbeatMessage other) {
-        if (other == mesos.internal.Messages.HeartbeatMessage.getDefaultInstance()) return this;
-        if (other.hasSlaveId()) {
-          mergeSlaveId(other.getSlaveId());
+      public Builder mergeFrom(mesos.internal.Messages.PingSlaveMessage other) {
+        if (other == mesos.internal.Messages.PingSlaveMessage.getDefaultInstance()) return this;
+        if (other.hasConnected()) {
+          setConnected(other.getConnected());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasSlaveId()) {
-          
-          return false;
-        }
-        if (!getSlaveId().isInitialized()) {
+        if (!hasConnected()) {
           
           return false;
         }
@@ -25807,11 +25782,11 @@ public final class Messages {
           com.google.protobuf.CodedInputStream input,
           com.google.protobuf.ExtensionRegistryLite extensionRegistry)
           throws java.io.IOException {
-        mesos.internal.Messages.HeartbeatMessage parsedMessage = null;
+        mesos.internal.Messages.PingSlaveMessage parsedMessage = null;
         try {
           parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
         } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (mesos.internal.Messages.HeartbeatMessage) e.getUnfinishedMessage();
+          parsedMessage = (mesos.internal.Messages.PingSlaveMessage) e.getUnfinishedMessage();
           throw e;
         } finally {
           if (parsedMessage != null) {
@@ -25822,132 +25797,367 @@ public final class Messages {
       }
       private int bitField0_;
 
-      // required .mesos.SlaveID slave_id = 1;
-      private org.apache.mesos.Protos.SlaveID slaveId_ = org.apache.mesos.Protos.SlaveID.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.apache.mesos.Protos.SlaveID, org.apache.mesos.Protos.SlaveID.Builder, org.apache.mesos.Protos.SlaveIDOrBuilder> slaveIdBuilder_;
+      // required bool connected = 1;
+      private boolean connected_ ;
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>required bool connected = 1;</code>
        */
-      public boolean hasSlaveId() {
+      public boolean hasConnected() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>required bool connected = 1;</code>
        */
-      public org.apache.mesos.Protos.SlaveID getSlaveId() {
-        if (slaveIdBuilder_ == null) {
-          return slaveId_;
-        } else {
-          return slaveIdBuilder_.getMessage();
-        }
+      public boolean getConnected() {
+        return connected_;
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>required bool connected = 1;</code>
        */
-      public Builder setSlaveId(org.apache.mesos.Protos.SlaveID value) {
-        if (slaveIdBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          slaveId_ = value;
-          onChanged();
-        } else {
-          slaveIdBuilder_.setMessage(value);
-        }
+      public Builder setConnected(boolean value) {
         bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
-       */
-      public Builder setSlaveId(
-          org.apache.mesos.Protos.SlaveID.Builder builderForValue) {
-        if (slaveIdBuilder_ == null) {
-          slaveId_ = builderForValue.build();
-          onChanged();
-        } else {
-          slaveIdBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
-       */
-      public Builder mergeSlaveId(org.apache.mesos.Protos.SlaveID value) {
-        if (slaveIdBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              slaveId_ != org.apache.mesos.Protos.SlaveID.getDefaultInstance()) {
-            slaveId_ =
-              org.apache.mesos.Protos.SlaveID.newBuilder(slaveId_).mergeFrom(value).buildPartial();
-          } else {
-            slaveId_ = value;
-          }
-          onChanged();
-        } else {
-          slaveIdBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
-       */
-      public Builder clearSlaveId() {
-        if (slaveIdBuilder_ == null) {
-          slaveId_ = org.apache.mesos.Protos.SlaveID.getDefaultInstance();
-          onChanged();
-        } else {
-          slaveIdBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-      /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
-       */
-      public org.apache.mesos.Protos.SlaveID.Builder getSlaveIdBuilder() {
-        bitField0_ |= 0x00000001;
+        connected_ = value;
         onChanged();
-        return getSlaveIdFieldBuilder().getBuilder();
+        return this;
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>required bool connected = 1;</code>
        */
-      public org.apache.mesos.Protos.SlaveIDOrBuilder getSlaveIdOrBuilder() {
-        if (slaveIdBuilder_ != null) {
-          return slaveIdBuilder_.getMessageOrBuilder();
-        } else {
-          return slaveId_;
-        }
-      }
-      /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          org.apache.mesos.Protos.SlaveID, org.apache.mesos.Protos.SlaveID.Builder, org.apache.mesos.Protos.SlaveIDOrBuilder> 
-          getSlaveIdFieldBuilder() {
-        if (slaveIdBuilder_ == null) {
-          slaveIdBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.apache.mesos.Protos.SlaveID, org.apache.mesos.Protos.SlaveID.Builder, org.apache.mesos.Protos.SlaveIDOrBuilder>(
-                  slaveId_,
-                  getParentForChildren(),
-                  isClean());
-          slaveId_ = null;
-        }
-        return slaveIdBuilder_;
+      public Builder clearConnected() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        connected_ = false;
+        onChanged();
+        return this;
       }
 
-      // @@protoc_insertion_point(builder_scope:mesos.internal.HeartbeatMessage)
+      // @@protoc_insertion_point(builder_scope:mesos.internal.PingSlaveMessage)
     }
 
     static {
-      defaultInstance = new HeartbeatMessage(true);
+      defaultInstance = new PingSlaveMessage(true);
       defaultInstance.initFields();
     }
 
-    // @@protoc_insertion_point(class_scope:mesos.internal.HeartbeatMessage)
+    // @@protoc_insertion_point(class_scope:mesos.internal.PingSlaveMessage)
+  }
+
+  public interface PongSlaveMessageOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+  }
+  /**
+   * Protobuf type {@code mesos.internal.PongSlaveMessage}
+   *
+   * <pre>
+   * This message is sent by the slave to the master in response to the
+   * PingSlaveMessage.
+   * </pre>
+   */
+  public static final class PongSlaveMessage extends
+      com.google.protobuf.GeneratedMessage
+      implements PongSlaveMessageOrBuilder {
+    // Use PongSlaveMessage.newBuilder() to construct.
+    private PongSlaveMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private PongSlaveMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final PongSlaveMessage defaultInstance;
+    public static PongSlaveMessage getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public PongSlaveMessage getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private PongSlaveMessage(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return mesos.internal.Messages.internal_static_mesos_internal_PongSlaveMessage_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return mesos.internal.Messages.internal_static_mesos_internal_PongSlaveMessage_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              mesos.internal.Messages.PongSlaveMessage.class, mesos.internal.Messages.PongSlaveMessage.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<PongSlaveMessage> PARSER =
+        new com.google.protobuf.AbstractParser<PongSlaveMessage>() {
+      public PongSlaveMessage parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new PongSlaveMessage(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<PongSlaveMessage> getParserForType() {
+      return PARSER;
+    }
+
+    private void initFields() {
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static mesos.internal.Messages.PongSlaveMessage parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static mesos.internal.Messages.PongSlaveMessage parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(mesos.internal.Messages.PongSlaveMessage prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code mesos.internal.PongSlaveMessage}
+     *
+     * <pre>
+     * This message is sent by the slave to the master in response to the
+     * PingSlaveMessage.
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements mesos.internal.Messages.PongSlaveMessageOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return mesos.internal.Messages.internal_static_mesos_internal_PongSlaveMessage_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return mesos.internal.Messages.internal_static_mesos_internal_PongSlaveMessage_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                mesos.internal.Messages.PongSlaveMessage.class, mesos.internal.Messages.PongSlaveMessage.Builder.class);
+      }
+
+      // Construct using mesos.internal.Messages.PongSlaveMessage.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return mesos.internal.Messages.internal_static_mesos_internal_PongSlaveMessage_descriptor;
+      }
+
+      public mesos.internal.Messages.PongSlaveMessage getDefaultInstanceForType() {
+        return mesos.internal.Messages.PongSlaveMessage.getDefaultInstance();
+      }
+
+      public mesos.internal.Messages.PongSlaveMessage build() {
+        mesos.internal.Messages.PongSlaveMessage result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public mesos.internal.Messages.PongSlaveMessage buildPartial() {
+        mesos.internal.Messages.PongSlaveMessage result = new mesos.internal.Messages.PongSlaveMessage(this);
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof mesos.internal.Messages.PongSlaveMessage) {
+          return mergeFrom((mesos.internal.Messages.PongSlaveMessage)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(mesos.internal.Messages.PongSlaveMessage other) {
+        if (other == mesos.internal.Messages.PongSlaveMessage.getDefaultInstance()) return this;
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        mesos.internal.Messages.PongSlaveMessage parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (mesos.internal.Messages.PongSlaveMessage) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:mesos.internal.PongSlaveMessage)
+    }
+
+    static {
+      defaultInstance = new PongSlaveMessage(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:mesos.internal.PongSlaveMessage)
   }
 
   public interface ShutdownFrameworkMessageOrBuilder
@@ -33334,2006 +33544,6 @@ public final class Messages {
     // @@protoc_insertion_point(class_scope:mesos.internal.ReregisterExecutorMessage)
   }
 
-  public interface RegisterProjdMessageOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-
-    // required string project = 1;
-    /**
-     * <code>required string project = 1;</code>
-     */
-    boolean hasProject();
-    /**
-     * <code>required string project = 1;</code>
-     */
-    java.lang.String getProject();
-    /**
-     * <code>required string project = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getProjectBytes();
-  }
-  /**
-   * Protobuf type {@code mesos.internal.RegisterProjdMessage}
-   */
-  public static final class RegisterProjdMessage extends
-      com.google.protobuf.GeneratedMessage
-      implements RegisterProjdMessageOrBuilder {
-    // Use RegisterProjdMessage.newBuilder() to construct.
-    private RegisterProjdMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private RegisterProjdMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final RegisterProjdMessage defaultInstance;
-    public static RegisterProjdMessage getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public RegisterProjdMessage getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private RegisterProjdMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              project_ = input.readBytes();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return mesos.internal.Messages.internal_static_mesos_internal_RegisterProjdMessage_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return mesos.internal.Messages.internal_static_mesos_internal_RegisterProjdMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              mesos.internal.Messages.RegisterProjdMessage.class, mesos.internal.Messages.RegisterProjdMessage.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<RegisterProjdMessage> PARSER =
-        new com.google.protobuf.AbstractParser<RegisterProjdMessage>() {
-      public RegisterProjdMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new RegisterProjdMessage(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<RegisterProjdMessage> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
-    // required string project = 1;
-    public static final int PROJECT_FIELD_NUMBER = 1;
-    private java.lang.Object project_;
-    /**
-     * <code>required string project = 1;</code>
-     */
-    public boolean hasProject() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string project = 1;</code>
-     */
-    public java.lang.String getProject() {
-      java.lang.Object ref = project_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          project_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string project = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getProjectBytes() {
-      java.lang.Object ref = project_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        project_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private void initFields() {
-      project_ = "";
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-
-      if (!hasProject()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getProjectBytes());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getProjectBytes());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static mesos.internal.Messages.RegisterProjdMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static mesos.internal.Messages.RegisterProjdMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(mesos.internal.Messages.RegisterProjdMessage prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code mesos.internal.RegisterProjdMessage}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements mesos.internal.Messages.RegisterProjdMessageOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return mesos.internal.Messages.internal_static_mesos_internal_RegisterProjdMessage_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return mesos.internal.Messages.internal_static_mesos_internal_RegisterProjdMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                mesos.internal.Messages.RegisterProjdMessage.class, mesos.internal.Messages.RegisterProjdMessage.Builder.class);
-      }
-
-      // Construct using mesos.internal.Messages.RegisterProjdMessage.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        project_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return mesos.internal.Messages.internal_static_mesos_internal_RegisterProjdMessage_descriptor;
-      }
-
-      public mesos.internal.Messages.RegisterProjdMessage getDefaultInstanceForType() {
-        return mesos.internal.Messages.RegisterProjdMessage.getDefaultInstance();
-      }
-
-      public mesos.internal.Messages.RegisterProjdMessage build() {
-        mesos.internal.Messages.RegisterProjdMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public mesos.internal.Messages.RegisterProjdMessage buildPartial() {
-        mesos.internal.Messages.RegisterProjdMessage result = new mesos.internal.Messages.RegisterProjdMessage(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.project_ = project_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof mesos.internal.Messages.RegisterProjdMessage) {
-          return mergeFrom((mesos.internal.Messages.RegisterProjdMessage)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(mesos.internal.Messages.RegisterProjdMessage other) {
-        if (other == mesos.internal.Messages.RegisterProjdMessage.getDefaultInstance()) return this;
-        if (other.hasProject()) {
-          bitField0_ |= 0x00000001;
-          project_ = other.project_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        if (!hasProject()) {
-          
-          return false;
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        mesos.internal.Messages.RegisterProjdMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (mesos.internal.Messages.RegisterProjdMessage) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      // required string project = 1;
-      private java.lang.Object project_ = "";
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public boolean hasProject() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public java.lang.String getProject() {
-        java.lang.Object ref = project_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          project_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getProjectBytes() {
-        java.lang.Object ref = project_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          project_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public Builder setProject(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        project_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public Builder clearProject() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        project_ = getDefaultInstance().getProject();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public Builder setProjectBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        project_ = value;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:mesos.internal.RegisterProjdMessage)
-    }
-
-    static {
-      defaultInstance = new RegisterProjdMessage(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:mesos.internal.RegisterProjdMessage)
-  }
-
-  public interface ProjdReadyMessageOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-
-    // required string project = 1;
-    /**
-     * <code>required string project = 1;</code>
-     */
-    boolean hasProject();
-    /**
-     * <code>required string project = 1;</code>
-     */
-    java.lang.String getProject();
-    /**
-     * <code>required string project = 1;</code>
-     */
-    com.google.protobuf.ByteString
-        getProjectBytes();
-  }
-  /**
-   * Protobuf type {@code mesos.internal.ProjdReadyMessage}
-   */
-  public static final class ProjdReadyMessage extends
-      com.google.protobuf.GeneratedMessage
-      implements ProjdReadyMessageOrBuilder {
-    // Use ProjdReadyMessage.newBuilder() to construct.
-    private ProjdReadyMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private ProjdReadyMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ProjdReadyMessage defaultInstance;
-    public static ProjdReadyMessage getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public ProjdReadyMessage getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ProjdReadyMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              bitField0_ |= 0x00000001;
-              project_ = input.readBytes();
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return mesos.internal.Messages.internal_static_mesos_internal_ProjdReadyMessage_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return mesos.internal.Messages.internal_static_mesos_internal_ProjdReadyMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              mesos.internal.Messages.ProjdReadyMessage.class, mesos.internal.Messages.ProjdReadyMessage.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<ProjdReadyMessage> PARSER =
-        new com.google.protobuf.AbstractParser<ProjdReadyMessage>() {
-      public ProjdReadyMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ProjdReadyMessage(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ProjdReadyMessage> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
-    // required string project = 1;
-    public static final int PROJECT_FIELD_NUMBER = 1;
-    private java.lang.Object project_;
-    /**
-     * <code>required string project = 1;</code>
-     */
-    public boolean hasProject() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required string project = 1;</code>
-     */
-    public java.lang.String getProject() {
-      java.lang.Object ref = project_;
-      if (ref instanceof java.lang.String) {
-        return (java.lang.String) ref;
-      } else {
-        com.google.protobuf.ByteString bs = 
-            (com.google.protobuf.ByteString) ref;
-        java.lang.String s = bs.toStringUtf8();
-        if (bs.isValidUtf8()) {
-          project_ = s;
-        }
-        return s;
-      }
-    }
-    /**
-     * <code>required string project = 1;</code>
-     */
-    public com.google.protobuf.ByteString
-        getProjectBytes() {
-      java.lang.Object ref = project_;
-      if (ref instanceof java.lang.String) {
-        com.google.protobuf.ByteString b = 
-            com.google.protobuf.ByteString.copyFromUtf8(
-                (java.lang.String) ref);
-        project_ = b;
-        return b;
-      } else {
-        return (com.google.protobuf.ByteString) ref;
-      }
-    }
-
-    private void initFields() {
-      project_ = "";
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-
-      if (!hasProject()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeBytes(1, getProjectBytes());
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeBytesSize(1, getProjectBytes());
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static mesos.internal.Messages.ProjdReadyMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static mesos.internal.Messages.ProjdReadyMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(mesos.internal.Messages.ProjdReadyMessage prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code mesos.internal.ProjdReadyMessage}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements mesos.internal.Messages.ProjdReadyMessageOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return mesos.internal.Messages.internal_static_mesos_internal_ProjdReadyMessage_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return mesos.internal.Messages.internal_static_mesos_internal_ProjdReadyMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                mesos.internal.Messages.ProjdReadyMessage.class, mesos.internal.Messages.ProjdReadyMessage.Builder.class);
-      }
-
-      // Construct using mesos.internal.Messages.ProjdReadyMessage.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        project_ = "";
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return mesos.internal.Messages.internal_static_mesos_internal_ProjdReadyMessage_descriptor;
-      }
-
-      public mesos.internal.Messages.ProjdReadyMessage getDefaultInstanceForType() {
-        return mesos.internal.Messages.ProjdReadyMessage.getDefaultInstance();
-      }
-
-      public mesos.internal.Messages.ProjdReadyMessage build() {
-        mesos.internal.Messages.ProjdReadyMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public mesos.internal.Messages.ProjdReadyMessage buildPartial() {
-        mesos.internal.Messages.ProjdReadyMessage result = new mesos.internal.Messages.ProjdReadyMessage(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        result.project_ = project_;
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof mesos.internal.Messages.ProjdReadyMessage) {
-          return mergeFrom((mesos.internal.Messages.ProjdReadyMessage)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(mesos.internal.Messages.ProjdReadyMessage other) {
-        if (other == mesos.internal.Messages.ProjdReadyMessage.getDefaultInstance()) return this;
-        if (other.hasProject()) {
-          bitField0_ |= 0x00000001;
-          project_ = other.project_;
-          onChanged();
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        if (!hasProject()) {
-          
-          return false;
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        mesos.internal.Messages.ProjdReadyMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (mesos.internal.Messages.ProjdReadyMessage) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      // required string project = 1;
-      private java.lang.Object project_ = "";
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public boolean hasProject() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public java.lang.String getProject() {
-        java.lang.Object ref = project_;
-        if (!(ref instanceof java.lang.String)) {
-          java.lang.String s = ((com.google.protobuf.ByteString) ref)
-              .toStringUtf8();
-          project_ = s;
-          return s;
-        } else {
-          return (java.lang.String) ref;
-        }
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public com.google.protobuf.ByteString
-          getProjectBytes() {
-        java.lang.Object ref = project_;
-        if (ref instanceof String) {
-          com.google.protobuf.ByteString b = 
-              com.google.protobuf.ByteString.copyFromUtf8(
-                  (java.lang.String) ref);
-          project_ = b;
-          return b;
-        } else {
-          return (com.google.protobuf.ByteString) ref;
-        }
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public Builder setProject(
-          java.lang.String value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        project_ = value;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public Builder clearProject() {
-        bitField0_ = (bitField0_ & ~0x00000001);
-        project_ = getDefaultInstance().getProject();
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>required string project = 1;</code>
-       */
-      public Builder setProjectBytes(
-          com.google.protobuf.ByteString value) {
-        if (value == null) {
-    throw new NullPointerException();
-  }
-  bitField0_ |= 0x00000001;
-        project_ = value;
-        onChanged();
-        return this;
-      }
-
-      // @@protoc_insertion_point(builder_scope:mesos.internal.ProjdReadyMessage)
-    }
-
-    static {
-      defaultInstance = new ProjdReadyMessage(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:mesos.internal.ProjdReadyMessage)
-  }
-
-  public interface ProjdUpdateResourcesMessageOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-
-    // optional .mesos.Parameters parameters = 1;
-    /**
-     * <code>optional .mesos.Parameters parameters = 1;</code>
-     */
-    boolean hasParameters();
-    /**
-     * <code>optional .mesos.Parameters parameters = 1;</code>
-     */
-    org.apache.mesos.Protos.Parameters getParameters();
-    /**
-     * <code>optional .mesos.Parameters parameters = 1;</code>
-     */
-    org.apache.mesos.Protos.ParametersOrBuilder getParametersOrBuilder();
-  }
-  /**
-   * Protobuf type {@code mesos.internal.ProjdUpdateResourcesMessage}
-   */
-  public static final class ProjdUpdateResourcesMessage extends
-      com.google.protobuf.GeneratedMessage
-      implements ProjdUpdateResourcesMessageOrBuilder {
-    // Use ProjdUpdateResourcesMessage.newBuilder() to construct.
-    private ProjdUpdateResourcesMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private ProjdUpdateResourcesMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final ProjdUpdateResourcesMessage defaultInstance;
-    public static ProjdUpdateResourcesMessage getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public ProjdUpdateResourcesMessage getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private ProjdUpdateResourcesMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              org.apache.mesos.Protos.Parameters.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
-                subBuilder = parameters_.toBuilder();
-              }
-              parameters_ = input.readMessage(org.apache.mesos.Protos.Parameters.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(parameters_);
-                parameters_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000001;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return mesos.internal.Messages.internal_static_mesos_internal_ProjdUpdateResourcesMessage_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return mesos.internal.Messages.internal_static_mesos_internal_ProjdUpdateResourcesMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              mesos.internal.Messages.ProjdUpdateResourcesMessage.class, mesos.internal.Messages.ProjdUpdateResourcesMessage.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<ProjdUpdateResourcesMessage> PARSER =
-        new com.google.protobuf.AbstractParser<ProjdUpdateResourcesMessage>() {
-      public ProjdUpdateResourcesMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new ProjdUpdateResourcesMessage(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<ProjdUpdateResourcesMessage> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
-    // optional .mesos.Parameters parameters = 1;
-    public static final int PARAMETERS_FIELD_NUMBER = 1;
-    private org.apache.mesos.Protos.Parameters parameters_;
-    /**
-     * <code>optional .mesos.Parameters parameters = 1;</code>
-     */
-    public boolean hasParameters() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>optional .mesos.Parameters parameters = 1;</code>
-     */
-    public org.apache.mesos.Protos.Parameters getParameters() {
-      return parameters_;
-    }
-    /**
-     * <code>optional .mesos.Parameters parameters = 1;</code>
-     */
-    public org.apache.mesos.Protos.ParametersOrBuilder getParametersOrBuilder() {
-      return parameters_;
-    }
-
-    private void initFields() {
-      parameters_ = org.apache.mesos.Protos.Parameters.getDefaultInstance();
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-
-      if (hasParameters()) {
-        if (!getParameters().isInitialized()) {
-          memoizedIsInitialized = 0;
-          return false;
-        }
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, parameters_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, parameters_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static mesos.internal.Messages.ProjdUpdateResourcesMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(mesos.internal.Messages.ProjdUpdateResourcesMessage prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code mesos.internal.ProjdUpdateResourcesMessage}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements mesos.internal.Messages.ProjdUpdateResourcesMessageOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return mesos.internal.Messages.internal_static_mesos_internal_ProjdUpdateResourcesMessage_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return mesos.internal.Messages.internal_static_mesos_internal_ProjdUpdateResourcesMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                mesos.internal.Messages.ProjdUpdateResourcesMessage.class, mesos.internal.Messages.ProjdUpdateResourcesMessage.Builder.class);
-      }
-
-      // Construct using mesos.internal.Messages.ProjdUpdateResourcesMessage.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getParametersFieldBuilder();
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        if (parametersBuilder_ == null) {
-          parameters_ = org.apache.mesos.Protos.Parameters.getDefaultInstance();
-        } else {
-          parametersBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return mesos.internal.Messages.internal_static_mesos_internal_ProjdUpdateResourcesMessage_descriptor;
-      }
-
-      public mesos.internal.Messages.ProjdUpdateResourcesMessage getDefaultInstanceForType() {
-        return mesos.internal.Messages.ProjdUpdateResourcesMessage.getDefaultInstance();
-      }
-
-      public mesos.internal.Messages.ProjdUpdateResourcesMessage build() {
-        mesos.internal.Messages.ProjdUpdateResourcesMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public mesos.internal.Messages.ProjdUpdateResourcesMessage buildPartial() {
-        mesos.internal.Messages.ProjdUpdateResourcesMessage result = new mesos.internal.Messages.ProjdUpdateResourcesMessage(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        if (parametersBuilder_ == null) {
-          result.parameters_ = parameters_;
-        } else {
-          result.parameters_ = parametersBuilder_.build();
-        }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof mesos.internal.Messages.ProjdUpdateResourcesMessage) {
-          return mergeFrom((mesos.internal.Messages.ProjdUpdateResourcesMessage)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(mesos.internal.Messages.ProjdUpdateResourcesMessage other) {
-        if (other == mesos.internal.Messages.ProjdUpdateResourcesMessage.getDefaultInstance()) return this;
-        if (other.hasParameters()) {
-          mergeParameters(other.getParameters());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        if (hasParameters()) {
-          if (!getParameters().isInitialized()) {
-            
-            return false;
-          }
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        mesos.internal.Messages.ProjdUpdateResourcesMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (mesos.internal.Messages.ProjdUpdateResourcesMessage) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      // optional .mesos.Parameters parameters = 1;
-      private org.apache.mesos.Protos.Parameters parameters_ = org.apache.mesos.Protos.Parameters.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.apache.mesos.Protos.Parameters, org.apache.mesos.Protos.Parameters.Builder, org.apache.mesos.Protos.ParametersOrBuilder> parametersBuilder_;
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      public boolean hasParameters() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      public org.apache.mesos.Protos.Parameters getParameters() {
-        if (parametersBuilder_ == null) {
-          return parameters_;
-        } else {
-          return parametersBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      public Builder setParameters(org.apache.mesos.Protos.Parameters value) {
-        if (parametersBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          parameters_ = value;
-          onChanged();
-        } else {
-          parametersBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      public Builder setParameters(
-          org.apache.mesos.Protos.Parameters.Builder builderForValue) {
-        if (parametersBuilder_ == null) {
-          parameters_ = builderForValue.build();
-          onChanged();
-        } else {
-          parametersBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      public Builder mergeParameters(org.apache.mesos.Protos.Parameters value) {
-        if (parametersBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              parameters_ != org.apache.mesos.Protos.Parameters.getDefaultInstance()) {
-            parameters_ =
-              org.apache.mesos.Protos.Parameters.newBuilder(parameters_).mergeFrom(value).buildPartial();
-          } else {
-            parameters_ = value;
-          }
-          onChanged();
-        } else {
-          parametersBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      public Builder clearParameters() {
-        if (parametersBuilder_ == null) {
-          parameters_ = org.apache.mesos.Protos.Parameters.getDefaultInstance();
-          onChanged();
-        } else {
-          parametersBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      public org.apache.mesos.Protos.Parameters.Builder getParametersBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getParametersFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      public org.apache.mesos.Protos.ParametersOrBuilder getParametersOrBuilder() {
-        if (parametersBuilder_ != null) {
-          return parametersBuilder_.getMessageOrBuilder();
-        } else {
-          return parameters_;
-        }
-      }
-      /**
-       * <code>optional .mesos.Parameters parameters = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          org.apache.mesos.Protos.Parameters, org.apache.mesos.Protos.Parameters.Builder, org.apache.mesos.Protos.ParametersOrBuilder> 
-          getParametersFieldBuilder() {
-        if (parametersBuilder_ == null) {
-          parametersBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.apache.mesos.Protos.Parameters, org.apache.mesos.Protos.Parameters.Builder, org.apache.mesos.Protos.ParametersOrBuilder>(
-                  parameters_,
-                  getParentForChildren(),
-                  isClean());
-          parameters_ = null;
-        }
-        return parametersBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:mesos.internal.ProjdUpdateResourcesMessage)
-    }
-
-    static {
-      defaultInstance = new ProjdUpdateResourcesMessage(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:mesos.internal.ProjdUpdateResourcesMessage)
-  }
-
-  public interface FrameworkExpiredMessageOrBuilder
-      extends com.google.protobuf.MessageOrBuilder {
-
-    // required .mesos.FrameworkID framework_id = 1;
-    /**
-     * <code>required .mesos.FrameworkID framework_id = 1;</code>
-     */
-    boolean hasFrameworkId();
-    /**
-     * <code>required .mesos.FrameworkID framework_id = 1;</code>
-     */
-    org.apache.mesos.Protos.FrameworkID getFrameworkId();
-    /**
-     * <code>required .mesos.FrameworkID framework_id = 1;</code>
-     */
-    org.apache.mesos.Protos.FrameworkIDOrBuilder getFrameworkIdOrBuilder();
-  }
-  /**
-   * Protobuf type {@code mesos.internal.FrameworkExpiredMessage}
-   */
-  public static final class FrameworkExpiredMessage extends
-      com.google.protobuf.GeneratedMessage
-      implements FrameworkExpiredMessageOrBuilder {
-    // Use FrameworkExpiredMessage.newBuilder() to construct.
-    private FrameworkExpiredMessage(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
-      super(builder);
-      this.unknownFields = builder.getUnknownFields();
-    }
-    private FrameworkExpiredMessage(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
-
-    private static final FrameworkExpiredMessage defaultInstance;
-    public static FrameworkExpiredMessage getDefaultInstance() {
-      return defaultInstance;
-    }
-
-    public FrameworkExpiredMessage getDefaultInstanceForType() {
-      return defaultInstance;
-    }
-
-    private final com.google.protobuf.UnknownFieldSet unknownFields;
-    @java.lang.Override
-    public final com.google.protobuf.UnknownFieldSet
-        getUnknownFields() {
-      return this.unknownFields;
-    }
-    private FrameworkExpiredMessage(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      initFields();
-      int mutable_bitField0_ = 0;
-      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
-          com.google.protobuf.UnknownFieldSet.newBuilder();
-      try {
-        boolean done = false;
-        while (!done) {
-          int tag = input.readTag();
-          switch (tag) {
-            case 0:
-              done = true;
-              break;
-            default: {
-              if (!parseUnknownField(input, unknownFields,
-                                     extensionRegistry, tag)) {
-                done = true;
-              }
-              break;
-            }
-            case 10: {
-              org.apache.mesos.Protos.FrameworkID.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000001) == 0x00000001)) {
-                subBuilder = frameworkId_.toBuilder();
-              }
-              frameworkId_ = input.readMessage(org.apache.mesos.Protos.FrameworkID.PARSER, extensionRegistry);
-              if (subBuilder != null) {
-                subBuilder.mergeFrom(frameworkId_);
-                frameworkId_ = subBuilder.buildPartial();
-              }
-              bitField0_ |= 0x00000001;
-              break;
-            }
-          }
-        }
-      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-        throw e.setUnfinishedMessage(this);
-      } catch (java.io.IOException e) {
-        throw new com.google.protobuf.InvalidProtocolBufferException(
-            e.getMessage()).setUnfinishedMessage(this);
-      } finally {
-        this.unknownFields = unknownFields.build();
-        makeExtensionsImmutable();
-      }
-    }
-    public static final com.google.protobuf.Descriptors.Descriptor
-        getDescriptor() {
-      return mesos.internal.Messages.internal_static_mesos_internal_FrameworkExpiredMessage_descriptor;
-    }
-
-    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-        internalGetFieldAccessorTable() {
-      return mesos.internal.Messages.internal_static_mesos_internal_FrameworkExpiredMessage_fieldAccessorTable
-          .ensureFieldAccessorsInitialized(
-              mesos.internal.Messages.FrameworkExpiredMessage.class, mesos.internal.Messages.FrameworkExpiredMessage.Builder.class);
-    }
-
-    public static com.google.protobuf.Parser<FrameworkExpiredMessage> PARSER =
-        new com.google.protobuf.AbstractParser<FrameworkExpiredMessage>() {
-      public FrameworkExpiredMessage parsePartialFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws com.google.protobuf.InvalidProtocolBufferException {
-        return new FrameworkExpiredMessage(input, extensionRegistry);
-      }
-    };
-
-    @java.lang.Override
-    public com.google.protobuf.Parser<FrameworkExpiredMessage> getParserForType() {
-      return PARSER;
-    }
-
-    private int bitField0_;
-    // required .mesos.FrameworkID framework_id = 1;
-    public static final int FRAMEWORK_ID_FIELD_NUMBER = 1;
-    private org.apache.mesos.Protos.FrameworkID frameworkId_;
-    /**
-     * <code>required .mesos.FrameworkID framework_id = 1;</code>
-     */
-    public boolean hasFrameworkId() {
-      return ((bitField0_ & 0x00000001) == 0x00000001);
-    }
-    /**
-     * <code>required .mesos.FrameworkID framework_id = 1;</code>
-     */
-    public org.apache.mesos.Protos.FrameworkID getFrameworkId() {
-      return frameworkId_;
-    }
-    /**
-     * <code>required .mesos.FrameworkID framework_id = 1;</code>
-     */
-    public org.apache.mesos.Protos.FrameworkIDOrBuilder getFrameworkIdOrBuilder() {
-      return frameworkId_;
-    }
-
-    private void initFields() {
-      frameworkId_ = org.apache.mesos.Protos.FrameworkID.getDefaultInstance();
-    }
-    private byte memoizedIsInitialized = -1;
-    public final boolean isInitialized() {
-      byte isInitialized = memoizedIsInitialized;
-      if (isInitialized != -1) return isInitialized == 1;
-
-      if (!hasFrameworkId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      if (!getFrameworkId().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
-      memoizedIsInitialized = 1;
-      return true;
-    }
-
-    public void writeTo(com.google.protobuf.CodedOutputStream output)
-                        throws java.io.IOException {
-      getSerializedSize();
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        output.writeMessage(1, frameworkId_);
-      }
-      getUnknownFields().writeTo(output);
-    }
-
-    private int memoizedSerializedSize = -1;
-    public int getSerializedSize() {
-      int size = memoizedSerializedSize;
-      if (size != -1) return size;
-
-      size = 0;
-      if (((bitField0_ & 0x00000001) == 0x00000001)) {
-        size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, frameworkId_);
-      }
-      size += getUnknownFields().getSerializedSize();
-      memoizedSerializedSize = size;
-      return size;
-    }
-
-    private static final long serialVersionUID = 0L;
-    @java.lang.Override
-    protected java.lang.Object writeReplace()
-        throws java.io.ObjectStreamException {
-      return super.writeReplace();
-    }
-
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseFrom(
-        com.google.protobuf.ByteString data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseFrom(
-        com.google.protobuf.ByteString data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseFrom(byte[] data)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseFrom(
-        byte[] data,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws com.google.protobuf.InvalidProtocolBufferException {
-      return PARSER.parseFrom(data, extensionRegistry);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseDelimitedFrom(java.io.InputStream input)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseDelimitedFrom(
-        java.io.InputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseDelimitedFrom(input, extensionRegistry);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseFrom(
-        com.google.protobuf.CodedInputStream input)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input);
-    }
-    public static mesos.internal.Messages.FrameworkExpiredMessage parseFrom(
-        com.google.protobuf.CodedInputStream input,
-        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-        throws java.io.IOException {
-      return PARSER.parseFrom(input, extensionRegistry);
-    }
-
-    public static Builder newBuilder() { return Builder.create(); }
-    public Builder newBuilderForType() { return newBuilder(); }
-    public static Builder newBuilder(mesos.internal.Messages.FrameworkExpiredMessage prototype) {
-      return newBuilder().mergeFrom(prototype);
-    }
-    public Builder toBuilder() { return newBuilder(this); }
-
-    @java.lang.Override
-    protected Builder newBuilderForType(
-        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-      Builder builder = new Builder(parent);
-      return builder;
-    }
-    /**
-     * Protobuf type {@code mesos.internal.FrameworkExpiredMessage}
-     */
-    public static final class Builder extends
-        com.google.protobuf.GeneratedMessage.Builder<Builder>
-       implements mesos.internal.Messages.FrameworkExpiredMessageOrBuilder {
-      public static final com.google.protobuf.Descriptors.Descriptor
-          getDescriptor() {
-        return mesos.internal.Messages.internal_static_mesos_internal_FrameworkExpiredMessage_descriptor;
-      }
-
-      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
-          internalGetFieldAccessorTable() {
-        return mesos.internal.Messages.internal_static_mesos_internal_FrameworkExpiredMessage_fieldAccessorTable
-            .ensureFieldAccessorsInitialized(
-                mesos.internal.Messages.FrameworkExpiredMessage.class, mesos.internal.Messages.FrameworkExpiredMessage.Builder.class);
-      }
-
-      // Construct using mesos.internal.Messages.FrameworkExpiredMessage.newBuilder()
-      private Builder() {
-        maybeForceBuilderInitialization();
-      }
-
-      private Builder(
-          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
-        super(parent);
-        maybeForceBuilderInitialization();
-      }
-      private void maybeForceBuilderInitialization() {
-        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
-          getFrameworkIdFieldBuilder();
-        }
-      }
-      private static Builder create() {
-        return new Builder();
-      }
-
-      public Builder clear() {
-        super.clear();
-        if (frameworkIdBuilder_ == null) {
-          frameworkId_ = org.apache.mesos.Protos.FrameworkID.getDefaultInstance();
-        } else {
-          frameworkIdBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-
-      public Builder clone() {
-        return create().mergeFrom(buildPartial());
-      }
-
-      public com.google.protobuf.Descriptors.Descriptor
-          getDescriptorForType() {
-        return mesos.internal.Messages.internal_static_mesos_internal_FrameworkExpiredMessage_descriptor;
-      }
-
-      public mesos.internal.Messages.FrameworkExpiredMessage getDefaultInstanceForType() {
-        return mesos.internal.Messages.FrameworkExpiredMessage.getDefaultInstance();
-      }
-
-      public mesos.internal.Messages.FrameworkExpiredMessage build() {
-        mesos.internal.Messages.FrameworkExpiredMessage result = buildPartial();
-        if (!result.isInitialized()) {
-          throw newUninitializedMessageException(result);
-        }
-        return result;
-      }
-
-      public mesos.internal.Messages.FrameworkExpiredMessage buildPartial() {
-        mesos.internal.Messages.FrameworkExpiredMessage result = new mesos.internal.Messages.FrameworkExpiredMessage(this);
-        int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
-        if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
-          to_bitField0_ |= 0x00000001;
-        }
-        if (frameworkIdBuilder_ == null) {
-          result.frameworkId_ = frameworkId_;
-        } else {
-          result.frameworkId_ = frameworkIdBuilder_.build();
-        }
-        result.bitField0_ = to_bitField0_;
-        onBuilt();
-        return result;
-      }
-
-      public Builder mergeFrom(com.google.protobuf.Message other) {
-        if (other instanceof mesos.internal.Messages.FrameworkExpiredMessage) {
-          return mergeFrom((mesos.internal.Messages.FrameworkExpiredMessage)other);
-        } else {
-          super.mergeFrom(other);
-          return this;
-        }
-      }
-
-      public Builder mergeFrom(mesos.internal.Messages.FrameworkExpiredMessage other) {
-        if (other == mesos.internal.Messages.FrameworkExpiredMessage.getDefaultInstance()) return this;
-        if (other.hasFrameworkId()) {
-          mergeFrameworkId(other.getFrameworkId());
-        }
-        this.mergeUnknownFields(other.getUnknownFields());
-        return this;
-      }
-
-      public final boolean isInitialized() {
-        if (!hasFrameworkId()) {
-          
-          return false;
-        }
-        if (!getFrameworkId().isInitialized()) {
-          
-          return false;
-        }
-        return true;
-      }
-
-      public Builder mergeFrom(
-          com.google.protobuf.CodedInputStream input,
-          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
-          throws java.io.IOException {
-        mesos.internal.Messages.FrameworkExpiredMessage parsedMessage = null;
-        try {
-          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
-        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
-          parsedMessage = (mesos.internal.Messages.FrameworkExpiredMessage) e.getUnfinishedMessage();
-          throw e;
-        } finally {
-          if (parsedMessage != null) {
-            mergeFrom(parsedMessage);
-          }
-        }
-        return this;
-      }
-      private int bitField0_;
-
-      // required .mesos.FrameworkID framework_id = 1;
-      private org.apache.mesos.Protos.FrameworkID frameworkId_ = org.apache.mesos.Protos.FrameworkID.getDefaultInstance();
-      private com.google.protobuf.SingleFieldBuilder<
-          org.apache.mesos.Protos.FrameworkID, org.apache.mesos.Protos.FrameworkID.Builder, org.apache.mesos.Protos.FrameworkIDOrBuilder> frameworkIdBuilder_;
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      public boolean hasFrameworkId() {
-        return ((bitField0_ & 0x00000001) == 0x00000001);
-      }
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      public org.apache.mesos.Protos.FrameworkID getFrameworkId() {
-        if (frameworkIdBuilder_ == null) {
-          return frameworkId_;
-        } else {
-          return frameworkIdBuilder_.getMessage();
-        }
-      }
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      public Builder setFrameworkId(org.apache.mesos.Protos.FrameworkID value) {
-        if (frameworkIdBuilder_ == null) {
-          if (value == null) {
-            throw new NullPointerException();
-          }
-          frameworkId_ = value;
-          onChanged();
-        } else {
-          frameworkIdBuilder_.setMessage(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      public Builder setFrameworkId(
-          org.apache.mesos.Protos.FrameworkID.Builder builderForValue) {
-        if (frameworkIdBuilder_ == null) {
-          frameworkId_ = builderForValue.build();
-          onChanged();
-        } else {
-          frameworkIdBuilder_.setMessage(builderForValue.build());
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      public Builder mergeFrameworkId(org.apache.mesos.Protos.FrameworkID value) {
-        if (frameworkIdBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) == 0x00000001) &&
-              frameworkId_ != org.apache.mesos.Protos.FrameworkID.getDefaultInstance()) {
-            frameworkId_ =
-              org.apache.mesos.Protos.FrameworkID.newBuilder(frameworkId_).mergeFrom(value).buildPartial();
-          } else {
-            frameworkId_ = value;
-          }
-          onChanged();
-        } else {
-          frameworkIdBuilder_.mergeFrom(value);
-        }
-        bitField0_ |= 0x00000001;
-        return this;
-      }
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      public Builder clearFrameworkId() {
-        if (frameworkIdBuilder_ == null) {
-          frameworkId_ = org.apache.mesos.Protos.FrameworkID.getDefaultInstance();
-          onChanged();
-        } else {
-          frameworkIdBuilder_.clear();
-        }
-        bitField0_ = (bitField0_ & ~0x00000001);
-        return this;
-      }
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      public org.apache.mesos.Protos.FrameworkID.Builder getFrameworkIdBuilder() {
-        bitField0_ |= 0x00000001;
-        onChanged();
-        return getFrameworkIdFieldBuilder().getBuilder();
-      }
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      public org.apache.mesos.Protos.FrameworkIDOrBuilder getFrameworkIdOrBuilder() {
-        if (frameworkIdBuilder_ != null) {
-          return frameworkIdBuilder_.getMessageOrBuilder();
-        } else {
-          return frameworkId_;
-        }
-      }
-      /**
-       * <code>required .mesos.FrameworkID framework_id = 1;</code>
-       */
-      private com.google.protobuf.SingleFieldBuilder<
-          org.apache.mesos.Protos.FrameworkID, org.apache.mesos.Protos.FrameworkID.Builder, org.apache.mesos.Protos.FrameworkIDOrBuilder> 
-          getFrameworkIdFieldBuilder() {
-        if (frameworkIdBuilder_ == null) {
-          frameworkIdBuilder_ = new com.google.protobuf.SingleFieldBuilder<
-              org.apache.mesos.Protos.FrameworkID, org.apache.mesos.Protos.FrameworkID.Builder, org.apache.mesos.Protos.FrameworkIDOrBuilder>(
-                  frameworkId_,
-                  getParentForChildren(),
-                  isClean());
-          frameworkId_ = null;
-        }
-        return frameworkIdBuilder_;
-      }
-
-      // @@protoc_insertion_point(builder_scope:mesos.internal.FrameworkExpiredMessage)
-    }
-
-    static {
-      defaultInstance = new FrameworkExpiredMessage(true);
-      defaultInstance.initFields();
-    }
-
-    // @@protoc_insertion_point(class_scope:mesos.internal.FrameworkExpiredMessage)
-  }
-
   public interface ShutdownMessageOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
@@ -41797,10 +40007,15 @@ public final class Messages {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mesos_internal_UnregisterSlaveMessage_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_mesos_internal_HeartbeatMessage_descriptor;
+    internal_static_mesos_internal_PingSlaveMessage_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_mesos_internal_HeartbeatMessage_fieldAccessorTable;
+      internal_static_mesos_internal_PingSlaveMessage_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_mesos_internal_PongSlaveMessage_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mesos_internal_PongSlaveMessage_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_mesos_internal_ShutdownFrameworkMessage_descriptor;
   private static
@@ -41846,26 +40061,6 @@ public final class Messages {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mesos_internal_ReregisterExecutorMessage_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_mesos_internal_RegisterProjdMessage_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_mesos_internal_RegisterProjdMessage_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_mesos_internal_ProjdReadyMessage_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_mesos_internal_ProjdReadyMessage_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_mesos_internal_ProjdUpdateResourcesMessage_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_mesos_internal_ProjdUpdateResourcesMessage_fieldAccessorTable;
-  private static com.google.protobuf.Descriptors.Descriptor
-    internal_static_mesos_internal_FrameworkExpiredMessage_descriptor;
-  private static
-    com.google.protobuf.GeneratedMessage.FieldAccessorTable
-      internal_static_mesos_internal_FrameworkExpiredMessage_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_mesos_internal_ShutdownMessage_descriptor;
   private static
@@ -42012,56 +40207,50 @@ public final class Messages {
       "(\0132\016.mesos.SlaveID\"<\n\030SlaveReregisteredM",
       "essage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID" +
       "\":\n\026UnregisterSlaveMessage\022 \n\010slave_id\030\001" +
-      " \002(\0132\016.mesos.SlaveID\"4\n\020HeartbeatMessage" +
-      "\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\"D\n\030Sh" +
-      "utdownFrameworkMessage\022(\n\014framework_id\030\001" +
-      " \002(\0132\022.mesos.FrameworkID\"\031\n\027ShutdownExec" +
-      "utorMessage\"O\n\026UpdateFrameworkMessage\022(\n" +
-      "\014framework_id\030\001 \002(\0132\022.mesos.FrameworkID\022" +
-      "\013\n\003pid\030\002 \002(\t\"k\n\027RegisterExecutorMessage\022" +
-      "(\n\014framework_id\030\001 \002(\0132\022.mesos.FrameworkI",
-      "D\022&\n\013executor_id\030\002 \002(\0132\021.mesos.ExecutorI" +
-      "D\"\347\001\n\031ExecutorRegisteredMessage\022*\n\rexecu" +
-      "tor_info\030\002 \002(\0132\023.mesos.ExecutorInfo\022(\n\014f" +
-      "ramework_id\030\003 \002(\0132\022.mesos.FrameworkID\022,\n" +
-      "\016framework_info\030\004 \002(\0132\024.mesos.FrameworkI" +
-      "nfo\022 \n\010slave_id\030\005 \002(\0132\016.mesos.SlaveID\022$\n" +
-      "\nslave_info\030\006 \002(\0132\020.mesos.SlaveInfo\"e\n\033E" +
-      "xecutorReregisteredMessage\022 \n\010slave_id\030\001" +
-      " \002(\0132\016.mesos.SlaveID\022$\n\nslave_info\030\002 \002(\013" +
-      "2\020.mesos.SlaveInfo\"\233\001\n\025ExitedExecutorMes",
-      "sage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\022(" +
-      "\n\014framework_id\030\002 \002(\0132\022.mesos.FrameworkID" +
-      "\022&\n\013executor_id\030\003 \002(\0132\021.mesos.ExecutorID" +
-      "\022\016\n\006status\030\004 \002(\005\"<\n\030ReconnectExecutorMes" +
-      "sage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\"\274" +
-      "\001\n\031ReregisterExecutorMessage\022&\n\013executor" +
-      "_id\030\001 \002(\0132\021.mesos.ExecutorID\022(\n\014framewor" +
-      "k_id\030\002 \002(\0132\022.mesos.FrameworkID\022\036\n\005tasks\030" +
-      "\003 \003(\0132\017.mesos.TaskInfo\022-\n\007updates\030\004 \003(\0132" +
-      "\034.mesos.internal.StatusUpdate\"\'\n\024Registe",
-      "rProjdMessage\022\017\n\007project\030\001 \002(\t\"$\n\021ProjdR" +
-      "eadyMessage\022\017\n\007project\030\001 \002(\t\"D\n\033ProjdUpd" +
-      "ateResourcesMessage\022%\n\nparameters\030\001 \001(\0132" +
-      "\021.mesos.Parameters\"C\n\027FrameworkExpiredMe" +
-      "ssage\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Fram" +
-      "eworkID\"\"\n\017ShutdownMessage\022\017\n\007message\030\001 " +
-      "\001(\t\"\"\n\023AuthenticateMessage\022\013\n\003pid\030\001 \002(\t\"" +
-      "5\n\037AuthenticationMechanismsMessage\022\022\n\nme" +
-      "chanisms\030\001 \003(\t\"=\n\032AuthenticationStartMes" +
-      "sage\022\021\n\tmechanism\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\")\n",
-      "\031AuthenticationStepMessage\022\014\n\004data\030\001 \002(\014" +
-      "\" \n\036AuthenticationCompletedMessage\"\035\n\033Au" +
-      "thenticationFailedMessage\"+\n\032Authenticat" +
-      "ionErrorMessage\022\r\n\005error\030\001 \001(\t\"\255\001\n\007Archi" +
-      "ve\0225\n\nframeworks\030\001 \003(\0132!.mesos.internal." +
-      "Archive.Framework\032k\n\tFramework\022,\n\016framew" +
-      "ork_info\030\001 \002(\0132\024.mesos.FrameworkInfo\022\013\n\003" +
-      "pid\030\002 \001(\t\022#\n\005tasks\030\003 \003(\0132\024.mesos.interna" +
-      "l.Task\"{\n\020TaskHealthStatus\022\036\n\007task_id\030\001 " +
-      "\002(\0132\r.mesos.TaskID\022\017\n\007healthy\030\002 \002(\010\022\030\n\tk",
-      "ill_task\030\003 \001(\010:\005false\022\034\n\024consecutive_fai" +
-      "lures\030\004 \001(\005"
+      " \002(\0132\016.mesos.SlaveID\"%\n\020PingSlaveMessage" +
+      "\022\021\n\tconnected\030\001 \002(\010\"\022\n\020PongSlaveMessage\"" +
+      "D\n\030ShutdownFrameworkMessage\022(\n\014framework" +
+      "_id\030\001 \002(\0132\022.mesos.FrameworkID\"\031\n\027Shutdow" +
+      "nExecutorMessage\"O\n\026UpdateFrameworkMessa" +
+      "ge\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Framewo" +
+      "rkID\022\013\n\003pid\030\002 \002(\t\"k\n\027RegisterExecutorMes" +
+      "sage\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Frame",
+      "workID\022&\n\013executor_id\030\002 \002(\0132\021.mesos.Exec" +
+      "utorID\"\347\001\n\031ExecutorRegisteredMessage\022*\n\r" +
+      "executor_info\030\002 \002(\0132\023.mesos.ExecutorInfo" +
+      "\022(\n\014framework_id\030\003 \002(\0132\022.mesos.Framework" +
+      "ID\022,\n\016framework_info\030\004 \002(\0132\024.mesos.Frame" +
+      "workInfo\022 \n\010slave_id\030\005 \002(\0132\016.mesos.Slave" +
+      "ID\022$\n\nslave_info\030\006 \002(\0132\020.mesos.SlaveInfo" +
+      "\"e\n\033ExecutorReregisteredMessage\022 \n\010slave" +
+      "_id\030\001 \002(\0132\016.mesos.SlaveID\022$\n\nslave_info\030" +
+      "\002 \002(\0132\020.mesos.SlaveInfo\"\233\001\n\025ExitedExecut",
+      "orMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.Slav" +
+      "eID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Framew" +
+      "orkID\022&\n\013executor_id\030\003 \002(\0132\021.mesos.Execu" +
+      "torID\022\016\n\006status\030\004 \002(\005\"<\n\030ReconnectExecut" +
+      "orMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.Slav" +
+      "eID\"\274\001\n\031ReregisterExecutorMessage\022&\n\013exe" +
+      "cutor_id\030\001 \002(\0132\021.mesos.ExecutorID\022(\n\014fra" +
+      "mework_id\030\002 \002(\0132\022.mesos.FrameworkID\022\036\n\005t" +
+      "asks\030\003 \003(\0132\017.mesos.TaskInfo\022-\n\007updates\030\004" +
+      " \003(\0132\034.mesos.internal.StatusUpdate\"\"\n\017Sh",
+      "utdownMessage\022\017\n\007message\030\001 \001(\t\"\"\n\023Authen" +
+      "ticateMessage\022\013\n\003pid\030\001 \002(\t\"5\n\037Authentica" +
+      "tionMechanismsMessage\022\022\n\nmechanisms\030\001 \003(" +
+      "\t\"=\n\032AuthenticationStartMessage\022\021\n\tmecha" +
+      "nism\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\")\n\031Authenticati" +
+      "onStepMessage\022\014\n\004data\030\001 \002(\014\" \n\036Authentic" +
+      "ationCompletedMessage\"\035\n\033AuthenticationF" +
+      "ailedMessage\"+\n\032AuthenticationErrorMessa" +
+      "ge\022\r\n\005error\030\001 \001(\t\"\255\001\n\007Archive\0225\n\nframewo" +
+      "rks\030\001 \003(\0132!.mesos.internal.Archive.Frame",
+      "work\032k\n\tFramework\022,\n\016framework_info\030\001 \002(" +
+      "\0132\024.mesos.FrameworkInfo\022\013\n\003pid\030\002 \001(\t\022#\n\005" +
+      "tasks\030\003 \003(\0132\024.mesos.internal.Task\"{\n\020Tas" +
+      "kHealthStatus\022\036\n\007task_id\030\001 \002(\0132\r.mesos.T" +
+      "askID\022\017\n\007healthy\030\002 \002(\010\022\030\n\tkill_task\030\003 \001(" +
+      "\010:\005false\022\034\n\024consecutive_failures\030\004 \001(\005"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -42254,140 +40443,122 @@ public final class Messages {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_UnregisterSlaveMessage_descriptor,
               new java.lang.String[] { "SlaveId", });
-          internal_static_mesos_internal_HeartbeatMessage_descriptor =
+          internal_static_mesos_internal_PingSlaveMessage_descriptor =
             getDescriptor().getMessageTypes().get(31);
-          internal_static_mesos_internal_HeartbeatMessage_fieldAccessorTable = new
+          internal_static_mesos_internal_PingSlaveMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_mesos_internal_HeartbeatMessage_descriptor,
-              new java.lang.String[] { "SlaveId", });
-          internal_static_mesos_internal_ShutdownFrameworkMessage_descriptor =
+              internal_static_mesos_internal_PingSlaveMessage_descriptor,
+              new java.lang.String[] { "Connected", });
+          internal_static_mesos_internal_PongSlaveMessage_descriptor =
             getDescriptor().getMessageTypes().get(32);
+          internal_static_mesos_internal_PongSlaveMessage_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_mesos_internal_PongSlaveMessage_descriptor,
+              new java.lang.String[] { });
+          internal_static_mesos_internal_ShutdownFrameworkMessage_descriptor =
+            getDescriptor().getMessageTypes().get(33);
           internal_static_mesos_internal_ShutdownFrameworkMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ShutdownFrameworkMessage_descriptor,
               new java.lang.String[] { "FrameworkId", });
           internal_static_mesos_internal_ShutdownExecutorMessage_descriptor =
-            getDescriptor().getMessageTypes().get(33);
+            getDescriptor().getMessageTypes().get(34);
           internal_static_mesos_internal_ShutdownExecutorMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ShutdownExecutorMessage_descriptor,
               new java.lang.String[] { });
           internal_static_mesos_internal_UpdateFrameworkMessage_descriptor =
-            getDescriptor().getMessageTypes().get(34);
+            getDescriptor().getMessageTypes().get(35);
           internal_static_mesos_internal_UpdateFrameworkMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_UpdateFrameworkMessage_descriptor,
               new java.lang.String[] { "FrameworkId", "Pid", });
           internal_static_mesos_internal_RegisterExecutorMessage_descriptor =
-            getDescriptor().getMessageTypes().get(35);
+            getDescriptor().getMessageTypes().get(36);
           internal_static_mesos_internal_RegisterExecutorMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_RegisterExecutorMessage_descriptor,
               new java.lang.String[] { "FrameworkId", "ExecutorId", });
           internal_static_mesos_internal_ExecutorRegisteredMessage_descriptor =
-            getDescriptor().getMessageTypes().get(36);
+            getDescriptor().getMessageTypes().get(37);
           internal_static_mesos_internal_ExecutorRegisteredMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ExecutorRegisteredMessage_descriptor,
               new java.lang.String[] { "ExecutorInfo", "FrameworkId", "FrameworkInfo", "SlaveId", "SlaveInfo", });
           internal_static_mesos_internal_ExecutorReregisteredMessage_descriptor =
-            getDescriptor().getMessageTypes().get(37);
+            getDescriptor().getMessageTypes().get(38);
           internal_static_mesos_internal_ExecutorReregisteredMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ExecutorReregisteredMessage_descriptor,
               new java.lang.String[] { "SlaveId", "SlaveInfo", });
           internal_static_mesos_internal_ExitedExecutorMessage_descriptor =
-            getDescriptor().getMessageTypes().get(38);
+            getDescriptor().getMessageTypes().get(39);
           internal_static_mesos_internal_ExitedExecutorMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ExitedExecutorMessage_descriptor,
               new java.lang.String[] { "SlaveId", "FrameworkId", "ExecutorId", "Status", });
           internal_static_mesos_internal_ReconnectExecutorMessage_descriptor =
-            getDescriptor().getMessageTypes().get(39);
+            getDescriptor().getMessageTypes().get(40);
           internal_static_mesos_internal_ReconnectExecutorMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ReconnectExecutorMessage_descriptor,
               new java.lang.String[] { "SlaveId", });
           internal_static_mesos_internal_ReregisterExecutorMessage_descriptor =
-            getDescriptor().getMessageTypes().get(40);
+            getDescriptor().getMessageTypes().get(41);
           internal_static_mesos_internal_ReregisterExecutorMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ReregisterExecutorMessage_descriptor,
               new java.lang.String[] { "ExecutorId", "FrameworkId", "Tasks", "Updates", });
-          internal_static_mesos_internal_RegisterProjdMessage_descriptor =
-            getDescriptor().getMessageTypes().get(41);
-          internal_static_mesos_internal_RegisterProjdMessage_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_mesos_internal_RegisterProjdMessage_descriptor,
-              new java.lang.String[] { "Project", });
-          internal_static_mesos_internal_ProjdReadyMessage_descriptor =
-            getDescriptor().getMessageTypes().get(42);
-          internal_static_mesos_internal_ProjdReadyMessage_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_mesos_internal_ProjdReadyMessage_descriptor,
-              new java.lang.String[] { "Project", });
-          internal_static_mesos_internal_ProjdUpdateResourcesMessage_descriptor =
-            getDescriptor().getMessageTypes().get(43);
-          internal_static_mesos_internal_ProjdUpdateResourcesMessage_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_mesos_internal_ProjdUpdateResourcesMessage_descriptor,
-              new java.lang.String[] { "Parameters", });
-          internal_static_mesos_internal_FrameworkExpiredMessage_descriptor =
-            getDescriptor().getMessageTypes().get(44);
-          internal_static_mesos_internal_FrameworkExpiredMessage_fieldAccessorTable = new
-            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
-              internal_static_mesos_internal_FrameworkExpiredMessage_descriptor,
-              new java.lang.String[] { "FrameworkId", });
           internal_static_mesos_internal_ShutdownMessage_descriptor =
-            getDescriptor().getMessageTypes().get(45);
+            getDescriptor().getMessageTypes().get(42);
           internal_static_mesos_internal_ShutdownMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ShutdownMessage_descriptor,
               new java.lang.String[] { "Message", });
           internal_static_mesos_internal_AuthenticateMessage_descriptor =
-            getDescriptor().getMessageTypes().get(46);
+            getDescriptor().getMessageTypes().get(43);
           internal_static_mesos_internal_AuthenticateMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_AuthenticateMessage_descriptor,
               new java.lang.String[] { "Pid", });
           internal_static_mesos_internal_AuthenticationMechanismsMessage_descriptor =
-            getDescriptor().getMessageTypes().get(47);
+            getDescriptor().getMessageTypes().get(44);
           internal_static_mesos_internal_AuthenticationMechanismsMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_AuthenticationMechanismsMessage_descriptor,
               new java.lang.String[] { "Mechanisms", });
           internal_static_mesos_internal_AuthenticationStartMessage_descriptor =
-            getDescriptor().getMessageTypes().get(48);
+            getDescriptor().getMessageTypes().get(45);
           internal_static_mesos_internal_AuthenticationStartMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_AuthenticationStartMessage_descriptor,
               new java.lang.String[] { "Mechanism", "Data", });
           internal_static_mesos_internal_AuthenticationStepMessage_descriptor =
-            getDescriptor().getMessageTypes().get(49);
+            getDescriptor().getMessageTypes().get(46);
           internal_static_mesos_internal_AuthenticationStepMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_AuthenticationStepMessage_descriptor,
               new java.lang.String[] { "Data", });
           internal_static_mesos_internal_AuthenticationCompletedMessage_descriptor =
-            getDescriptor().getMessageTypes().get(50);
+            getDescriptor().getMessageTypes().get(47);
           internal_static_mesos_internal_AuthenticationCompletedMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_AuthenticationCompletedMessage_descriptor,
               new java.lang.String[] { });
           internal_static_mesos_internal_AuthenticationFailedMessage_descriptor =
-            getDescriptor().getMessageTypes().get(51);
+            getDescriptor().getMessageTypes().get(48);
           internal_static_mesos_internal_AuthenticationFailedMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_AuthenticationFailedMessage_descriptor,
               new java.lang.String[] { });
           internal_static_mesos_internal_AuthenticationErrorMessage_descriptor =
-            getDescriptor().getMessageTypes().get(52);
+            getDescriptor().getMessageTypes().get(49);
           internal_static_mesos_internal_AuthenticationErrorMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_AuthenticationErrorMessage_descriptor,
               new java.lang.String[] { "Error", });
           internal_static_mesos_internal_Archive_descriptor =
-            getDescriptor().getMessageTypes().get(53);
+            getDescriptor().getMessageTypes().get(50);
           internal_static_mesos_internal_Archive_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_Archive_descriptor,
@@ -42399,7 +40570,7 @@ public final class Messages {
               internal_static_mesos_internal_Archive_Framework_descriptor,
               new java.lang.String[] { "FrameworkInfo", "Pid", "Tasks", });
           internal_static_mesos_internal_TaskHealthStatus_descriptor =
-            getDescriptor().getMessageTypes().get(54);
+            getDescriptor().getMessageTypes().get(51);
           internal_static_mesos_internal_TaskHealthStatus_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_TaskHealthStatus_descriptor,
