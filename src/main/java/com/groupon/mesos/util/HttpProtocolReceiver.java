@@ -84,6 +84,8 @@ public class HttpProtocolReceiver
         this.shutdownHandler = new GracefulShutdownHandler(pathHandler);
 
         this.httpServer = Undertow.builder()
+            .setIoThreads(2)
+            .setWorkerThreads(16)
             .addHttpListener(localAddress.getPort(), localAddress.getHost())
             .setHandler(shutdownHandler)
             .build();
