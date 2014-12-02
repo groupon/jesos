@@ -61,6 +61,7 @@
         <dep.okhttp.version>2.0.0</dep.okhttp.version>
         <dep.protobuf.version>2.5.0</dep.protobuf.version>
         <dep.leveldb.version>0.7</dep.leveldb.version>
+        <dep.guava.version>17.0</dep.guava.version>
 
         <dep.basepom-policy.version>3</dep.basepom-policy.version>
         <dep.kitei-rules.version>4</dep.kitei-rules.version>
