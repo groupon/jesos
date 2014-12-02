@@ -44,10 +44,17 @@ message Task {
   required FrameworkID framework_id = 3;
   optional ExecutorID executor_id = 4;
   required SlaveID slave_id = 5;
-  required TaskState state = 6;
+  required TaskState state = 6; // Latest state of the task.
   repeated Resource resources = 7;
   repeated TaskStatus statuses = 8;
+
+  // These fields correspond to the state and uuid of the latest
+  // status update forwarded to the master.
+  // NOTE: Either both the fields must be set or both must be unset.
+  optional TaskState status_update_state = 9;
+  optional bytes status_update_uuid = 10;
 }
+
 
 // Describes a role, which are used to group frameworks for allocation
 // decisions, depending on the allocation policy being used.
@@ -58,6 +65,7 @@ message RoleInfo {
 }
 
 
+// TODO(vinod): Create a new UUID message type.
 message StatusUpdate {
   required FrameworkID framework_id = 1;
   optional ExecutorID executor_id = 2;
@@ -65,6 +73,13 @@ message StatusUpdate {
   required TaskStatus status = 4;
   required double timestamp = 5;
   required bytes uuid = 6;
+
+  // This corresponds to the latest state of the task according to the
+  // slave. Note that this state might be different than the state in
+  // 'status' because status update manager queues updates. In other
+  // words, 'status' corresponds to the update at top of the queue and
+  // 'latest_state' corresponds to the update at bottom of the queue.
+  optional TaskState latest_state = 7;
 }
 
 
@@ -227,17 +242,28 @@ message FrameworkErrorMessage {
 
 message RegisterSlaveMessage {
   required SlaveInfo slave = 1;
+
+  // NOTE: This is a hack for the master to detect the slave's
+  // version. If unset the slave is < 0.21.0.
+  // TODO(bmahler): Do proper versioning: MESOS-986.
+  optional string version = 2;
 }
 
 
 message ReregisterSlaveMessage {
-  // TODO(bmahler): Deprecate and remove the explicit slave_id as
-  // SlaveInfo already includes this information.
-  required SlaveID slave_id = 1;
+  // TODO(bmahler): slave_id is deprecated.
+  // 0.21.0: Now an optional field. Always written, never read.
+  // 0.22.0: Remove this field.
+  optional SlaveID slave_id = 1;
   required SlaveInfo slave = 2;
   repeated ExecutorInfo executor_infos = 4;
   repeated Task tasks = 3;
   repeated Archive.Framework completed_frameworks = 5;
+
+  // NOTE: This is a hack for the master to detect the slave's
+  // version. If unset the slave is < 0.21.0.
+  // TODO(bmahler): Do proper versioning: MESOS-986.
+  optional string version = 6;
 }
 
 
@@ -248,6 +274,8 @@ message SlaveRegisteredMessage {
 
 message SlaveReregisteredMessage {
   required SlaveID slave_id = 1;
+
+  repeated ReconcileTasksMessage reconciliations = 2;
 }
 
 
@@ -394,4 +422,31 @@ message TaskHealthStatus {
   // Number of consecutive counts in current status.
   // This will not be populated if task is healthy.
   optional int32 consecutive_failures = 4;
+}
+
+
+// Collection of Modules.
+message Modules {
+  message Library {
+    // If "file" contains a slash ("/"), then it is interpreted as a
+    // (relative or absolute) pathname.  Otherwise a standard library
+    // search is performed.
+    optional string file = 1;
+
+    // We will add the proper prefix ("lib") and suffix (".so" for
+    // Linux and ".dylib" for OS X) to the "name".
+    optional string name = 2;
+
+    message Module {
+      // Module name.
+      optional string name = 1;
+
+      // Module-specific parameters.
+      repeated Parameter parameters = 2;
+    }
+
+    repeated Module modules = 3;
+  }
+
+  repeated Library libraries = 1;
 }

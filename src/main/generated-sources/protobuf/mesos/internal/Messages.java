@@ -85,10 +85,18 @@ public final class Messages {
     // required .mesos.TaskState state = 6;
     /**
      * <code>required .mesos.TaskState state = 6;</code>
+     *
+     * <pre>
+     * Latest state of the task.
+     * </pre>
      */
     boolean hasState();
     /**
      * <code>required .mesos.TaskState state = 6;</code>
+     *
+     * <pre>
+     * Latest state of the task.
+     * </pre>
      */
     org.apache.mesos.Protos.TaskState getState();
 
@@ -141,6 +149,38 @@ public final class Messages {
      */
     org.apache.mesos.Protos.TaskStatusOrBuilder getStatusesOrBuilder(
         int index);
+
+    // optional .mesos.TaskState status_update_state = 9;
+    /**
+     * <code>optional .mesos.TaskState status_update_state = 9;</code>
+     *
+     * <pre>
+     * These fields correspond to the state and uuid of the latest
+     * status update forwarded to the master.
+     * NOTE: Either both the fields must be set or both must be unset.
+     * </pre>
+     */
+    boolean hasStatusUpdateState();
+    /**
+     * <code>optional .mesos.TaskState status_update_state = 9;</code>
+     *
+     * <pre>
+     * These fields correspond to the state and uuid of the latest
+     * status update forwarded to the master.
+     * NOTE: Either both the fields must be set or both must be unset.
+     * </pre>
+     */
+    org.apache.mesos.Protos.TaskState getStatusUpdateState();
+
+    // optional bytes status_update_uuid = 10;
+    /**
+     * <code>optional bytes status_update_uuid = 10;</code>
+     */
+    boolean hasStatusUpdateUuid();
+    /**
+     * <code>optional bytes status_update_uuid = 10;</code>
+     */
+    com.google.protobuf.ByteString getStatusUpdateUuid();
   }
   /**
    * Protobuf type {@code mesos.internal.Task}
@@ -289,6 +329,22 @@ public final class Messages {
                 mutable_bitField0_ |= 0x00000080;
               }
               statuses_.add(input.readMessage(org.apache.mesos.Protos.TaskStatus.PARSER, extensionRegistry));
+              break;
+            }
+            case 72: {
+              int rawValue = input.readEnum();
+              org.apache.mesos.Protos.TaskState value = org.apache.mesos.Protos.TaskState.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(9, rawValue);
+              } else {
+                bitField0_ |= 0x00000040;
+                statusUpdateState_ = value;
+              }
+              break;
+            }
+            case 82: {
+              bitField0_ |= 0x00000080;
+              statusUpdateUuid_ = input.readBytes();
               break;
             }
           }
@@ -473,12 +529,20 @@ public final class Messages {
     private org.apache.mesos.Protos.TaskState state_;
     /**
      * <code>required .mesos.TaskState state = 6;</code>
+     *
+     * <pre>
+     * Latest state of the task.
+     * </pre>
      */
     public boolean hasState() {
       return ((bitField0_ & 0x00000020) == 0x00000020);
     }
     /**
      * <code>required .mesos.TaskState state = 6;</code>
+     *
+     * <pre>
+     * Latest state of the task.
+     * </pre>
      */
     public org.apache.mesos.Protos.TaskState getState() {
       return state_;
@@ -556,6 +620,50 @@ public final class Messages {
       return statuses_.get(index);
     }
 
+    // optional .mesos.TaskState status_update_state = 9;
+    public static final int STATUS_UPDATE_STATE_FIELD_NUMBER = 9;
+    private org.apache.mesos.Protos.TaskState statusUpdateState_;
+    /**
+     * <code>optional .mesos.TaskState status_update_state = 9;</code>
+     *
+     * <pre>
+     * These fields correspond to the state and uuid of the latest
+     * status update forwarded to the master.
+     * NOTE: Either both the fields must be set or both must be unset.
+     * </pre>
+     */
+    public boolean hasStatusUpdateState() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional .mesos.TaskState status_update_state = 9;</code>
+     *
+     * <pre>
+     * These fields correspond to the state and uuid of the latest
+     * status update forwarded to the master.
+     * NOTE: Either both the fields must be set or both must be unset.
+     * </pre>
+     */
+    public org.apache.mesos.Protos.TaskState getStatusUpdateState() {
+      return statusUpdateState_;
+    }
+
+    // optional bytes status_update_uuid = 10;
+    public static final int STATUS_UPDATE_UUID_FIELD_NUMBER = 10;
+    private com.google.protobuf.ByteString statusUpdateUuid_;
+    /**
+     * <code>optional bytes status_update_uuid = 10;</code>
+     */
+    public boolean hasStatusUpdateUuid() {
+      return ((bitField0_ & 0x00000080) == 0x00000080);
+    }
+    /**
+     * <code>optional bytes status_update_uuid = 10;</code>
+     */
+    public com.google.protobuf.ByteString getStatusUpdateUuid() {
+      return statusUpdateUuid_;
+    }
+
     private void initFields() {
       name_ = "";
       taskId_ = org.apache.mesos.Protos.TaskID.getDefaultInstance();
@@ -565,6 +673,8 @@ public final class Messages {
       state_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
       resources_ = java.util.Collections.emptyList();
       statuses_ = java.util.Collections.emptyList();
+      statusUpdateState_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
+      statusUpdateUuid_ = com.google.protobuf.ByteString.EMPTY;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -652,6 +762,12 @@ public final class Messages {
       for (int i = 0; i < statuses_.size(); i++) {
         output.writeMessage(8, statuses_.get(i));
       }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeEnum(9, statusUpdateState_.getNumber());
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        output.writeBytes(10, statusUpdateUuid_);
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -692,6 +808,14 @@ public final class Messages {
       for (int i = 0; i < statuses_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(8, statuses_.get(i));
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(9, statusUpdateState_.getNumber());
+      }
+      if (((bitField0_ & 0x00000080) == 0x00000080)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(10, statusUpdateUuid_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -869,6 +993,10 @@ public final class Messages {
         } else {
           statusesBuilder_.clear();
         }
+        statusUpdateState_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        statusUpdateUuid_ = com.google.protobuf.ByteString.EMPTY;
+        bitField0_ = (bitField0_ & ~0x00000200);
         return this;
       }
 
@@ -955,6 +1083,14 @@ public final class Messages {
         } else {
           result.statuses_ = statusesBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000100) == 0x00000100)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.statusUpdateState_ = statusUpdateState_;
+        if (((from_bitField0_ & 0x00000200) == 0x00000200)) {
+          to_bitField0_ |= 0x00000080;
+        }
+        result.statusUpdateUuid_ = statusUpdateUuid_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -1042,6 +1178,12 @@ public final class Messages {
               statusesBuilder_.addAllMessages(other.statuses_);
             }
           }
+        }
+        if (other.hasStatusUpdateState()) {
+          setStatusUpdateState(other.getStatusUpdateState());
+        }
+        if (other.hasStatusUpdateUuid()) {
+          setStatusUpdateUuid(other.getStatusUpdateUuid());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -1666,18 +1808,30 @@ public final class Messages {
       private org.apache.mesos.Protos.TaskState state_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
       /**
        * <code>required .mesos.TaskState state = 6;</code>
+       *
+       * <pre>
+       * Latest state of the task.
+       * </pre>
        */
       public boolean hasState() {
         return ((bitField0_ & 0x00000020) == 0x00000020);
       }
       /**
        * <code>required .mesos.TaskState state = 6;</code>
+       *
+       * <pre>
+       * Latest state of the task.
+       * </pre>
        */
       public org.apache.mesos.Protos.TaskState getState() {
         return state_;
       }
       /**
        * <code>required .mesos.TaskState state = 6;</code>
+       *
+       * <pre>
+       * Latest state of the task.
+       * </pre>
        */
       public Builder setState(org.apache.mesos.Protos.TaskState value) {
         if (value == null) {
@@ -1690,6 +1844,10 @@ public final class Messages {
       }
       /**
        * <code>required .mesos.TaskState state = 6;</code>
+       *
+       * <pre>
+       * Latest state of the task.
+       * </pre>
        */
       public Builder clearState() {
         bitField0_ = (bitField0_ & ~0x00000020);
@@ -2176,6 +2334,102 @@ public final class Messages {
           statuses_ = null;
         }
         return statusesBuilder_;
+      }
+
+      // optional .mesos.TaskState status_update_state = 9;
+      private org.apache.mesos.Protos.TaskState statusUpdateState_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
+      /**
+       * <code>optional .mesos.TaskState status_update_state = 9;</code>
+       *
+       * <pre>
+       * These fields correspond to the state and uuid of the latest
+       * status update forwarded to the master.
+       * NOTE: Either both the fields must be set or both must be unset.
+       * </pre>
+       */
+      public boolean hasStatusUpdateState() {
+        return ((bitField0_ & 0x00000100) == 0x00000100);
+      }
+      /**
+       * <code>optional .mesos.TaskState status_update_state = 9;</code>
+       *
+       * <pre>
+       * These fields correspond to the state and uuid of the latest
+       * status update forwarded to the master.
+       * NOTE: Either both the fields must be set or both must be unset.
+       * </pre>
+       */
+      public org.apache.mesos.Protos.TaskState getStatusUpdateState() {
+        return statusUpdateState_;
+      }
+      /**
+       * <code>optional .mesos.TaskState status_update_state = 9;</code>
+       *
+       * <pre>
+       * These fields correspond to the state and uuid of the latest
+       * status update forwarded to the master.
+       * NOTE: Either both the fields must be set or both must be unset.
+       * </pre>
+       */
+      public Builder setStatusUpdateState(org.apache.mesos.Protos.TaskState value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000100;
+        statusUpdateState_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .mesos.TaskState status_update_state = 9;</code>
+       *
+       * <pre>
+       * These fields correspond to the state and uuid of the latest
+       * status update forwarded to the master.
+       * NOTE: Either both the fields must be set or both must be unset.
+       * </pre>
+       */
+      public Builder clearStatusUpdateState() {
+        bitField0_ = (bitField0_ & ~0x00000100);
+        statusUpdateState_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
+        onChanged();
+        return this;
+      }
+
+      // optional bytes status_update_uuid = 10;
+      private com.google.protobuf.ByteString statusUpdateUuid_ = com.google.protobuf.ByteString.EMPTY;
+      /**
+       * <code>optional bytes status_update_uuid = 10;</code>
+       */
+      public boolean hasStatusUpdateUuid() {
+        return ((bitField0_ & 0x00000200) == 0x00000200);
+      }
+      /**
+       * <code>optional bytes status_update_uuid = 10;</code>
+       */
+      public com.google.protobuf.ByteString getStatusUpdateUuid() {
+        return statusUpdateUuid_;
+      }
+      /**
+       * <code>optional bytes status_update_uuid = 10;</code>
+       */
+      public Builder setStatusUpdateUuid(com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000200;
+        statusUpdateUuid_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional bytes status_update_uuid = 10;</code>
+       */
+      public Builder clearStatusUpdateUuid() {
+        bitField0_ = (bitField0_ & ~0x00000200);
+        statusUpdateUuid_ = getDefaultInstance().getStatusUpdateUuid();
+        onChanged();
+        return this;
       }
 
       // @@protoc_insertion_point(builder_scope:mesos.internal.Task)
@@ -2839,9 +3093,39 @@ public final class Messages {
      * <code>required bytes uuid = 6;</code>
      */
     com.google.protobuf.ByteString getUuid();
+
+    // optional .mesos.TaskState latest_state = 7;
+    /**
+     * <code>optional .mesos.TaskState latest_state = 7;</code>
+     *
+     * <pre>
+     * This corresponds to the latest state of the task according to the
+     * slave. Note that this state might be different than the state in
+     * 'status' because status update manager queues updates. In other
+     * words, 'status' corresponds to the update at top of the queue and
+     * 'latest_state' corresponds to the update at bottom of the queue.
+     * </pre>
+     */
+    boolean hasLatestState();
+    /**
+     * <code>optional .mesos.TaskState latest_state = 7;</code>
+     *
+     * <pre>
+     * This corresponds to the latest state of the task according to the
+     * slave. Note that this state might be different than the state in
+     * 'status' because status update manager queues updates. In other
+     * words, 'status' corresponds to the update at top of the queue and
+     * 'latest_state' corresponds to the update at bottom of the queue.
+     * </pre>
+     */
+    org.apache.mesos.Protos.TaskState getLatestState();
   }
   /**
    * Protobuf type {@code mesos.internal.StatusUpdate}
+   *
+   * <pre>
+   * TODO(vinod): Create a new UUID message type.
+   * </pre>
    */
   public static final class StatusUpdate extends
       com.google.protobuf.GeneratedMessage
@@ -2951,6 +3235,17 @@ public final class Messages {
             case 50: {
               bitField0_ |= 0x00000020;
               uuid_ = input.readBytes();
+              break;
+            }
+            case 56: {
+              int rawValue = input.readEnum();
+              org.apache.mesos.Protos.TaskState value = org.apache.mesos.Protos.TaskState.valueOf(rawValue);
+              if (value == null) {
+                unknownFields.mergeVarintField(7, rawValue);
+              } else {
+                bitField0_ |= 0x00000040;
+                latestState_ = value;
+              }
               break;
             }
           }
@@ -3113,6 +3408,38 @@ public final class Messages {
       return uuid_;
     }
 
+    // optional .mesos.TaskState latest_state = 7;
+    public static final int LATEST_STATE_FIELD_NUMBER = 7;
+    private org.apache.mesos.Protos.TaskState latestState_;
+    /**
+     * <code>optional .mesos.TaskState latest_state = 7;</code>
+     *
+     * <pre>
+     * This corresponds to the latest state of the task according to the
+     * slave. Note that this state might be different than the state in
+     * 'status' because status update manager queues updates. In other
+     * words, 'status' corresponds to the update at top of the queue and
+     * 'latest_state' corresponds to the update at bottom of the queue.
+     * </pre>
+     */
+    public boolean hasLatestState() {
+      return ((bitField0_ & 0x00000040) == 0x00000040);
+    }
+    /**
+     * <code>optional .mesos.TaskState latest_state = 7;</code>
+     *
+     * <pre>
+     * This corresponds to the latest state of the task according to the
+     * slave. Note that this state might be different than the state in
+     * 'status' because status update manager queues updates. In other
+     * words, 'status' corresponds to the update at top of the queue and
+     * 'latest_state' corresponds to the update at bottom of the queue.
+     * </pre>
+     */
+    public org.apache.mesos.Protos.TaskState getLatestState() {
+      return latestState_;
+    }
+
     private void initFields() {
       frameworkId_ = org.apache.mesos.Protos.FrameworkID.getDefaultInstance();
       executorId_ = org.apache.mesos.Protos.ExecutorID.getDefaultInstance();
@@ -3120,6 +3447,7 @@ public final class Messages {
       status_ = org.apache.mesos.Protos.TaskStatus.getDefaultInstance();
       timestamp_ = 0D;
       uuid_ = com.google.protobuf.ByteString.EMPTY;
+      latestState_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -3187,6 +3515,9 @@ public final class Messages {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         output.writeBytes(6, uuid_);
       }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        output.writeEnum(7, latestState_.getNumber());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -3219,6 +3550,10 @@ public final class Messages {
       if (((bitField0_ & 0x00000020) == 0x00000020)) {
         size += com.google.protobuf.CodedOutputStream
           .computeBytesSize(6, uuid_);
+      }
+      if (((bitField0_ & 0x00000040) == 0x00000040)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeEnumSize(7, latestState_.getNumber());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -3300,6 +3635,10 @@ public final class Messages {
     }
     /**
      * Protobuf type {@code mesos.internal.StatusUpdate}
+     *
+     * <pre>
+     * TODO(vinod): Create a new UUID message type.
+     * </pre>
      */
     public static final class Builder extends
         com.google.protobuf.GeneratedMessage.Builder<Builder>
@@ -3368,6 +3707,8 @@ public final class Messages {
         bitField0_ = (bitField0_ & ~0x00000010);
         uuid_ = com.google.protobuf.ByteString.EMPTY;
         bitField0_ = (bitField0_ & ~0x00000020);
+        latestState_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
+        bitField0_ = (bitField0_ & ~0x00000040);
         return this;
       }
 
@@ -3436,6 +3777,10 @@ public final class Messages {
           to_bitField0_ |= 0x00000020;
         }
         result.uuid_ = uuid_;
+        if (((from_bitField0_ & 0x00000040) == 0x00000040)) {
+          to_bitField0_ |= 0x00000040;
+        }
+        result.latestState_ = latestState_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -3469,6 +3814,9 @@ public final class Messages {
         }
         if (other.hasUuid()) {
           setUuid(other.getUuid());
+        }
+        if (other.hasLatestState()) {
+          setLatestState(other.getLatestState());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -4066,6 +4414,74 @@ public final class Messages {
       public Builder clearUuid() {
         bitField0_ = (bitField0_ & ~0x00000020);
         uuid_ = getDefaultInstance().getUuid();
+        onChanged();
+        return this;
+      }
+
+      // optional .mesos.TaskState latest_state = 7;
+      private org.apache.mesos.Protos.TaskState latestState_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
+      /**
+       * <code>optional .mesos.TaskState latest_state = 7;</code>
+       *
+       * <pre>
+       * This corresponds to the latest state of the task according to the
+       * slave. Note that this state might be different than the state in
+       * 'status' because status update manager queues updates. In other
+       * words, 'status' corresponds to the update at top of the queue and
+       * 'latest_state' corresponds to the update at bottom of the queue.
+       * </pre>
+       */
+      public boolean hasLatestState() {
+        return ((bitField0_ & 0x00000040) == 0x00000040);
+      }
+      /**
+       * <code>optional .mesos.TaskState latest_state = 7;</code>
+       *
+       * <pre>
+       * This corresponds to the latest state of the task according to the
+       * slave. Note that this state might be different than the state in
+       * 'status' because status update manager queues updates. In other
+       * words, 'status' corresponds to the update at top of the queue and
+       * 'latest_state' corresponds to the update at bottom of the queue.
+       * </pre>
+       */
+      public org.apache.mesos.Protos.TaskState getLatestState() {
+        return latestState_;
+      }
+      /**
+       * <code>optional .mesos.TaskState latest_state = 7;</code>
+       *
+       * <pre>
+       * This corresponds to the latest state of the task according to the
+       * slave. Note that this state might be different than the state in
+       * 'status' because status update manager queues updates. In other
+       * words, 'status' corresponds to the update at top of the queue and
+       * 'latest_state' corresponds to the update at bottom of the queue.
+       * </pre>
+       */
+      public Builder setLatestState(org.apache.mesos.Protos.TaskState value) {
+        if (value == null) {
+          throw new NullPointerException();
+        }
+        bitField0_ |= 0x00000040;
+        latestState_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional .mesos.TaskState latest_state = 7;</code>
+       *
+       * <pre>
+       * This corresponds to the latest state of the task according to the
+       * slave. Note that this state might be different than the state in
+       * 'status' because status update manager queues updates. In other
+       * words, 'status' corresponds to the update at top of the queue and
+       * 'latest_state' corresponds to the update at bottom of the queue.
+       * </pre>
+       */
+      public Builder clearLatestState() {
+        bitField0_ = (bitField0_ & ~0x00000040);
+        latestState_ = org.apache.mesos.Protos.TaskState.TASK_STAGING;
         onChanged();
         return this;
       }
@@ -21423,6 +21839,39 @@ public final class Messages {
      * <code>required .mesos.SlaveInfo slave = 1;</code>
      */
     org.apache.mesos.Protos.SlaveInfoOrBuilder getSlaveOrBuilder();
+
+    // optional string version = 2;
+    /**
+     * <code>optional string version = 2;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    boolean hasVersion();
+    /**
+     * <code>optional string version = 2;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    java.lang.String getVersion();
+    /**
+     * <code>optional string version = 2;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getVersionBytes();
   }
   /**
    * Protobuf type {@code mesos.internal.RegisterSlaveMessage}
@@ -21488,6 +21937,11 @@ public final class Messages {
               bitField0_ |= 0x00000001;
               break;
             }
+            case 18: {
+              bitField0_ |= 0x00000002;
+              version_ = input.readBytes();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -21550,8 +22004,70 @@ public final class Messages {
       return slave_;
     }
 
+    // optional string version = 2;
+    public static final int VERSION_FIELD_NUMBER = 2;
+    private java.lang.Object version_;
+    /**
+     * <code>optional string version = 2;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    public boolean hasVersion() {
+      return ((bitField0_ & 0x00000002) == 0x00000002);
+    }
+    /**
+     * <code>optional string version = 2;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    public java.lang.String getVersion() {
+      java.lang.Object ref = version_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          version_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string version = 2;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getVersionBytes() {
+      java.lang.Object ref = version_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        version_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       slave_ = org.apache.mesos.Protos.SlaveInfo.getDefaultInstance();
+      version_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -21576,6 +22092,9 @@ public final class Messages {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, slave_);
       }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        output.writeBytes(2, getVersionBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -21588,6 +22107,10 @@ public final class Messages {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, slave_);
+      }
+      if (((bitField0_ & 0x00000002) == 0x00000002)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(2, getVersionBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -21712,6 +22235,8 @@ public final class Messages {
           slaveBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        version_ = "";
+        bitField0_ = (bitField0_ & ~0x00000002);
         return this;
       }
 
@@ -21748,6 +22273,10 @@ public final class Messages {
         } else {
           result.slave_ = slaveBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+          to_bitField0_ |= 0x00000002;
+        }
+        result.version_ = version_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -21766,6 +22295,11 @@ public final class Messages {
         if (other == mesos.internal.Messages.RegisterSlaveMessage.getDefaultInstance()) return this;
         if (other.hasSlave()) {
           mergeSlave(other.getSlave());
+        }
+        if (other.hasVersion()) {
+          bitField0_ |= 0x00000002;
+          version_ = other.version_;
+          onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
@@ -21919,6 +22453,116 @@ public final class Messages {
         return slaveBuilder_;
       }
 
+      // optional string version = 2;
+      private java.lang.Object version_ = "";
+      /**
+       * <code>optional string version = 2;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public boolean hasVersion() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string version = 2;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public java.lang.String getVersion() {
+        java.lang.Object ref = version_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          version_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string version = 2;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getVersionBytes() {
+        java.lang.Object ref = version_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          version_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string version = 2;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public Builder setVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        version_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string version = 2;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public Builder clearVersion() {
+        bitField0_ = (bitField0_ & ~0x00000002);
+        version_ = getDefaultInstance().getVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string version = 2;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public Builder setVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+        version_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:mesos.internal.RegisterSlaveMessage)
     }
 
@@ -21933,31 +22577,34 @@ public final class Messages {
   public interface ReregisterSlaveMessageOrBuilder
       extends com.google.protobuf.MessageOrBuilder {
 
-    // required .mesos.SlaveID slave_id = 1;
+    // optional .mesos.SlaveID slave_id = 1;
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>optional .mesos.SlaveID slave_id = 1;</code>
      *
      * <pre>
-     * TODO(bmahler): Deprecate and remove the explicit slave_id as
-     * SlaveInfo already includes this information.
+     * TODO(bmahler): slave_id is deprecated.
+     * 0.21.0: Now an optional field. Always written, never read.
+     * 0.22.0: Remove this field.
      * </pre>
      */
     boolean hasSlaveId();
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>optional .mesos.SlaveID slave_id = 1;</code>
      *
      * <pre>
-     * TODO(bmahler): Deprecate and remove the explicit slave_id as
-     * SlaveInfo already includes this information.
+     * TODO(bmahler): slave_id is deprecated.
+     * 0.21.0: Now an optional field. Always written, never read.
+     * 0.22.0: Remove this field.
      * </pre>
      */
     org.apache.mesos.Protos.SlaveID getSlaveId();
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>optional .mesos.SlaveID slave_id = 1;</code>
      *
      * <pre>
-     * TODO(bmahler): Deprecate and remove the explicit slave_id as
-     * SlaveInfo already includes this information.
+     * TODO(bmahler): slave_id is deprecated.
+     * 0.21.0: Now an optional field. Always written, never read.
+     * 0.22.0: Remove this field.
      * </pre>
      */
     org.apache.mesos.Protos.SlaveIDOrBuilder getSlaveIdOrBuilder();
@@ -22050,6 +22697,39 @@ public final class Messages {
      */
     mesos.internal.Messages.Archive.FrameworkOrBuilder getCompletedFrameworksOrBuilder(
         int index);
+
+    // optional string version = 6;
+    /**
+     * <code>optional string version = 6;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    boolean hasVersion();
+    /**
+     * <code>optional string version = 6;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    java.lang.String getVersion();
+    /**
+     * <code>optional string version = 6;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    com.google.protobuf.ByteString
+        getVersionBytes();
   }
   /**
    * Protobuf type {@code mesos.internal.ReregisterSlaveMessage}
@@ -22152,6 +22832,11 @@ public final class Messages {
               completedFrameworks_.add(input.readMessage(mesos.internal.Messages.Archive.Framework.PARSER, extensionRegistry));
               break;
             }
+            case 50: {
+              bitField0_ |= 0x00000004;
+              version_ = input.readBytes();
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -22201,37 +22886,40 @@ public final class Messages {
     }
 
     private int bitField0_;
-    // required .mesos.SlaveID slave_id = 1;
+    // optional .mesos.SlaveID slave_id = 1;
     public static final int SLAVE_ID_FIELD_NUMBER = 1;
     private org.apache.mesos.Protos.SlaveID slaveId_;
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>optional .mesos.SlaveID slave_id = 1;</code>
      *
      * <pre>
-     * TODO(bmahler): Deprecate and remove the explicit slave_id as
-     * SlaveInfo already includes this information.
+     * TODO(bmahler): slave_id is deprecated.
+     * 0.21.0: Now an optional field. Always written, never read.
+     * 0.22.0: Remove this field.
      * </pre>
      */
     public boolean hasSlaveId() {
       return ((bitField0_ & 0x00000001) == 0x00000001);
     }
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>optional .mesos.SlaveID slave_id = 1;</code>
      *
      * <pre>
-     * TODO(bmahler): Deprecate and remove the explicit slave_id as
-     * SlaveInfo already includes this information.
+     * TODO(bmahler): slave_id is deprecated.
+     * 0.21.0: Now an optional field. Always written, never read.
+     * 0.22.0: Remove this field.
      * </pre>
      */
     public org.apache.mesos.Protos.SlaveID getSlaveId() {
       return slaveId_;
     }
     /**
-     * <code>required .mesos.SlaveID slave_id = 1;</code>
+     * <code>optional .mesos.SlaveID slave_id = 1;</code>
      *
      * <pre>
-     * TODO(bmahler): Deprecate and remove the explicit slave_id as
-     * SlaveInfo already includes this information.
+     * TODO(bmahler): slave_id is deprecated.
+     * 0.21.0: Now an optional field. Always written, never read.
+     * 0.22.0: Remove this field.
      * </pre>
      */
     public org.apache.mesos.Protos.SlaveIDOrBuilder getSlaveIdOrBuilder() {
@@ -22368,29 +23056,89 @@ public final class Messages {
       return completedFrameworks_.get(index);
     }
 
+    // optional string version = 6;
+    public static final int VERSION_FIELD_NUMBER = 6;
+    private java.lang.Object version_;
+    /**
+     * <code>optional string version = 6;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    public boolean hasVersion() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional string version = 6;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    public java.lang.String getVersion() {
+      java.lang.Object ref = version_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        if (bs.isValidUtf8()) {
+          version_ = s;
+        }
+        return s;
+      }
+    }
+    /**
+     * <code>optional string version = 6;</code>
+     *
+     * <pre>
+     * NOTE: This is a hack for the master to detect the slave's
+     * version. If unset the slave is &lt; 0.21.0.
+     * TODO(bmahler): Do proper versioning: MESOS-986.
+     * </pre>
+     */
+    public com.google.protobuf.ByteString
+        getVersionBytes() {
+      java.lang.Object ref = version_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        version_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
     private void initFields() {
       slaveId_ = org.apache.mesos.Protos.SlaveID.getDefaultInstance();
       slave_ = org.apache.mesos.Protos.SlaveInfo.getDefaultInstance();
       executorInfos_ = java.util.Collections.emptyList();
       tasks_ = java.util.Collections.emptyList();
       completedFrameworks_ = java.util.Collections.emptyList();
+      version_ = "";
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
       byte isInitialized = memoizedIsInitialized;
       if (isInitialized != -1) return isInitialized == 1;
 
-      if (!hasSlaveId()) {
-        memoizedIsInitialized = 0;
-        return false;
-      }
       if (!hasSlave()) {
         memoizedIsInitialized = 0;
         return false;
       }
-      if (!getSlaveId().isInitialized()) {
-        memoizedIsInitialized = 0;
-        return false;
+      if (hasSlaveId()) {
+        if (!getSlaveId().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
       }
       if (!getSlave().isInitialized()) {
         memoizedIsInitialized = 0;
@@ -22436,6 +23184,9 @@ public final class Messages {
       for (int i = 0; i < completedFrameworks_.size(); i++) {
         output.writeMessage(5, completedFrameworks_.get(i));
       }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeBytes(6, getVersionBytes());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -22464,6 +23215,10 @@ public final class Messages {
       for (int i = 0; i < completedFrameworks_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(5, completedFrameworks_.get(i));
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBytesSize(6, getVersionBytes());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -22616,6 +23371,8 @@ public final class Messages {
         } else {
           completedFrameworksBuilder_.clear();
         }
+        version_ = "";
+        bitField0_ = (bitField0_ & ~0x00000020);
         return this;
       }
 
@@ -22687,6 +23444,10 @@ public final class Messages {
         } else {
           result.completedFrameworks_ = completedFrameworksBuilder_.build();
         }
+        if (((from_bitField0_ & 0x00000020) == 0x00000020)) {
+          to_bitField0_ |= 0x00000004;
+        }
+        result.version_ = version_;
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -22787,22 +23548,25 @@ public final class Messages {
             }
           }
         }
+        if (other.hasVersion()) {
+          bitField0_ |= 0x00000020;
+          version_ = other.version_;
+          onChanged();
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
 
       public final boolean isInitialized() {
-        if (!hasSlaveId()) {
-          
-          return false;
-        }
         if (!hasSlave()) {
           
           return false;
         }
-        if (!getSlaveId().isInitialized()) {
-          
-          return false;
+        if (hasSlaveId()) {
+          if (!getSlaveId().isInitialized()) {
+            
+            return false;
+          }
         }
         if (!getSlave().isInitialized()) {
           
@@ -22848,27 +23612,29 @@ public final class Messages {
       }
       private int bitField0_;
 
-      // required .mesos.SlaveID slave_id = 1;
+      // optional .mesos.SlaveID slave_id = 1;
       private org.apache.mesos.Protos.SlaveID slaveId_ = org.apache.mesos.Protos.SlaveID.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
           org.apache.mesos.Protos.SlaveID, org.apache.mesos.Protos.SlaveID.Builder, org.apache.mesos.Protos.SlaveIDOrBuilder> slaveIdBuilder_;
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       public boolean hasSlaveId() {
         return ((bitField0_ & 0x00000001) == 0x00000001);
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       public org.apache.mesos.Protos.SlaveID getSlaveId() {
@@ -22879,11 +23645,12 @@ public final class Messages {
         }
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       public Builder setSlaveId(org.apache.mesos.Protos.SlaveID value) {
@@ -22900,11 +23667,12 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       public Builder setSlaveId(
@@ -22919,11 +23687,12 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       public Builder mergeSlaveId(org.apache.mesos.Protos.SlaveID value) {
@@ -22943,11 +23712,12 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       public Builder clearSlaveId() {
@@ -22961,11 +23731,12 @@ public final class Messages {
         return this;
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       public org.apache.mesos.Protos.SlaveID.Builder getSlaveIdBuilder() {
@@ -22974,11 +23745,12 @@ public final class Messages {
         return getSlaveIdFieldBuilder().getBuilder();
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       public org.apache.mesos.Protos.SlaveIDOrBuilder getSlaveIdOrBuilder() {
@@ -22989,11 +23761,12 @@ public final class Messages {
         }
       }
       /**
-       * <code>required .mesos.SlaveID slave_id = 1;</code>
+       * <code>optional .mesos.SlaveID slave_id = 1;</code>
        *
        * <pre>
-       * TODO(bmahler): Deprecate and remove the explicit slave_id as
-       * SlaveInfo already includes this information.
+       * TODO(bmahler): slave_id is deprecated.
+       * 0.21.0: Now an optional field. Always written, never read.
+       * 0.22.0: Remove this field.
        * </pre>
        */
       private com.google.protobuf.SingleFieldBuilder<
@@ -23847,6 +24620,116 @@ public final class Messages {
         return completedFrameworksBuilder_;
       }
 
+      // optional string version = 6;
+      private java.lang.Object version_ = "";
+      /**
+       * <code>optional string version = 6;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public boolean hasVersion() {
+        return ((bitField0_ & 0x00000020) == 0x00000020);
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public java.lang.String getVersion() {
+        java.lang.Object ref = version_;
+        if (!(ref instanceof java.lang.String)) {
+          java.lang.String s = ((com.google.protobuf.ByteString) ref)
+              .toStringUtf8();
+          version_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getVersionBytes() {
+        java.lang.Object ref = version_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          version_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public Builder setVersion(
+          java.lang.String value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        version_ = value;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public Builder clearVersion() {
+        bitField0_ = (bitField0_ & ~0x00000020);
+        version_ = getDefaultInstance().getVersion();
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>optional string version = 6;</code>
+       *
+       * <pre>
+       * NOTE: This is a hack for the master to detect the slave's
+       * version. If unset the slave is &lt; 0.21.0.
+       * TODO(bmahler): Do proper versioning: MESOS-986.
+       * </pre>
+       */
+      public Builder setVersionBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000020;
+        version_ = value;
+        onChanged();
+        return this;
+      }
+
       // @@protoc_insertion_point(builder_scope:mesos.internal.ReregisterSlaveMessage)
     }
 
@@ -24397,6 +25280,31 @@ public final class Messages {
      * <code>required .mesos.SlaveID slave_id = 1;</code>
      */
     org.apache.mesos.Protos.SlaveIDOrBuilder getSlaveIdOrBuilder();
+
+    // repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    java.util.List<mesos.internal.Messages.ReconcileTasksMessage> 
+        getReconciliationsList();
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    mesos.internal.Messages.ReconcileTasksMessage getReconciliations(int index);
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    int getReconciliationsCount();
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    java.util.List<? extends mesos.internal.Messages.ReconcileTasksMessageOrBuilder> 
+        getReconciliationsOrBuilderList();
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    mesos.internal.Messages.ReconcileTasksMessageOrBuilder getReconciliationsOrBuilder(
+        int index);
   }
   /**
    * Protobuf type {@code mesos.internal.SlaveReregisteredMessage}
@@ -24462,6 +25370,14 @@ public final class Messages {
               bitField0_ |= 0x00000001;
               break;
             }
+            case 18: {
+              if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                reconciliations_ = new java.util.ArrayList<mesos.internal.Messages.ReconcileTasksMessage>();
+                mutable_bitField0_ |= 0x00000002;
+              }
+              reconciliations_.add(input.readMessage(mesos.internal.Messages.ReconcileTasksMessage.PARSER, extensionRegistry));
+              break;
+            }
           }
         }
       } catch (com.google.protobuf.InvalidProtocolBufferException e) {
@@ -24470,6 +25386,9 @@ public final class Messages {
         throw new com.google.protobuf.InvalidProtocolBufferException(
             e.getMessage()).setUnfinishedMessage(this);
       } finally {
+        if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+          reconciliations_ = java.util.Collections.unmodifiableList(reconciliations_);
+        }
         this.unknownFields = unknownFields.build();
         makeExtensionsImmutable();
       }
@@ -24524,8 +25443,45 @@ public final class Messages {
       return slaveId_;
     }
 
+    // repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;
+    public static final int RECONCILIATIONS_FIELD_NUMBER = 2;
+    private java.util.List<mesos.internal.Messages.ReconcileTasksMessage> reconciliations_;
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    public java.util.List<mesos.internal.Messages.ReconcileTasksMessage> getReconciliationsList() {
+      return reconciliations_;
+    }
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    public java.util.List<? extends mesos.internal.Messages.ReconcileTasksMessageOrBuilder> 
+        getReconciliationsOrBuilderList() {
+      return reconciliations_;
+    }
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    public int getReconciliationsCount() {
+      return reconciliations_.size();
+    }
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    public mesos.internal.Messages.ReconcileTasksMessage getReconciliations(int index) {
+      return reconciliations_.get(index);
+    }
+    /**
+     * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+     */
+    public mesos.internal.Messages.ReconcileTasksMessageOrBuilder getReconciliationsOrBuilder(
+        int index) {
+      return reconciliations_.get(index);
+    }
+
     private void initFields() {
       slaveId_ = org.apache.mesos.Protos.SlaveID.getDefaultInstance();
+      reconciliations_ = java.util.Collections.emptyList();
     }
     private byte memoizedIsInitialized = -1;
     public final boolean isInitialized() {
@@ -24540,6 +25496,12 @@ public final class Messages {
         memoizedIsInitialized = 0;
         return false;
       }
+      for (int i = 0; i < getReconciliationsCount(); i++) {
+        if (!getReconciliations(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
       memoizedIsInitialized = 1;
       return true;
     }
@@ -24549,6 +25511,9 @@ public final class Messages {
       getSerializedSize();
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         output.writeMessage(1, slaveId_);
+      }
+      for (int i = 0; i < reconciliations_.size(); i++) {
+        output.writeMessage(2, reconciliations_.get(i));
       }
       getUnknownFields().writeTo(output);
     }
@@ -24562,6 +25527,10 @@ public final class Messages {
       if (((bitField0_ & 0x00000001) == 0x00000001)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(1, slaveId_);
+      }
+      for (int i = 0; i < reconciliations_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(2, reconciliations_.get(i));
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -24672,6 +25641,7 @@ public final class Messages {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getSlaveIdFieldBuilder();
+          getReconciliationsFieldBuilder();
         }
       }
       private static Builder create() {
@@ -24686,6 +25656,12 @@ public final class Messages {
           slaveIdBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000001);
+        if (reconciliationsBuilder_ == null) {
+          reconciliations_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+        } else {
+          reconciliationsBuilder_.clear();
+        }
         return this;
       }
 
@@ -24722,6 +25698,15 @@ public final class Messages {
         } else {
           result.slaveId_ = slaveIdBuilder_.build();
         }
+        if (reconciliationsBuilder_ == null) {
+          if (((bitField0_ & 0x00000002) == 0x00000002)) {
+            reconciliations_ = java.util.Collections.unmodifiableList(reconciliations_);
+            bitField0_ = (bitField0_ & ~0x00000002);
+          }
+          result.reconciliations_ = reconciliations_;
+        } else {
+          result.reconciliations_ = reconciliationsBuilder_.build();
+        }
         result.bitField0_ = to_bitField0_;
         onBuilt();
         return result;
@@ -24741,6 +25726,32 @@ public final class Messages {
         if (other.hasSlaveId()) {
           mergeSlaveId(other.getSlaveId());
         }
+        if (reconciliationsBuilder_ == null) {
+          if (!other.reconciliations_.isEmpty()) {
+            if (reconciliations_.isEmpty()) {
+              reconciliations_ = other.reconciliations_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              ensureReconciliationsIsMutable();
+              reconciliations_.addAll(other.reconciliations_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.reconciliations_.isEmpty()) {
+            if (reconciliationsBuilder_.isEmpty()) {
+              reconciliationsBuilder_.dispose();
+              reconciliationsBuilder_ = null;
+              reconciliations_ = other.reconciliations_;
+              bitField0_ = (bitField0_ & ~0x00000002);
+              reconciliationsBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getReconciliationsFieldBuilder() : null;
+            } else {
+              reconciliationsBuilder_.addAllMessages(other.reconciliations_);
+            }
+          }
+        }
         this.mergeUnknownFields(other.getUnknownFields());
         return this;
       }
@@ -24753,6 +25764,12 @@ public final class Messages {
         if (!getSlaveId().isInitialized()) {
           
           return false;
+        }
+        for (int i = 0; i < getReconciliationsCount(); i++) {
+          if (!getReconciliations(i).isInitialized()) {
+            
+            return false;
+          }
         }
         return true;
       }
@@ -24891,6 +25908,246 @@ public final class Messages {
           slaveId_ = null;
         }
         return slaveIdBuilder_;
+      }
+
+      // repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;
+      private java.util.List<mesos.internal.Messages.ReconcileTasksMessage> reconciliations_ =
+        java.util.Collections.emptyList();
+      private void ensureReconciliationsIsMutable() {
+        if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+          reconciliations_ = new java.util.ArrayList<mesos.internal.Messages.ReconcileTasksMessage>(reconciliations_);
+          bitField0_ |= 0x00000002;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          mesos.internal.Messages.ReconcileTasksMessage, mesos.internal.Messages.ReconcileTasksMessage.Builder, mesos.internal.Messages.ReconcileTasksMessageOrBuilder> reconciliationsBuilder_;
+
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public java.util.List<mesos.internal.Messages.ReconcileTasksMessage> getReconciliationsList() {
+        if (reconciliationsBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(reconciliations_);
+        } else {
+          return reconciliationsBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public int getReconciliationsCount() {
+        if (reconciliationsBuilder_ == null) {
+          return reconciliations_.size();
+        } else {
+          return reconciliationsBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public mesos.internal.Messages.ReconcileTasksMessage getReconciliations(int index) {
+        if (reconciliationsBuilder_ == null) {
+          return reconciliations_.get(index);
+        } else {
+          return reconciliationsBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder setReconciliations(
+          int index, mesos.internal.Messages.ReconcileTasksMessage value) {
+        if (reconciliationsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureReconciliationsIsMutable();
+          reconciliations_.set(index, value);
+          onChanged();
+        } else {
+          reconciliationsBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder setReconciliations(
+          int index, mesos.internal.Messages.ReconcileTasksMessage.Builder builderForValue) {
+        if (reconciliationsBuilder_ == null) {
+          ensureReconciliationsIsMutable();
+          reconciliations_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          reconciliationsBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder addReconciliations(mesos.internal.Messages.ReconcileTasksMessage value) {
+        if (reconciliationsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureReconciliationsIsMutable();
+          reconciliations_.add(value);
+          onChanged();
+        } else {
+          reconciliationsBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder addReconciliations(
+          int index, mesos.internal.Messages.ReconcileTasksMessage value) {
+        if (reconciliationsBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureReconciliationsIsMutable();
+          reconciliations_.add(index, value);
+          onChanged();
+        } else {
+          reconciliationsBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder addReconciliations(
+          mesos.internal.Messages.ReconcileTasksMessage.Builder builderForValue) {
+        if (reconciliationsBuilder_ == null) {
+          ensureReconciliationsIsMutable();
+          reconciliations_.add(builderForValue.build());
+          onChanged();
+        } else {
+          reconciliationsBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder addReconciliations(
+          int index, mesos.internal.Messages.ReconcileTasksMessage.Builder builderForValue) {
+        if (reconciliationsBuilder_ == null) {
+          ensureReconciliationsIsMutable();
+          reconciliations_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          reconciliationsBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder addAllReconciliations(
+          java.lang.Iterable<? extends mesos.internal.Messages.ReconcileTasksMessage> values) {
+        if (reconciliationsBuilder_ == null) {
+          ensureReconciliationsIsMutable();
+          super.addAll(values, reconciliations_);
+          onChanged();
+        } else {
+          reconciliationsBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder clearReconciliations() {
+        if (reconciliationsBuilder_ == null) {
+          reconciliations_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000002);
+          onChanged();
+        } else {
+          reconciliationsBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public Builder removeReconciliations(int index) {
+        if (reconciliationsBuilder_ == null) {
+          ensureReconciliationsIsMutable();
+          reconciliations_.remove(index);
+          onChanged();
+        } else {
+          reconciliationsBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public mesos.internal.Messages.ReconcileTasksMessage.Builder getReconciliationsBuilder(
+          int index) {
+        return getReconciliationsFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public mesos.internal.Messages.ReconcileTasksMessageOrBuilder getReconciliationsOrBuilder(
+          int index) {
+        if (reconciliationsBuilder_ == null) {
+          return reconciliations_.get(index);  } else {
+          return reconciliationsBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public java.util.List<? extends mesos.internal.Messages.ReconcileTasksMessageOrBuilder> 
+           getReconciliationsOrBuilderList() {
+        if (reconciliationsBuilder_ != null) {
+          return reconciliationsBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(reconciliations_);
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public mesos.internal.Messages.ReconcileTasksMessage.Builder addReconciliationsBuilder() {
+        return getReconciliationsFieldBuilder().addBuilder(
+            mesos.internal.Messages.ReconcileTasksMessage.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public mesos.internal.Messages.ReconcileTasksMessage.Builder addReconciliationsBuilder(
+          int index) {
+        return getReconciliationsFieldBuilder().addBuilder(
+            index, mesos.internal.Messages.ReconcileTasksMessage.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .mesos.internal.ReconcileTasksMessage reconciliations = 2;</code>
+       */
+      public java.util.List<mesos.internal.Messages.ReconcileTasksMessage.Builder> 
+           getReconciliationsBuilderList() {
+        return getReconciliationsFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          mesos.internal.Messages.ReconcileTasksMessage, mesos.internal.Messages.ReconcileTasksMessage.Builder, mesos.internal.Messages.ReconcileTasksMessageOrBuilder> 
+          getReconciliationsFieldBuilder() {
+        if (reconciliationsBuilder_ == null) {
+          reconciliationsBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              mesos.internal.Messages.ReconcileTasksMessage, mesos.internal.Messages.ReconcileTasksMessage.Builder, mesos.internal.Messages.ReconcileTasksMessageOrBuilder>(
+                  reconciliations_,
+                  ((bitField0_ & 0x00000002) == 0x00000002),
+                  getParentForChildren(),
+                  isClean());
+          reconciliations_ = null;
+        }
+        return reconciliationsBuilder_;
       }
 
       // @@protoc_insertion_point(builder_scope:mesos.internal.SlaveReregisteredMessage)
@@ -39851,6 +41108,2838 @@ public final class Messages {
     // @@protoc_insertion_point(class_scope:mesos.internal.TaskHealthStatus)
   }
 
+  public interface ModulesOrBuilder
+      extends com.google.protobuf.MessageOrBuilder {
+
+    // repeated .mesos.internal.Modules.Library libraries = 1;
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    java.util.List<mesos.internal.Messages.Modules.Library> 
+        getLibrariesList();
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    mesos.internal.Messages.Modules.Library getLibraries(int index);
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    int getLibrariesCount();
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    java.util.List<? extends mesos.internal.Messages.Modules.LibraryOrBuilder> 
+        getLibrariesOrBuilderList();
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    mesos.internal.Messages.Modules.LibraryOrBuilder getLibrariesOrBuilder(
+        int index);
+  }
+  /**
+   * Protobuf type {@code mesos.internal.Modules}
+   *
+   * <pre>
+   * Collection of Modules.
+   * </pre>
+   */
+  public static final class Modules extends
+      com.google.protobuf.GeneratedMessage
+      implements ModulesOrBuilder {
+    // Use Modules.newBuilder() to construct.
+    private Modules(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+      this.unknownFields = builder.getUnknownFields();
+    }
+    private Modules(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+    private static final Modules defaultInstance;
+    public static Modules getDefaultInstance() {
+      return defaultInstance;
+    }
+
+    public Modules getDefaultInstanceForType() {
+      return defaultInstance;
+    }
+
+    private final com.google.protobuf.UnknownFieldSet unknownFields;
+    @java.lang.Override
+    public final com.google.protobuf.UnknownFieldSet
+        getUnknownFields() {
+      return this.unknownFields;
+    }
+    private Modules(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      initFields();
+      int mutable_bitField0_ = 0;
+      com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+          com.google.protobuf.UnknownFieldSet.newBuilder();
+      try {
+        boolean done = false;
+        while (!done) {
+          int tag = input.readTag();
+          switch (tag) {
+            case 0:
+              done = true;
+              break;
+            default: {
+              if (!parseUnknownField(input, unknownFields,
+                                     extensionRegistry, tag)) {
+                done = true;
+              }
+              break;
+            }
+            case 10: {
+              if (!((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+                libraries_ = new java.util.ArrayList<mesos.internal.Messages.Modules.Library>();
+                mutable_bitField0_ |= 0x00000001;
+              }
+              libraries_.add(input.readMessage(mesos.internal.Messages.Modules.Library.PARSER, extensionRegistry));
+              break;
+            }
+          }
+        }
+      } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+        throw e.setUnfinishedMessage(this);
+      } catch (java.io.IOException e) {
+        throw new com.google.protobuf.InvalidProtocolBufferException(
+            e.getMessage()).setUnfinishedMessage(this);
+      } finally {
+        if (((mutable_bitField0_ & 0x00000001) == 0x00000001)) {
+          libraries_ = java.util.Collections.unmodifiableList(libraries_);
+        }
+        this.unknownFields = unknownFields.build();
+        makeExtensionsImmutable();
+      }
+    }
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return mesos.internal.Messages.internal_static_mesos_internal_Modules_descriptor;
+    }
+
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return mesos.internal.Messages.internal_static_mesos_internal_Modules_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              mesos.internal.Messages.Modules.class, mesos.internal.Messages.Modules.Builder.class);
+    }
+
+    public static com.google.protobuf.Parser<Modules> PARSER =
+        new com.google.protobuf.AbstractParser<Modules>() {
+      public Modules parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return new Modules(input, extensionRegistry);
+      }
+    };
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<Modules> getParserForType() {
+      return PARSER;
+    }
+
+    public interface LibraryOrBuilder
+        extends com.google.protobuf.MessageOrBuilder {
+
+      // optional string file = 1;
+      /**
+       * <code>optional string file = 1;</code>
+       *
+       * <pre>
+       * If "file" contains a slash ("/"), then it is interpreted as a
+       * (relative or absolute) pathname.  Otherwise a standard library
+       * search is performed.
+       * </pre>
+       */
+      boolean hasFile();
+      /**
+       * <code>optional string file = 1;</code>
+       *
+       * <pre>
+       * If "file" contains a slash ("/"), then it is interpreted as a
+       * (relative or absolute) pathname.  Otherwise a standard library
+       * search is performed.
+       * </pre>
+       */
+      java.lang.String getFile();
+      /**
+       * <code>optional string file = 1;</code>
+       *
+       * <pre>
+       * If "file" contains a slash ("/"), then it is interpreted as a
+       * (relative or absolute) pathname.  Otherwise a standard library
+       * search is performed.
+       * </pre>
+       */
+      com.google.protobuf.ByteString
+          getFileBytes();
+
+      // optional string name = 2;
+      /**
+       * <code>optional string name = 2;</code>
+       *
+       * <pre>
+       * We will add the proper prefix ("lib") and suffix (".so" for
+       * Linux and ".dylib" for OS X) to the "name".
+       * </pre>
+       */
+      boolean hasName();
+      /**
+       * <code>optional string name = 2;</code>
+       *
+       * <pre>
+       * We will add the proper prefix ("lib") and suffix (".so" for
+       * Linux and ".dylib" for OS X) to the "name".
+       * </pre>
+       */
+      java.lang.String getName();
+      /**
+       * <code>optional string name = 2;</code>
+       *
+       * <pre>
+       * We will add the proper prefix ("lib") and suffix (".so" for
+       * Linux and ".dylib" for OS X) to the "name".
+       * </pre>
+       */
+      com.google.protobuf.ByteString
+          getNameBytes();
+
+      // repeated .mesos.internal.Modules.Library.Module modules = 3;
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      java.util.List<mesos.internal.Messages.Modules.Library.Module> 
+          getModulesList();
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      mesos.internal.Messages.Modules.Library.Module getModules(int index);
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      int getModulesCount();
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      java.util.List<? extends mesos.internal.Messages.Modules.Library.ModuleOrBuilder> 
+          getModulesOrBuilderList();
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      mesos.internal.Messages.Modules.Library.ModuleOrBuilder getModulesOrBuilder(
+          int index);
+    }
+    /**
+     * Protobuf type {@code mesos.internal.Modules.Library}
+     */
+    public static final class Library extends
+        com.google.protobuf.GeneratedMessage
+        implements LibraryOrBuilder {
+      // Use Library.newBuilder() to construct.
+      private Library(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+        super(builder);
+        this.unknownFields = builder.getUnknownFields();
+      }
+      private Library(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+      private static final Library defaultInstance;
+      public static Library getDefaultInstance() {
+        return defaultInstance;
+      }
+
+      public Library getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Library(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 10: {
+                bitField0_ |= 0x00000001;
+                file_ = input.readBytes();
+                break;
+              }
+              case 18: {
+                bitField0_ |= 0x00000002;
+                name_ = input.readBytes();
+                break;
+              }
+              case 26: {
+                if (!((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+                  modules_ = new java.util.ArrayList<mesos.internal.Messages.Modules.Library.Module>();
+                  mutable_bitField0_ |= 0x00000004;
+                }
+                modules_.add(input.readMessage(mesos.internal.Messages.Modules.Library.Module.PARSER, extensionRegistry));
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          if (((mutable_bitField0_ & 0x00000004) == 0x00000004)) {
+            modules_ = java.util.Collections.unmodifiableList(modules_);
+          }
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                mesos.internal.Messages.Modules.Library.class, mesos.internal.Messages.Modules.Library.Builder.class);
+      }
+
+      public static com.google.protobuf.Parser<Library> PARSER =
+          new com.google.protobuf.AbstractParser<Library>() {
+        public Library parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Library(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Library> getParserForType() {
+        return PARSER;
+      }
+
+      public interface ModuleOrBuilder
+          extends com.google.protobuf.MessageOrBuilder {
+
+        // optional string name = 1;
+        /**
+         * <code>optional string name = 1;</code>
+         *
+         * <pre>
+         * Module name.
+         * </pre>
+         */
+        boolean hasName();
+        /**
+         * <code>optional string name = 1;</code>
+         *
+         * <pre>
+         * Module name.
+         * </pre>
+         */
+        java.lang.String getName();
+        /**
+         * <code>optional string name = 1;</code>
+         *
+         * <pre>
+         * Module name.
+         * </pre>
+         */
+        com.google.protobuf.ByteString
+            getNameBytes();
+
+        // repeated .mesos.Parameter parameters = 2;
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        java.util.List<org.apache.mesos.Protos.Parameter> 
+            getParametersList();
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        org.apache.mesos.Protos.Parameter getParameters(int index);
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        int getParametersCount();
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        java.util.List<? extends org.apache.mesos.Protos.ParameterOrBuilder> 
+            getParametersOrBuilderList();
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        org.apache.mesos.Protos.ParameterOrBuilder getParametersOrBuilder(
+            int index);
+      }
+      /**
+       * Protobuf type {@code mesos.internal.Modules.Library.Module}
+       */
+      public static final class Module extends
+          com.google.protobuf.GeneratedMessage
+          implements ModuleOrBuilder {
+        // Use Module.newBuilder() to construct.
+        private Module(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+          super(builder);
+          this.unknownFields = builder.getUnknownFields();
+        }
+        private Module(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+        private static final Module defaultInstance;
+        public static Module getDefaultInstance() {
+          return defaultInstance;
+        }
+
+        public Module getDefaultInstanceForType() {
+          return defaultInstance;
+        }
+
+        private final com.google.protobuf.UnknownFieldSet unknownFields;
+        @java.lang.Override
+        public final com.google.protobuf.UnknownFieldSet
+            getUnknownFields() {
+          return this.unknownFields;
+        }
+        private Module(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          initFields();
+          int mutable_bitField0_ = 0;
+          com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+              com.google.protobuf.UnknownFieldSet.newBuilder();
+          try {
+            boolean done = false;
+            while (!done) {
+              int tag = input.readTag();
+              switch (tag) {
+                case 0:
+                  done = true;
+                  break;
+                default: {
+                  if (!parseUnknownField(input, unknownFields,
+                                         extensionRegistry, tag)) {
+                    done = true;
+                  }
+                  break;
+                }
+                case 10: {
+                  bitField0_ |= 0x00000001;
+                  name_ = input.readBytes();
+                  break;
+                }
+                case 18: {
+                  if (!((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+                    parameters_ = new java.util.ArrayList<org.apache.mesos.Protos.Parameter>();
+                    mutable_bitField0_ |= 0x00000002;
+                  }
+                  parameters_.add(input.readMessage(org.apache.mesos.Protos.Parameter.PARSER, extensionRegistry));
+                  break;
+                }
+              }
+            }
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            throw e.setUnfinishedMessage(this);
+          } catch (java.io.IOException e) {
+            throw new com.google.protobuf.InvalidProtocolBufferException(
+                e.getMessage()).setUnfinishedMessage(this);
+          } finally {
+            if (((mutable_bitField0_ & 0x00000002) == 0x00000002)) {
+              parameters_ = java.util.Collections.unmodifiableList(parameters_);
+            }
+            this.unknownFields = unknownFields.build();
+            makeExtensionsImmutable();
+          }
+        }
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_Module_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_Module_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  mesos.internal.Messages.Modules.Library.Module.class, mesos.internal.Messages.Modules.Library.Module.Builder.class);
+        }
+
+        public static com.google.protobuf.Parser<Module> PARSER =
+            new com.google.protobuf.AbstractParser<Module>() {
+          public Module parsePartialFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws com.google.protobuf.InvalidProtocolBufferException {
+            return new Module(input, extensionRegistry);
+          }
+        };
+
+        @java.lang.Override
+        public com.google.protobuf.Parser<Module> getParserForType() {
+          return PARSER;
+        }
+
+        private int bitField0_;
+        // optional string name = 1;
+        public static final int NAME_FIELD_NUMBER = 1;
+        private java.lang.Object name_;
+        /**
+         * <code>optional string name = 1;</code>
+         *
+         * <pre>
+         * Module name.
+         * </pre>
+         */
+        public boolean hasName() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>optional string name = 1;</code>
+         *
+         * <pre>
+         * Module name.
+         * </pre>
+         */
+        public java.lang.String getName() {
+          java.lang.Object ref = name_;
+          if (ref instanceof java.lang.String) {
+            return (java.lang.String) ref;
+          } else {
+            com.google.protobuf.ByteString bs = 
+                (com.google.protobuf.ByteString) ref;
+            java.lang.String s = bs.toStringUtf8();
+            if (bs.isValidUtf8()) {
+              name_ = s;
+            }
+            return s;
+          }
+        }
+        /**
+         * <code>optional string name = 1;</code>
+         *
+         * <pre>
+         * Module name.
+         * </pre>
+         */
+        public com.google.protobuf.ByteString
+            getNameBytes() {
+          java.lang.Object ref = name_;
+          if (ref instanceof java.lang.String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            name_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+
+        // repeated .mesos.Parameter parameters = 2;
+        public static final int PARAMETERS_FIELD_NUMBER = 2;
+        private java.util.List<org.apache.mesos.Protos.Parameter> parameters_;
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        public java.util.List<org.apache.mesos.Protos.Parameter> getParametersList() {
+          return parameters_;
+        }
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        public java.util.List<? extends org.apache.mesos.Protos.ParameterOrBuilder> 
+            getParametersOrBuilderList() {
+          return parameters_;
+        }
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        public int getParametersCount() {
+          return parameters_.size();
+        }
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        public org.apache.mesos.Protos.Parameter getParameters(int index) {
+          return parameters_.get(index);
+        }
+        /**
+         * <code>repeated .mesos.Parameter parameters = 2;</code>
+         *
+         * <pre>
+         * Module-specific parameters.
+         * </pre>
+         */
+        public org.apache.mesos.Protos.ParameterOrBuilder getParametersOrBuilder(
+            int index) {
+          return parameters_.get(index);
+        }
+
+        private void initFields() {
+          name_ = "";
+          parameters_ = java.util.Collections.emptyList();
+        }
+        private byte memoizedIsInitialized = -1;
+        public final boolean isInitialized() {
+          byte isInitialized = memoizedIsInitialized;
+          if (isInitialized != -1) return isInitialized == 1;
+
+          for (int i = 0; i < getParametersCount(); i++) {
+            if (!getParameters(i).isInitialized()) {
+              memoizedIsInitialized = 0;
+              return false;
+            }
+          }
+          memoizedIsInitialized = 1;
+          return true;
+        }
+
+        public void writeTo(com.google.protobuf.CodedOutputStream output)
+                            throws java.io.IOException {
+          getSerializedSize();
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            output.writeBytes(1, getNameBytes());
+          }
+          for (int i = 0; i < parameters_.size(); i++) {
+            output.writeMessage(2, parameters_.get(i));
+          }
+          getUnknownFields().writeTo(output);
+        }
+
+        private int memoizedSerializedSize = -1;
+        public int getSerializedSize() {
+          int size = memoizedSerializedSize;
+          if (size != -1) return size;
+
+          size = 0;
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeBytesSize(1, getNameBytes());
+          }
+          for (int i = 0; i < parameters_.size(); i++) {
+            size += com.google.protobuf.CodedOutputStream
+              .computeMessageSize(2, parameters_.get(i));
+          }
+          size += getUnknownFields().getSerializedSize();
+          memoizedSerializedSize = size;
+          return size;
+        }
+
+        private static final long serialVersionUID = 0L;
+        @java.lang.Override
+        protected java.lang.Object writeReplace()
+            throws java.io.ObjectStreamException {
+          return super.writeReplace();
+        }
+
+        public static mesos.internal.Messages.Modules.Library.Module parseFrom(
+            com.google.protobuf.ByteString data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseFrom(
+            com.google.protobuf.ByteString data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseFrom(byte[] data)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseFrom(
+            byte[] data,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return PARSER.parseFrom(data, extensionRegistry);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input, extensionRegistry);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseDelimitedFrom(java.io.InputStream input)
+            throws java.io.IOException {
+          return PARSER.parseDelimitedFrom(input);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseDelimitedFrom(
+            java.io.InputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseDelimitedFrom(input, extensionRegistry);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseFrom(
+            com.google.protobuf.CodedInputStream input)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input);
+        }
+        public static mesos.internal.Messages.Modules.Library.Module parseFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          return PARSER.parseFrom(input, extensionRegistry);
+        }
+
+        public static Builder newBuilder() { return Builder.create(); }
+        public Builder newBuilderForType() { return newBuilder(); }
+        public static Builder newBuilder(mesos.internal.Messages.Modules.Library.Module prototype) {
+          return newBuilder().mergeFrom(prototype);
+        }
+        public Builder toBuilder() { return newBuilder(this); }
+
+        @java.lang.Override
+        protected Builder newBuilderForType(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          Builder builder = new Builder(parent);
+          return builder;
+        }
+        /**
+         * Protobuf type {@code mesos.internal.Modules.Library.Module}
+         */
+        public static final class Builder extends
+            com.google.protobuf.GeneratedMessage.Builder<Builder>
+           implements mesos.internal.Messages.Modules.Library.ModuleOrBuilder {
+          public static final com.google.protobuf.Descriptors.Descriptor
+              getDescriptor() {
+            return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_Module_descriptor;
+          }
+
+          protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+              internalGetFieldAccessorTable() {
+            return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_Module_fieldAccessorTable
+                .ensureFieldAccessorsInitialized(
+                    mesos.internal.Messages.Modules.Library.Module.class, mesos.internal.Messages.Modules.Library.Module.Builder.class);
+          }
+
+          // Construct using mesos.internal.Messages.Modules.Library.Module.newBuilder()
+          private Builder() {
+            maybeForceBuilderInitialization();
+          }
+
+          private Builder(
+              com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+            super(parent);
+            maybeForceBuilderInitialization();
+          }
+          private void maybeForceBuilderInitialization() {
+            if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+              getParametersFieldBuilder();
+            }
+          }
+          private static Builder create() {
+            return new Builder();
+          }
+
+          public Builder clear() {
+            super.clear();
+            name_ = "";
+            bitField0_ = (bitField0_ & ~0x00000001);
+            if (parametersBuilder_ == null) {
+              parameters_ = java.util.Collections.emptyList();
+              bitField0_ = (bitField0_ & ~0x00000002);
+            } else {
+              parametersBuilder_.clear();
+            }
+            return this;
+          }
+
+          public Builder clone() {
+            return create().mergeFrom(buildPartial());
+          }
+
+          public com.google.protobuf.Descriptors.Descriptor
+              getDescriptorForType() {
+            return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_Module_descriptor;
+          }
+
+          public mesos.internal.Messages.Modules.Library.Module getDefaultInstanceForType() {
+            return mesos.internal.Messages.Modules.Library.Module.getDefaultInstance();
+          }
+
+          public mesos.internal.Messages.Modules.Library.Module build() {
+            mesos.internal.Messages.Modules.Library.Module result = buildPartial();
+            if (!result.isInitialized()) {
+              throw newUninitializedMessageException(result);
+            }
+            return result;
+          }
+
+          public mesos.internal.Messages.Modules.Library.Module buildPartial() {
+            mesos.internal.Messages.Modules.Library.Module result = new mesos.internal.Messages.Modules.Library.Module(this);
+            int from_bitField0_ = bitField0_;
+            int to_bitField0_ = 0;
+            if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+              to_bitField0_ |= 0x00000001;
+            }
+            result.name_ = name_;
+            if (parametersBuilder_ == null) {
+              if (((bitField0_ & 0x00000002) == 0x00000002)) {
+                parameters_ = java.util.Collections.unmodifiableList(parameters_);
+                bitField0_ = (bitField0_ & ~0x00000002);
+              }
+              result.parameters_ = parameters_;
+            } else {
+              result.parameters_ = parametersBuilder_.build();
+            }
+            result.bitField0_ = to_bitField0_;
+            onBuilt();
+            return result;
+          }
+
+          public Builder mergeFrom(com.google.protobuf.Message other) {
+            if (other instanceof mesos.internal.Messages.Modules.Library.Module) {
+              return mergeFrom((mesos.internal.Messages.Modules.Library.Module)other);
+            } else {
+              super.mergeFrom(other);
+              return this;
+            }
+          }
+
+          public Builder mergeFrom(mesos.internal.Messages.Modules.Library.Module other) {
+            if (other == mesos.internal.Messages.Modules.Library.Module.getDefaultInstance()) return this;
+            if (other.hasName()) {
+              bitField0_ |= 0x00000001;
+              name_ = other.name_;
+              onChanged();
+            }
+            if (parametersBuilder_ == null) {
+              if (!other.parameters_.isEmpty()) {
+                if (parameters_.isEmpty()) {
+                  parameters_ = other.parameters_;
+                  bitField0_ = (bitField0_ & ~0x00000002);
+                } else {
+                  ensureParametersIsMutable();
+                  parameters_.addAll(other.parameters_);
+                }
+                onChanged();
+              }
+            } else {
+              if (!other.parameters_.isEmpty()) {
+                if (parametersBuilder_.isEmpty()) {
+                  parametersBuilder_.dispose();
+                  parametersBuilder_ = null;
+                  parameters_ = other.parameters_;
+                  bitField0_ = (bitField0_ & ~0x00000002);
+                  parametersBuilder_ = 
+                    com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                       getParametersFieldBuilder() : null;
+                } else {
+                  parametersBuilder_.addAllMessages(other.parameters_);
+                }
+              }
+            }
+            this.mergeUnknownFields(other.getUnknownFields());
+            return this;
+          }
+
+          public final boolean isInitialized() {
+            for (int i = 0; i < getParametersCount(); i++) {
+              if (!getParameters(i).isInitialized()) {
+                
+                return false;
+              }
+            }
+            return true;
+          }
+
+          public Builder mergeFrom(
+              com.google.protobuf.CodedInputStream input,
+              com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+              throws java.io.IOException {
+            mesos.internal.Messages.Modules.Library.Module parsedMessage = null;
+            try {
+              parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+            } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+              parsedMessage = (mesos.internal.Messages.Modules.Library.Module) e.getUnfinishedMessage();
+              throw e;
+            } finally {
+              if (parsedMessage != null) {
+                mergeFrom(parsedMessage);
+              }
+            }
+            return this;
+          }
+          private int bitField0_;
+
+          // optional string name = 1;
+          private java.lang.Object name_ = "";
+          /**
+           * <code>optional string name = 1;</code>
+           *
+           * <pre>
+           * Module name.
+           * </pre>
+           */
+          public boolean hasName() {
+            return ((bitField0_ & 0x00000001) == 0x00000001);
+          }
+          /**
+           * <code>optional string name = 1;</code>
+           *
+           * <pre>
+           * Module name.
+           * </pre>
+           */
+          public java.lang.String getName() {
+            java.lang.Object ref = name_;
+            if (!(ref instanceof java.lang.String)) {
+              java.lang.String s = ((com.google.protobuf.ByteString) ref)
+                  .toStringUtf8();
+              name_ = s;
+              return s;
+            } else {
+              return (java.lang.String) ref;
+            }
+          }
+          /**
+           * <code>optional string name = 1;</code>
+           *
+           * <pre>
+           * Module name.
+           * </pre>
+           */
+          public com.google.protobuf.ByteString
+              getNameBytes() {
+            java.lang.Object ref = name_;
+            if (ref instanceof String) {
+              com.google.protobuf.ByteString b = 
+                  com.google.protobuf.ByteString.copyFromUtf8(
+                      (java.lang.String) ref);
+              name_ = b;
+              return b;
+            } else {
+              return (com.google.protobuf.ByteString) ref;
+            }
+          }
+          /**
+           * <code>optional string name = 1;</code>
+           *
+           * <pre>
+           * Module name.
+           * </pre>
+           */
+          public Builder setName(
+              java.lang.String value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+            name_ = value;
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional string name = 1;</code>
+           *
+           * <pre>
+           * Module name.
+           * </pre>
+           */
+          public Builder clearName() {
+            bitField0_ = (bitField0_ & ~0x00000001);
+            name_ = getDefaultInstance().getName();
+            onChanged();
+            return this;
+          }
+          /**
+           * <code>optional string name = 1;</code>
+           *
+           * <pre>
+           * Module name.
+           * </pre>
+           */
+          public Builder setNameBytes(
+              com.google.protobuf.ByteString value) {
+            if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+            name_ = value;
+            onChanged();
+            return this;
+          }
+
+          // repeated .mesos.Parameter parameters = 2;
+          private java.util.List<org.apache.mesos.Protos.Parameter> parameters_ =
+            java.util.Collections.emptyList();
+          private void ensureParametersIsMutable() {
+            if (!((bitField0_ & 0x00000002) == 0x00000002)) {
+              parameters_ = new java.util.ArrayList<org.apache.mesos.Protos.Parameter>(parameters_);
+              bitField0_ |= 0x00000002;
+             }
+          }
+
+          private com.google.protobuf.RepeatedFieldBuilder<
+              org.apache.mesos.Protos.Parameter, org.apache.mesos.Protos.Parameter.Builder, org.apache.mesos.Protos.ParameterOrBuilder> parametersBuilder_;
+
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public java.util.List<org.apache.mesos.Protos.Parameter> getParametersList() {
+            if (parametersBuilder_ == null) {
+              return java.util.Collections.unmodifiableList(parameters_);
+            } else {
+              return parametersBuilder_.getMessageList();
+            }
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public int getParametersCount() {
+            if (parametersBuilder_ == null) {
+              return parameters_.size();
+            } else {
+              return parametersBuilder_.getCount();
+            }
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public org.apache.mesos.Protos.Parameter getParameters(int index) {
+            if (parametersBuilder_ == null) {
+              return parameters_.get(index);
+            } else {
+              return parametersBuilder_.getMessage(index);
+            }
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder setParameters(
+              int index, org.apache.mesos.Protos.Parameter value) {
+            if (parametersBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureParametersIsMutable();
+              parameters_.set(index, value);
+              onChanged();
+            } else {
+              parametersBuilder_.setMessage(index, value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder setParameters(
+              int index, org.apache.mesos.Protos.Parameter.Builder builderForValue) {
+            if (parametersBuilder_ == null) {
+              ensureParametersIsMutable();
+              parameters_.set(index, builderForValue.build());
+              onChanged();
+            } else {
+              parametersBuilder_.setMessage(index, builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder addParameters(org.apache.mesos.Protos.Parameter value) {
+            if (parametersBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureParametersIsMutable();
+              parameters_.add(value);
+              onChanged();
+            } else {
+              parametersBuilder_.addMessage(value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder addParameters(
+              int index, org.apache.mesos.Protos.Parameter value) {
+            if (parametersBuilder_ == null) {
+              if (value == null) {
+                throw new NullPointerException();
+              }
+              ensureParametersIsMutable();
+              parameters_.add(index, value);
+              onChanged();
+            } else {
+              parametersBuilder_.addMessage(index, value);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder addParameters(
+              org.apache.mesos.Protos.Parameter.Builder builderForValue) {
+            if (parametersBuilder_ == null) {
+              ensureParametersIsMutable();
+              parameters_.add(builderForValue.build());
+              onChanged();
+            } else {
+              parametersBuilder_.addMessage(builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder addParameters(
+              int index, org.apache.mesos.Protos.Parameter.Builder builderForValue) {
+            if (parametersBuilder_ == null) {
+              ensureParametersIsMutable();
+              parameters_.add(index, builderForValue.build());
+              onChanged();
+            } else {
+              parametersBuilder_.addMessage(index, builderForValue.build());
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder addAllParameters(
+              java.lang.Iterable<? extends org.apache.mesos.Protos.Parameter> values) {
+            if (parametersBuilder_ == null) {
+              ensureParametersIsMutable();
+              super.addAll(values, parameters_);
+              onChanged();
+            } else {
+              parametersBuilder_.addAllMessages(values);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder clearParameters() {
+            if (parametersBuilder_ == null) {
+              parameters_ = java.util.Collections.emptyList();
+              bitField0_ = (bitField0_ & ~0x00000002);
+              onChanged();
+            } else {
+              parametersBuilder_.clear();
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public Builder removeParameters(int index) {
+            if (parametersBuilder_ == null) {
+              ensureParametersIsMutable();
+              parameters_.remove(index);
+              onChanged();
+            } else {
+              parametersBuilder_.remove(index);
+            }
+            return this;
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public org.apache.mesos.Protos.Parameter.Builder getParametersBuilder(
+              int index) {
+            return getParametersFieldBuilder().getBuilder(index);
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public org.apache.mesos.Protos.ParameterOrBuilder getParametersOrBuilder(
+              int index) {
+            if (parametersBuilder_ == null) {
+              return parameters_.get(index);  } else {
+              return parametersBuilder_.getMessageOrBuilder(index);
+            }
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public java.util.List<? extends org.apache.mesos.Protos.ParameterOrBuilder> 
+               getParametersOrBuilderList() {
+            if (parametersBuilder_ != null) {
+              return parametersBuilder_.getMessageOrBuilderList();
+            } else {
+              return java.util.Collections.unmodifiableList(parameters_);
+            }
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public org.apache.mesos.Protos.Parameter.Builder addParametersBuilder() {
+            return getParametersFieldBuilder().addBuilder(
+                org.apache.mesos.Protos.Parameter.getDefaultInstance());
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public org.apache.mesos.Protos.Parameter.Builder addParametersBuilder(
+              int index) {
+            return getParametersFieldBuilder().addBuilder(
+                index, org.apache.mesos.Protos.Parameter.getDefaultInstance());
+          }
+          /**
+           * <code>repeated .mesos.Parameter parameters = 2;</code>
+           *
+           * <pre>
+           * Module-specific parameters.
+           * </pre>
+           */
+          public java.util.List<org.apache.mesos.Protos.Parameter.Builder> 
+               getParametersBuilderList() {
+            return getParametersFieldBuilder().getBuilderList();
+          }
+          private com.google.protobuf.RepeatedFieldBuilder<
+              org.apache.mesos.Protos.Parameter, org.apache.mesos.Protos.Parameter.Builder, org.apache.mesos.Protos.ParameterOrBuilder> 
+              getParametersFieldBuilder() {
+            if (parametersBuilder_ == null) {
+              parametersBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+                  org.apache.mesos.Protos.Parameter, org.apache.mesos.Protos.Parameter.Builder, org.apache.mesos.Protos.ParameterOrBuilder>(
+                      parameters_,
+                      ((bitField0_ & 0x00000002) == 0x00000002),
+                      getParentForChildren(),
+                      isClean());
+              parameters_ = null;
+            }
+            return parametersBuilder_;
+          }
+
+          // @@protoc_insertion_point(builder_scope:mesos.internal.Modules.Library.Module)
+        }
+
+        static {
+          defaultInstance = new Module(true);
+          defaultInstance.initFields();
+        }
+
+        // @@protoc_insertion_point(class_scope:mesos.internal.Modules.Library.Module)
+      }
+
+      private int bitField0_;
+      // optional string file = 1;
+      public static final int FILE_FIELD_NUMBER = 1;
+      private java.lang.Object file_;
+      /**
+       * <code>optional string file = 1;</code>
+       *
+       * <pre>
+       * If "file" contains a slash ("/"), then it is interpreted as a
+       * (relative or absolute) pathname.  Otherwise a standard library
+       * search is performed.
+       * </pre>
+       */
+      public boolean hasFile() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>optional string file = 1;</code>
+       *
+       * <pre>
+       * If "file" contains a slash ("/"), then it is interpreted as a
+       * (relative or absolute) pathname.  Otherwise a standard library
+       * search is performed.
+       * </pre>
+       */
+      public java.lang.String getFile() {
+        java.lang.Object ref = file_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            file_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string file = 1;</code>
+       *
+       * <pre>
+       * If "file" contains a slash ("/"), then it is interpreted as a
+       * (relative or absolute) pathname.  Otherwise a standard library
+       * search is performed.
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getFileBytes() {
+        java.lang.Object ref = file_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          file_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      // optional string name = 2;
+      public static final int NAME_FIELD_NUMBER = 2;
+      private java.lang.Object name_;
+      /**
+       * <code>optional string name = 2;</code>
+       *
+       * <pre>
+       * We will add the proper prefix ("lib") and suffix (".so" for
+       * Linux and ".dylib" for OS X) to the "name".
+       * </pre>
+       */
+      public boolean hasName() {
+        return ((bitField0_ & 0x00000002) == 0x00000002);
+      }
+      /**
+       * <code>optional string name = 2;</code>
+       *
+       * <pre>
+       * We will add the proper prefix ("lib") and suffix (".so" for
+       * Linux and ".dylib" for OS X) to the "name".
+       * </pre>
+       */
+      public java.lang.String getName() {
+        java.lang.Object ref = name_;
+        if (ref instanceof java.lang.String) {
+          return (java.lang.String) ref;
+        } else {
+          com.google.protobuf.ByteString bs = 
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          if (bs.isValidUtf8()) {
+            name_ = s;
+          }
+          return s;
+        }
+      }
+      /**
+       * <code>optional string name = 2;</code>
+       *
+       * <pre>
+       * We will add the proper prefix ("lib") and suffix (".so" for
+       * Linux and ".dylib" for OS X) to the "name".
+       * </pre>
+       */
+      public com.google.protobuf.ByteString
+          getNameBytes() {
+        java.lang.Object ref = name_;
+        if (ref instanceof java.lang.String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          name_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+
+      // repeated .mesos.internal.Modules.Library.Module modules = 3;
+      public static final int MODULES_FIELD_NUMBER = 3;
+      private java.util.List<mesos.internal.Messages.Modules.Library.Module> modules_;
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      public java.util.List<mesos.internal.Messages.Modules.Library.Module> getModulesList() {
+        return modules_;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      public java.util.List<? extends mesos.internal.Messages.Modules.Library.ModuleOrBuilder> 
+          getModulesOrBuilderList() {
+        return modules_;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      public int getModulesCount() {
+        return modules_.size();
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      public mesos.internal.Messages.Modules.Library.Module getModules(int index) {
+        return modules_.get(index);
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+       */
+      public mesos.internal.Messages.Modules.Library.ModuleOrBuilder getModulesOrBuilder(
+          int index) {
+        return modules_.get(index);
+      }
+
+      private void initFields() {
+        file_ = "";
+        name_ = "";
+        modules_ = java.util.Collections.emptyList();
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+
+        for (int i = 0; i < getModulesCount(); i++) {
+          if (!getModules(i).isInitialized()) {
+            memoizedIsInitialized = 0;
+            return false;
+          }
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeBytes(1, getFileBytes());
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          output.writeBytes(2, getNameBytes());
+        }
+        for (int i = 0; i < modules_.size(); i++) {
+          output.writeMessage(3, modules_.get(i));
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(1, getFileBytes());
+        }
+        if (((bitField0_ & 0x00000002) == 0x00000002)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeBytesSize(2, getNameBytes());
+        }
+        for (int i = 0; i < modules_.size(); i++) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(3, modules_.get(i));
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+
+      public static mesos.internal.Messages.Modules.Library parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static mesos.internal.Messages.Modules.Library parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static mesos.internal.Messages.Modules.Library parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static mesos.internal.Messages.Modules.Library parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static mesos.internal.Messages.Modules.Library parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static mesos.internal.Messages.Modules.Library parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+      public static mesos.internal.Messages.Modules.Library parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input);
+      }
+      public static mesos.internal.Messages.Modules.Library parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      }
+      public static mesos.internal.Messages.Modules.Library parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static mesos.internal.Messages.Modules.Library parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(mesos.internal.Messages.Modules.Library prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code mesos.internal.Modules.Library}
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements mesos.internal.Messages.Modules.LibraryOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  mesos.internal.Messages.Modules.Library.class, mesos.internal.Messages.Modules.Library.Builder.class);
+        }
+
+        // Construct using mesos.internal.Messages.Modules.Library.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+            getModulesFieldBuilder();
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+
+        public Builder clear() {
+          super.clear();
+          file_ = "";
+          bitField0_ = (bitField0_ & ~0x00000001);
+          name_ = "";
+          bitField0_ = (bitField0_ & ~0x00000002);
+          if (modulesBuilder_ == null) {
+            modules_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000004);
+          } else {
+            modulesBuilder_.clear();
+          }
+          return this;
+        }
+
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return mesos.internal.Messages.internal_static_mesos_internal_Modules_Library_descriptor;
+        }
+
+        public mesos.internal.Messages.Modules.Library getDefaultInstanceForType() {
+          return mesos.internal.Messages.Modules.Library.getDefaultInstance();
+        }
+
+        public mesos.internal.Messages.Modules.Library build() {
+          mesos.internal.Messages.Modules.Library result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public mesos.internal.Messages.Modules.Library buildPartial() {
+          mesos.internal.Messages.Modules.Library result = new mesos.internal.Messages.Modules.Library(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          result.file_ = file_;
+          if (((from_bitField0_ & 0x00000002) == 0x00000002)) {
+            to_bitField0_ |= 0x00000002;
+          }
+          result.name_ = name_;
+          if (modulesBuilder_ == null) {
+            if (((bitField0_ & 0x00000004) == 0x00000004)) {
+              modules_ = java.util.Collections.unmodifiableList(modules_);
+              bitField0_ = (bitField0_ & ~0x00000004);
+            }
+            result.modules_ = modules_;
+          } else {
+            result.modules_ = modulesBuilder_.build();
+          }
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof mesos.internal.Messages.Modules.Library) {
+            return mergeFrom((mesos.internal.Messages.Modules.Library)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(mesos.internal.Messages.Modules.Library other) {
+          if (other == mesos.internal.Messages.Modules.Library.getDefaultInstance()) return this;
+          if (other.hasFile()) {
+            bitField0_ |= 0x00000001;
+            file_ = other.file_;
+            onChanged();
+          }
+          if (other.hasName()) {
+            bitField0_ |= 0x00000002;
+            name_ = other.name_;
+            onChanged();
+          }
+          if (modulesBuilder_ == null) {
+            if (!other.modules_.isEmpty()) {
+              if (modules_.isEmpty()) {
+                modules_ = other.modules_;
+                bitField0_ = (bitField0_ & ~0x00000004);
+              } else {
+                ensureModulesIsMutable();
+                modules_.addAll(other.modules_);
+              }
+              onChanged();
+            }
+          } else {
+            if (!other.modules_.isEmpty()) {
+              if (modulesBuilder_.isEmpty()) {
+                modulesBuilder_.dispose();
+                modulesBuilder_ = null;
+                modules_ = other.modules_;
+                bitField0_ = (bitField0_ & ~0x00000004);
+                modulesBuilder_ = 
+                  com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                     getModulesFieldBuilder() : null;
+              } else {
+                modulesBuilder_.addAllMessages(other.modules_);
+              }
+            }
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          for (int i = 0; i < getModulesCount(); i++) {
+            if (!getModules(i).isInitialized()) {
+              
+              return false;
+            }
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          mesos.internal.Messages.Modules.Library parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (mesos.internal.Messages.Modules.Library) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        // optional string file = 1;
+        private java.lang.Object file_ = "";
+        /**
+         * <code>optional string file = 1;</code>
+         *
+         * <pre>
+         * If "file" contains a slash ("/"), then it is interpreted as a
+         * (relative or absolute) pathname.  Otherwise a standard library
+         * search is performed.
+         * </pre>
+         */
+        public boolean hasFile() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>optional string file = 1;</code>
+         *
+         * <pre>
+         * If "file" contains a slash ("/"), then it is interpreted as a
+         * (relative or absolute) pathname.  Otherwise a standard library
+         * search is performed.
+         * </pre>
+         */
+        public java.lang.String getFile() {
+          java.lang.Object ref = file_;
+          if (!(ref instanceof java.lang.String)) {
+            java.lang.String s = ((com.google.protobuf.ByteString) ref)
+                .toStringUtf8();
+            file_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string file = 1;</code>
+         *
+         * <pre>
+         * If "file" contains a slash ("/"), then it is interpreted as a
+         * (relative or absolute) pathname.  Otherwise a standard library
+         * search is performed.
+         * </pre>
+         */
+        public com.google.protobuf.ByteString
+            getFileBytes() {
+          java.lang.Object ref = file_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            file_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string file = 1;</code>
+         *
+         * <pre>
+         * If "file" contains a slash ("/"), then it is interpreted as a
+         * (relative or absolute) pathname.  Otherwise a standard library
+         * search is performed.
+         * </pre>
+         */
+        public Builder setFile(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+          file_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string file = 1;</code>
+         *
+         * <pre>
+         * If "file" contains a slash ("/"), then it is interpreted as a
+         * (relative or absolute) pathname.  Otherwise a standard library
+         * search is performed.
+         * </pre>
+         */
+        public Builder clearFile() {
+          bitField0_ = (bitField0_ & ~0x00000001);
+          file_ = getDefaultInstance().getFile();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string file = 1;</code>
+         *
+         * <pre>
+         * If "file" contains a slash ("/"), then it is interpreted as a
+         * (relative or absolute) pathname.  Otherwise a standard library
+         * search is performed.
+         * </pre>
+         */
+        public Builder setFileBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000001;
+          file_ = value;
+          onChanged();
+          return this;
+        }
+
+        // optional string name = 2;
+        private java.lang.Object name_ = "";
+        /**
+         * <code>optional string name = 2;</code>
+         *
+         * <pre>
+         * We will add the proper prefix ("lib") and suffix (".so" for
+         * Linux and ".dylib" for OS X) to the "name".
+         * </pre>
+         */
+        public boolean hasName() {
+          return ((bitField0_ & 0x00000002) == 0x00000002);
+        }
+        /**
+         * <code>optional string name = 2;</code>
+         *
+         * <pre>
+         * We will add the proper prefix ("lib") and suffix (".so" for
+         * Linux and ".dylib" for OS X) to the "name".
+         * </pre>
+         */
+        public java.lang.String getName() {
+          java.lang.Object ref = name_;
+          if (!(ref instanceof java.lang.String)) {
+            java.lang.String s = ((com.google.protobuf.ByteString) ref)
+                .toStringUtf8();
+            name_ = s;
+            return s;
+          } else {
+            return (java.lang.String) ref;
+          }
+        }
+        /**
+         * <code>optional string name = 2;</code>
+         *
+         * <pre>
+         * We will add the proper prefix ("lib") and suffix (".so" for
+         * Linux and ".dylib" for OS X) to the "name".
+         * </pre>
+         */
+        public com.google.protobuf.ByteString
+            getNameBytes() {
+          java.lang.Object ref = name_;
+          if (ref instanceof String) {
+            com.google.protobuf.ByteString b = 
+                com.google.protobuf.ByteString.copyFromUtf8(
+                    (java.lang.String) ref);
+            name_ = b;
+            return b;
+          } else {
+            return (com.google.protobuf.ByteString) ref;
+          }
+        }
+        /**
+         * <code>optional string name = 2;</code>
+         *
+         * <pre>
+         * We will add the proper prefix ("lib") and suffix (".so" for
+         * Linux and ".dylib" for OS X) to the "name".
+         * </pre>
+         */
+        public Builder setName(
+            java.lang.String value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          name_ = value;
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string name = 2;</code>
+         *
+         * <pre>
+         * We will add the proper prefix ("lib") and suffix (".so" for
+         * Linux and ".dylib" for OS X) to the "name".
+         * </pre>
+         */
+        public Builder clearName() {
+          bitField0_ = (bitField0_ & ~0x00000002);
+          name_ = getDefaultInstance().getName();
+          onChanged();
+          return this;
+        }
+        /**
+         * <code>optional string name = 2;</code>
+         *
+         * <pre>
+         * We will add the proper prefix ("lib") and suffix (".so" for
+         * Linux and ".dylib" for OS X) to the "name".
+         * </pre>
+         */
+        public Builder setNameBytes(
+            com.google.protobuf.ByteString value) {
+          if (value == null) {
+    throw new NullPointerException();
+  }
+  bitField0_ |= 0x00000002;
+          name_ = value;
+          onChanged();
+          return this;
+        }
+
+        // repeated .mesos.internal.Modules.Library.Module modules = 3;
+        private java.util.List<mesos.internal.Messages.Modules.Library.Module> modules_ =
+          java.util.Collections.emptyList();
+        private void ensureModulesIsMutable() {
+          if (!((bitField0_ & 0x00000004) == 0x00000004)) {
+            modules_ = new java.util.ArrayList<mesos.internal.Messages.Modules.Library.Module>(modules_);
+            bitField0_ |= 0x00000004;
+           }
+        }
+
+        private com.google.protobuf.RepeatedFieldBuilder<
+            mesos.internal.Messages.Modules.Library.Module, mesos.internal.Messages.Modules.Library.Module.Builder, mesos.internal.Messages.Modules.Library.ModuleOrBuilder> modulesBuilder_;
+
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public java.util.List<mesos.internal.Messages.Modules.Library.Module> getModulesList() {
+          if (modulesBuilder_ == null) {
+            return java.util.Collections.unmodifiableList(modules_);
+          } else {
+            return modulesBuilder_.getMessageList();
+          }
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public int getModulesCount() {
+          if (modulesBuilder_ == null) {
+            return modules_.size();
+          } else {
+            return modulesBuilder_.getCount();
+          }
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public mesos.internal.Messages.Modules.Library.Module getModules(int index) {
+          if (modulesBuilder_ == null) {
+            return modules_.get(index);
+          } else {
+            return modulesBuilder_.getMessage(index);
+          }
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder setModules(
+            int index, mesos.internal.Messages.Modules.Library.Module value) {
+          if (modulesBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureModulesIsMutable();
+            modules_.set(index, value);
+            onChanged();
+          } else {
+            modulesBuilder_.setMessage(index, value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder setModules(
+            int index, mesos.internal.Messages.Modules.Library.Module.Builder builderForValue) {
+          if (modulesBuilder_ == null) {
+            ensureModulesIsMutable();
+            modules_.set(index, builderForValue.build());
+            onChanged();
+          } else {
+            modulesBuilder_.setMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder addModules(mesos.internal.Messages.Modules.Library.Module value) {
+          if (modulesBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureModulesIsMutable();
+            modules_.add(value);
+            onChanged();
+          } else {
+            modulesBuilder_.addMessage(value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder addModules(
+            int index, mesos.internal.Messages.Modules.Library.Module value) {
+          if (modulesBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            ensureModulesIsMutable();
+            modules_.add(index, value);
+            onChanged();
+          } else {
+            modulesBuilder_.addMessage(index, value);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder addModules(
+            mesos.internal.Messages.Modules.Library.Module.Builder builderForValue) {
+          if (modulesBuilder_ == null) {
+            ensureModulesIsMutable();
+            modules_.add(builderForValue.build());
+            onChanged();
+          } else {
+            modulesBuilder_.addMessage(builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder addModules(
+            int index, mesos.internal.Messages.Modules.Library.Module.Builder builderForValue) {
+          if (modulesBuilder_ == null) {
+            ensureModulesIsMutable();
+            modules_.add(index, builderForValue.build());
+            onChanged();
+          } else {
+            modulesBuilder_.addMessage(index, builderForValue.build());
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder addAllModules(
+            java.lang.Iterable<? extends mesos.internal.Messages.Modules.Library.Module> values) {
+          if (modulesBuilder_ == null) {
+            ensureModulesIsMutable();
+            super.addAll(values, modules_);
+            onChanged();
+          } else {
+            modulesBuilder_.addAllMessages(values);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder clearModules() {
+          if (modulesBuilder_ == null) {
+            modules_ = java.util.Collections.emptyList();
+            bitField0_ = (bitField0_ & ~0x00000004);
+            onChanged();
+          } else {
+            modulesBuilder_.clear();
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public Builder removeModules(int index) {
+          if (modulesBuilder_ == null) {
+            ensureModulesIsMutable();
+            modules_.remove(index);
+            onChanged();
+          } else {
+            modulesBuilder_.remove(index);
+          }
+          return this;
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public mesos.internal.Messages.Modules.Library.Module.Builder getModulesBuilder(
+            int index) {
+          return getModulesFieldBuilder().getBuilder(index);
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public mesos.internal.Messages.Modules.Library.ModuleOrBuilder getModulesOrBuilder(
+            int index) {
+          if (modulesBuilder_ == null) {
+            return modules_.get(index);  } else {
+            return modulesBuilder_.getMessageOrBuilder(index);
+          }
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public java.util.List<? extends mesos.internal.Messages.Modules.Library.ModuleOrBuilder> 
+             getModulesOrBuilderList() {
+          if (modulesBuilder_ != null) {
+            return modulesBuilder_.getMessageOrBuilderList();
+          } else {
+            return java.util.Collections.unmodifiableList(modules_);
+          }
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public mesos.internal.Messages.Modules.Library.Module.Builder addModulesBuilder() {
+          return getModulesFieldBuilder().addBuilder(
+              mesos.internal.Messages.Modules.Library.Module.getDefaultInstance());
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public mesos.internal.Messages.Modules.Library.Module.Builder addModulesBuilder(
+            int index) {
+          return getModulesFieldBuilder().addBuilder(
+              index, mesos.internal.Messages.Modules.Library.Module.getDefaultInstance());
+        }
+        /**
+         * <code>repeated .mesos.internal.Modules.Library.Module modules = 3;</code>
+         */
+        public java.util.List<mesos.internal.Messages.Modules.Library.Module.Builder> 
+             getModulesBuilderList() {
+          return getModulesFieldBuilder().getBuilderList();
+        }
+        private com.google.protobuf.RepeatedFieldBuilder<
+            mesos.internal.Messages.Modules.Library.Module, mesos.internal.Messages.Modules.Library.Module.Builder, mesos.internal.Messages.Modules.Library.ModuleOrBuilder> 
+            getModulesFieldBuilder() {
+          if (modulesBuilder_ == null) {
+            modulesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+                mesos.internal.Messages.Modules.Library.Module, mesos.internal.Messages.Modules.Library.Module.Builder, mesos.internal.Messages.Modules.Library.ModuleOrBuilder>(
+                    modules_,
+                    ((bitField0_ & 0x00000004) == 0x00000004),
+                    getParentForChildren(),
+                    isClean());
+            modules_ = null;
+          }
+          return modulesBuilder_;
+        }
+
+        // @@protoc_insertion_point(builder_scope:mesos.internal.Modules.Library)
+      }
+
+      static {
+        defaultInstance = new Library(true);
+        defaultInstance.initFields();
+      }
+
+      // @@protoc_insertion_point(class_scope:mesos.internal.Modules.Library)
+    }
+
+    // repeated .mesos.internal.Modules.Library libraries = 1;
+    public static final int LIBRARIES_FIELD_NUMBER = 1;
+    private java.util.List<mesos.internal.Messages.Modules.Library> libraries_;
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    public java.util.List<mesos.internal.Messages.Modules.Library> getLibrariesList() {
+      return libraries_;
+    }
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    public java.util.List<? extends mesos.internal.Messages.Modules.LibraryOrBuilder> 
+        getLibrariesOrBuilderList() {
+      return libraries_;
+    }
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    public int getLibrariesCount() {
+      return libraries_.size();
+    }
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    public mesos.internal.Messages.Modules.Library getLibraries(int index) {
+      return libraries_.get(index);
+    }
+    /**
+     * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+     */
+    public mesos.internal.Messages.Modules.LibraryOrBuilder getLibrariesOrBuilder(
+        int index) {
+      return libraries_.get(index);
+    }
+
+    private void initFields() {
+      libraries_ = java.util.Collections.emptyList();
+    }
+    private byte memoizedIsInitialized = -1;
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized != -1) return isInitialized == 1;
+
+      for (int i = 0; i < getLibrariesCount(); i++) {
+        if (!getLibraries(i).isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      getSerializedSize();
+      for (int i = 0; i < libraries_.size(); i++) {
+        output.writeMessage(1, libraries_.get(i));
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    private int memoizedSerializedSize = -1;
+    public int getSerializedSize() {
+      int size = memoizedSerializedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      for (int i = 0; i < libraries_.size(); i++) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(1, libraries_.get(i));
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSerializedSize = size;
+      return size;
+    }
+
+    private static final long serialVersionUID = 0L;
+    @java.lang.Override
+    protected java.lang.Object writeReplace()
+        throws java.io.ObjectStreamException {
+      return super.writeReplace();
+    }
+
+    public static mesos.internal.Messages.Modules parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static mesos.internal.Messages.Modules parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static mesos.internal.Messages.Modules parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static mesos.internal.Messages.Modules parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static mesos.internal.Messages.Modules parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static mesos.internal.Messages.Modules parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+    public static mesos.internal.Messages.Modules parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input);
+    }
+    public static mesos.internal.Messages.Modules parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseDelimitedFrom(input, extensionRegistry);
+    }
+    public static mesos.internal.Messages.Modules parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input);
+    }
+    public static mesos.internal.Messages.Modules parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return PARSER.parseFrom(input, extensionRegistry);
+    }
+
+    public static Builder newBuilder() { return Builder.create(); }
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder(mesos.internal.Messages.Modules prototype) {
+      return newBuilder().mergeFrom(prototype);
+    }
+    public Builder toBuilder() { return newBuilder(this); }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code mesos.internal.Modules}
+     *
+     * <pre>
+     * Collection of Modules.
+     * </pre>
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder>
+       implements mesos.internal.Messages.ModulesOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return mesos.internal.Messages.internal_static_mesos_internal_Modules_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return mesos.internal.Messages.internal_static_mesos_internal_Modules_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                mesos.internal.Messages.Modules.class, mesos.internal.Messages.Modules.Builder.class);
+      }
+
+      // Construct using mesos.internal.Messages.Modules.newBuilder()
+      private Builder() {
+        maybeForceBuilderInitialization();
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+        maybeForceBuilderInitialization();
+      }
+      private void maybeForceBuilderInitialization() {
+        if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+          getLibrariesFieldBuilder();
+        }
+      }
+      private static Builder create() {
+        return new Builder();
+      }
+
+      public Builder clear() {
+        super.clear();
+        if (librariesBuilder_ == null) {
+          libraries_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+        } else {
+          librariesBuilder_.clear();
+        }
+        return this;
+      }
+
+      public Builder clone() {
+        return create().mergeFrom(buildPartial());
+      }
+
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return mesos.internal.Messages.internal_static_mesos_internal_Modules_descriptor;
+      }
+
+      public mesos.internal.Messages.Modules getDefaultInstanceForType() {
+        return mesos.internal.Messages.Modules.getDefaultInstance();
+      }
+
+      public mesos.internal.Messages.Modules build() {
+        mesos.internal.Messages.Modules result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      public mesos.internal.Messages.Modules buildPartial() {
+        mesos.internal.Messages.Modules result = new mesos.internal.Messages.Modules(this);
+        int from_bitField0_ = bitField0_;
+        if (librariesBuilder_ == null) {
+          if (((bitField0_ & 0x00000001) == 0x00000001)) {
+            libraries_ = java.util.Collections.unmodifiableList(libraries_);
+            bitField0_ = (bitField0_ & ~0x00000001);
+          }
+          result.libraries_ = libraries_;
+        } else {
+          result.libraries_ = librariesBuilder_.build();
+        }
+        onBuilt();
+        return result;
+      }
+
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof mesos.internal.Messages.Modules) {
+          return mergeFrom((mesos.internal.Messages.Modules)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(mesos.internal.Messages.Modules other) {
+        if (other == mesos.internal.Messages.Modules.getDefaultInstance()) return this;
+        if (librariesBuilder_ == null) {
+          if (!other.libraries_.isEmpty()) {
+            if (libraries_.isEmpty()) {
+              libraries_ = other.libraries_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+            } else {
+              ensureLibrariesIsMutable();
+              libraries_.addAll(other.libraries_);
+            }
+            onChanged();
+          }
+        } else {
+          if (!other.libraries_.isEmpty()) {
+            if (librariesBuilder_.isEmpty()) {
+              librariesBuilder_.dispose();
+              librariesBuilder_ = null;
+              libraries_ = other.libraries_;
+              bitField0_ = (bitField0_ & ~0x00000001);
+              librariesBuilder_ = 
+                com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                   getLibrariesFieldBuilder() : null;
+            } else {
+              librariesBuilder_.addAllMessages(other.libraries_);
+            }
+          }
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        return this;
+      }
+
+      public final boolean isInitialized() {
+        for (int i = 0; i < getLibrariesCount(); i++) {
+          if (!getLibraries(i).isInitialized()) {
+            
+            return false;
+          }
+        }
+        return true;
+      }
+
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        mesos.internal.Messages.Modules parsedMessage = null;
+        try {
+          parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          parsedMessage = (mesos.internal.Messages.Modules) e.getUnfinishedMessage();
+          throw e;
+        } finally {
+          if (parsedMessage != null) {
+            mergeFrom(parsedMessage);
+          }
+        }
+        return this;
+      }
+      private int bitField0_;
+
+      // repeated .mesos.internal.Modules.Library libraries = 1;
+      private java.util.List<mesos.internal.Messages.Modules.Library> libraries_ =
+        java.util.Collections.emptyList();
+      private void ensureLibrariesIsMutable() {
+        if (!((bitField0_ & 0x00000001) == 0x00000001)) {
+          libraries_ = new java.util.ArrayList<mesos.internal.Messages.Modules.Library>(libraries_);
+          bitField0_ |= 0x00000001;
+         }
+      }
+
+      private com.google.protobuf.RepeatedFieldBuilder<
+          mesos.internal.Messages.Modules.Library, mesos.internal.Messages.Modules.Library.Builder, mesos.internal.Messages.Modules.LibraryOrBuilder> librariesBuilder_;
+
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public java.util.List<mesos.internal.Messages.Modules.Library> getLibrariesList() {
+        if (librariesBuilder_ == null) {
+          return java.util.Collections.unmodifiableList(libraries_);
+        } else {
+          return librariesBuilder_.getMessageList();
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public int getLibrariesCount() {
+        if (librariesBuilder_ == null) {
+          return libraries_.size();
+        } else {
+          return librariesBuilder_.getCount();
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public mesos.internal.Messages.Modules.Library getLibraries(int index) {
+        if (librariesBuilder_ == null) {
+          return libraries_.get(index);
+        } else {
+          return librariesBuilder_.getMessage(index);
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder setLibraries(
+          int index, mesos.internal.Messages.Modules.Library value) {
+        if (librariesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLibrariesIsMutable();
+          libraries_.set(index, value);
+          onChanged();
+        } else {
+          librariesBuilder_.setMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder setLibraries(
+          int index, mesos.internal.Messages.Modules.Library.Builder builderForValue) {
+        if (librariesBuilder_ == null) {
+          ensureLibrariesIsMutable();
+          libraries_.set(index, builderForValue.build());
+          onChanged();
+        } else {
+          librariesBuilder_.setMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder addLibraries(mesos.internal.Messages.Modules.Library value) {
+        if (librariesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLibrariesIsMutable();
+          libraries_.add(value);
+          onChanged();
+        } else {
+          librariesBuilder_.addMessage(value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder addLibraries(
+          int index, mesos.internal.Messages.Modules.Library value) {
+        if (librariesBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          ensureLibrariesIsMutable();
+          libraries_.add(index, value);
+          onChanged();
+        } else {
+          librariesBuilder_.addMessage(index, value);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder addLibraries(
+          mesos.internal.Messages.Modules.Library.Builder builderForValue) {
+        if (librariesBuilder_ == null) {
+          ensureLibrariesIsMutable();
+          libraries_.add(builderForValue.build());
+          onChanged();
+        } else {
+          librariesBuilder_.addMessage(builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder addLibraries(
+          int index, mesos.internal.Messages.Modules.Library.Builder builderForValue) {
+        if (librariesBuilder_ == null) {
+          ensureLibrariesIsMutable();
+          libraries_.add(index, builderForValue.build());
+          onChanged();
+        } else {
+          librariesBuilder_.addMessage(index, builderForValue.build());
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder addAllLibraries(
+          java.lang.Iterable<? extends mesos.internal.Messages.Modules.Library> values) {
+        if (librariesBuilder_ == null) {
+          ensureLibrariesIsMutable();
+          super.addAll(values, libraries_);
+          onChanged();
+        } else {
+          librariesBuilder_.addAllMessages(values);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder clearLibraries() {
+        if (librariesBuilder_ == null) {
+          libraries_ = java.util.Collections.emptyList();
+          bitField0_ = (bitField0_ & ~0x00000001);
+          onChanged();
+        } else {
+          librariesBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public Builder removeLibraries(int index) {
+        if (librariesBuilder_ == null) {
+          ensureLibrariesIsMutable();
+          libraries_.remove(index);
+          onChanged();
+        } else {
+          librariesBuilder_.remove(index);
+        }
+        return this;
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public mesos.internal.Messages.Modules.Library.Builder getLibrariesBuilder(
+          int index) {
+        return getLibrariesFieldBuilder().getBuilder(index);
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public mesos.internal.Messages.Modules.LibraryOrBuilder getLibrariesOrBuilder(
+          int index) {
+        if (librariesBuilder_ == null) {
+          return libraries_.get(index);  } else {
+          return librariesBuilder_.getMessageOrBuilder(index);
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public java.util.List<? extends mesos.internal.Messages.Modules.LibraryOrBuilder> 
+           getLibrariesOrBuilderList() {
+        if (librariesBuilder_ != null) {
+          return librariesBuilder_.getMessageOrBuilderList();
+        } else {
+          return java.util.Collections.unmodifiableList(libraries_);
+        }
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public mesos.internal.Messages.Modules.Library.Builder addLibrariesBuilder() {
+        return getLibrariesFieldBuilder().addBuilder(
+            mesos.internal.Messages.Modules.Library.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public mesos.internal.Messages.Modules.Library.Builder addLibrariesBuilder(
+          int index) {
+        return getLibrariesFieldBuilder().addBuilder(
+            index, mesos.internal.Messages.Modules.Library.getDefaultInstance());
+      }
+      /**
+       * <code>repeated .mesos.internal.Modules.Library libraries = 1;</code>
+       */
+      public java.util.List<mesos.internal.Messages.Modules.Library.Builder> 
+           getLibrariesBuilderList() {
+        return getLibrariesFieldBuilder().getBuilderList();
+      }
+      private com.google.protobuf.RepeatedFieldBuilder<
+          mesos.internal.Messages.Modules.Library, mesos.internal.Messages.Modules.Library.Builder, mesos.internal.Messages.Modules.LibraryOrBuilder> 
+          getLibrariesFieldBuilder() {
+        if (librariesBuilder_ == null) {
+          librariesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+              mesos.internal.Messages.Modules.Library, mesos.internal.Messages.Modules.Library.Builder, mesos.internal.Messages.Modules.LibraryOrBuilder>(
+                  libraries_,
+                  ((bitField0_ & 0x00000001) == 0x00000001),
+                  getParentForChildren(),
+                  isClean());
+          libraries_ = null;
+        }
+        return librariesBuilder_;
+      }
+
+      // @@protoc_insertion_point(builder_scope:mesos.internal.Modules)
+    }
+
+    static {
+      defaultInstance = new Modules(true);
+      defaultInstance.initFields();
+    }
+
+    // @@protoc_insertion_point(class_scope:mesos.internal.Modules)
+  }
+
   private static com.google.protobuf.Descriptors.Descriptor
     internal_static_mesos_internal_Task_descriptor;
   private static
@@ -40116,6 +44205,21 @@ public final class Messages {
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mesos_internal_TaskHealthStatus_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_mesos_internal_Modules_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mesos_internal_Modules_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_mesos_internal_Modules_Library_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mesos_internal_Modules_Library_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_mesos_internal_Modules_Library_Module_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mesos_internal_Modules_Library_Module_fieldAccessorTable;
 
   public static com.google.protobuf.Descriptors.FileDescriptor
       getDescriptor() {
@@ -40126,131 +44230,142 @@ public final class Messages {
   static {
     java.lang.String[] descriptorData = {
       "\n\016messages.proto\022\016mesos.internal\032\021mesos/" +
-      "mesos.proto\"\222\002\n\004Task\022\014\n\004name\030\001 \002(\t\022\036\n\007ta" +
+      "mesos.proto\"\335\002\n\004Task\022\014\n\004name\030\001 \002(\t\022\036\n\007ta" +
       "sk_id\030\002 \002(\0132\r.mesos.TaskID\022(\n\014framework_" +
       "id\030\003 \002(\0132\022.mesos.FrameworkID\022&\n\013executor" +
       "_id\030\004 \001(\0132\021.mesos.ExecutorID\022 \n\010slave_id" +
       "\030\005 \002(\0132\016.mesos.SlaveID\022\037\n\005state\030\006 \002(\0162\020." +
       "mesos.TaskState\022\"\n\tresources\030\007 \003(\0132\017.mes" +
       "os.Resource\022#\n\010statuses\030\010 \003(\0132\021.mesos.Ta" +
-      "skStatus\"+\n\010RoleInfo\022\014\n\004name\030\001 \002(\t\022\021\n\006we" +
-      "ight\030\002 \001(\001:\0011\"\306\001\n\014StatusUpdate\022(\n\014framew",
-      "ork_id\030\001 \002(\0132\022.mesos.FrameworkID\022&\n\013exec" +
-      "utor_id\030\002 \001(\0132\021.mesos.ExecutorID\022 \n\010slav" +
-      "e_id\030\003 \001(\0132\016.mesos.SlaveID\022!\n\006status\030\004 \002" +
-      "(\0132\021.mesos.TaskStatus\022\021\n\ttimestamp\030\005 \002(\001" +
-      "\022\014\n\004uuid\030\006 \002(\014\"\244\001\n\022StatusUpdateRecord\0225\n" +
-      "\004type\030\001 \002(\0162\'.mesos.internal.StatusUpdat" +
-      "eRecord.Type\022,\n\006update\030\002 \001(\0132\034.mesos.int" +
-      "ernal.StatusUpdate\022\014\n\004uuid\030\003 \001(\014\"\033\n\004Type" +
-      "\022\n\n\006UPDATE\020\000\022\007\n\003ACK\020\001\"&\n\026SubmitScheduler" +
-      "Request\022\014\n\004name\030\001 \002(\t\"\'\n\027SubmitScheduler",
-      "Response\022\014\n\004okay\030\001 \002(\010\"\236\001\n\032ExecutorToFra" +
-      "meworkMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos." +
-      "SlaveID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Fr" +
-      "ameworkID\022&\n\013executor_id\030\003 \002(\0132\021.mesos.E" +
-      "xecutorID\022\014\n\004data\030\004 \002(\014\"\236\001\n\032FrameworkToE" +
-      "xecutorMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos" +
-      ".SlaveID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.F" +
-      "rameworkID\022&\n\013executor_id\030\003 \002(\0132\021.mesos." +
-      "ExecutorID\022\014\n\004data\030\004 \002(\014\"C\n\030RegisterFram" +
-      "eworkMessage\022\'\n\tframework\030\001 \002(\0132\024.mesos.",
-      "FrameworkInfo\"W\n\032ReregisterFrameworkMess" +
-      "age\022\'\n\tframework\030\002 \002(\0132\024.mesos.Framework" +
-      "Info\022\020\n\010failover\030\003 \002(\010\"n\n\032FrameworkRegis" +
-      "teredMessage\022(\n\014framework_id\030\001 \002(\0132\022.mes" +
-      "os.FrameworkID\022&\n\013master_info\030\002 \002(\0132\021.me" +
-      "sos.MasterInfo\"p\n\034FrameworkReregisteredM" +
-      "essage\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Fra" +
-      "meworkID\022&\n\013master_info\030\002 \002(\0132\021.mesos.Ma" +
-      "sterInfo\"F\n\032UnregisterFrameworkMessage\022(" +
-      "\n\014framework_id\030\001 \002(\0132\022.mesos.FrameworkID",
-      "\"F\n\032DeactivateFrameworkMessage\022(\n\014framew" +
-      "ork_id\030\001 \002(\0132\022.mesos.FrameworkID\"d\n\026Reso" +
-      "urceRequestMessage\022(\n\014framework_id\030\001 \002(\013" +
-      "2\022.mesos.FrameworkID\022 \n\010requests\030\002 \003(\0132\016" +
-      ".mesos.Request\"C\n\025ResourceOffersMessage\022" +
-      "\034\n\006offers\030\001 \003(\0132\014.mesos.Offer\022\014\n\004pids\030\002 " +
-      "\003(\t\"\242\001\n\022LaunchTasksMessage\022(\n\014framework_" +
-      "id\030\001 \002(\0132\022.mesos.FrameworkID\022\036\n\005tasks\030\003 " +
-      "\003(\0132\017.mesos.TaskInfo\022\037\n\007filters\030\005 \002(\0132\016." +
-      "mesos.Filters\022!\n\toffer_ids\030\006 \003(\0132\016.mesos",
-      ".OfferID\"?\n\033RescindResourceOfferMessage\022" +
-      " \n\010offer_id\030\001 \002(\0132\016.mesos.OfferID\"?\n\023Rev" +
-      "iveOffersMessage\022(\n\014framework_id\030\001 \002(\0132\022" +
-      ".mesos.FrameworkID\"\217\001\n\016RunTaskMessage\022(\n" +
-      "\014framework_id\030\001 \002(\0132\022.mesos.FrameworkID\022" +
-      "\'\n\tframework\030\002 \002(\0132\024.mesos.FrameworkInfo" +
-      "\022\013\n\003pid\030\003 \002(\t\022\035\n\004task\030\004 \002(\0132\017.mesos.Task" +
-      "Info\"[\n\017KillTaskMessage\022(\n\014framework_id\030" +
-      "\001 \002(\0132\022.mesos.FrameworkID\022\036\n\007task_id\030\002 \002" +
-      "(\0132\r.mesos.TaskID\"P\n\023StatusUpdateMessage",
-      "\022,\n\006update\030\001 \002(\0132\034.mesos.internal.Status" +
-      "Update\022\013\n\003pid\030\002 \001(\t\"\236\001\n\"StatusUpdateAckn" +
-      "owledgementMessage\022 \n\010slave_id\030\001 \002(\0132\016.m" +
-      "esos.SlaveID\022(\n\014framework_id\030\002 \002(\0132\022.mes" +
-      "os.FrameworkID\022\036\n\007task_id\030\003 \002(\0132\r.mesos." +
-      "TaskID\022\014\n\004uuid\030\004 \002(\014\"4\n\020LostSlaveMessage" +
-      "\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\"f\n\025Re" +
-      "concileTasksMessage\022(\n\014framework_id\030\001 \002(" +
-      "\0132\022.mesos.FrameworkID\022#\n\010statuses\030\002 \003(\0132" +
-      "\021.mesos.TaskStatus\"(\n\025FrameworkErrorMess",
-      "age\022\017\n\007message\030\002 \002(\t\"7\n\024RegisterSlaveMes" +
-      "sage\022\037\n\005slave\030\001 \002(\0132\020.mesos.SlaveInfo\"\356\001" +
-      "\n\026ReregisterSlaveMessage\022 \n\010slave_id\030\001 \002" +
-      "(\0132\016.mesos.SlaveID\022\037\n\005slave\030\002 \002(\0132\020.meso" +
-      "s.SlaveInfo\022+\n\016executor_infos\030\004 \003(\0132\023.me" +
-      "sos.ExecutorInfo\022#\n\005tasks\030\003 \003(\0132\024.mesos." +
-      "internal.Task\022?\n\024completed_frameworks\030\005 " +
-      "\003(\0132!.mesos.internal.Archive.Framework\":" +
-      "\n\026SlaveRegisteredMessage\022 \n\010slave_id\030\001 \002" +
-      "(\0132\016.mesos.SlaveID\"<\n\030SlaveReregisteredM",
-      "essage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID" +
-      "\":\n\026UnregisterSlaveMessage\022 \n\010slave_id\030\001" +
-      " \002(\0132\016.mesos.SlaveID\"%\n\020PingSlaveMessage" +
-      "\022\021\n\tconnected\030\001 \002(\010\"\022\n\020PongSlaveMessage\"" +
-      "D\n\030ShutdownFrameworkMessage\022(\n\014framework" +
-      "_id\030\001 \002(\0132\022.mesos.FrameworkID\"\031\n\027Shutdow" +
-      "nExecutorMessage\"O\n\026UpdateFrameworkMessa" +
-      "ge\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Framewo" +
-      "rkID\022\013\n\003pid\030\002 \002(\t\"k\n\027RegisterExecutorMes" +
-      "sage\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Frame",
-      "workID\022&\n\013executor_id\030\002 \002(\0132\021.mesos.Exec" +
-      "utorID\"\347\001\n\031ExecutorRegisteredMessage\022*\n\r" +
-      "executor_info\030\002 \002(\0132\023.mesos.ExecutorInfo" +
-      "\022(\n\014framework_id\030\003 \002(\0132\022.mesos.Framework" +
-      "ID\022,\n\016framework_info\030\004 \002(\0132\024.mesos.Frame" +
-      "workInfo\022 \n\010slave_id\030\005 \002(\0132\016.mesos.Slave" +
-      "ID\022$\n\nslave_info\030\006 \002(\0132\020.mesos.SlaveInfo" +
-      "\"e\n\033ExecutorReregisteredMessage\022 \n\010slave" +
-      "_id\030\001 \002(\0132\016.mesos.SlaveID\022$\n\nslave_info\030" +
-      "\002 \002(\0132\020.mesos.SlaveInfo\"\233\001\n\025ExitedExecut",
+      "skStatus\022-\n\023status_update_state\030\t \001(\0162\020." +
+      "mesos.TaskState\022\032\n\022status_update_uuid\030\n ",
+      "\001(\014\"+\n\010RoleInfo\022\014\n\004name\030\001 \002(\t\022\021\n\006weight\030" +
+      "\002 \001(\001:\0011\"\356\001\n\014StatusUpdate\022(\n\014framework_i" +
+      "d\030\001 \002(\0132\022.mesos.FrameworkID\022&\n\013executor_" +
+      "id\030\002 \001(\0132\021.mesos.ExecutorID\022 \n\010slave_id\030" +
+      "\003 \001(\0132\016.mesos.SlaveID\022!\n\006status\030\004 \002(\0132\021." +
+      "mesos.TaskStatus\022\021\n\ttimestamp\030\005 \002(\001\022\014\n\004u" +
+      "uid\030\006 \002(\014\022&\n\014latest_state\030\007 \001(\0162\020.mesos." +
+      "TaskState\"\244\001\n\022StatusUpdateRecord\0225\n\004type" +
+      "\030\001 \002(\0162\'.mesos.internal.StatusUpdateReco" +
+      "rd.Type\022,\n\006update\030\002 \001(\0132\034.mesos.internal",
+      ".StatusUpdate\022\014\n\004uuid\030\003 \001(\014\"\033\n\004Type\022\n\n\006U" +
+      "PDATE\020\000\022\007\n\003ACK\020\001\"&\n\026SubmitSchedulerReque" +
+      "st\022\014\n\004name\030\001 \002(\t\"\'\n\027SubmitSchedulerRespo" +
+      "nse\022\014\n\004okay\030\001 \002(\010\"\236\001\n\032ExecutorToFramewor" +
+      "kMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.Slave" +
+      "ID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Framewo" +
+      "rkID\022&\n\013executor_id\030\003 \002(\0132\021.mesos.Execut" +
+      "orID\022\014\n\004data\030\004 \002(\014\"\236\001\n\032FrameworkToExecut" +
       "orMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.Slav" +
-      "eID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Framew" +
+      "eID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Framew",
       "orkID\022&\n\013executor_id\030\003 \002(\0132\021.mesos.Execu" +
-      "torID\022\016\n\006status\030\004 \002(\005\"<\n\030ReconnectExecut" +
-      "orMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.Slav" +
-      "eID\"\274\001\n\031ReregisterExecutorMessage\022&\n\013exe" +
-      "cutor_id\030\001 \002(\0132\021.mesos.ExecutorID\022(\n\014fra" +
-      "mework_id\030\002 \002(\0132\022.mesos.FrameworkID\022\036\n\005t" +
-      "asks\030\003 \003(\0132\017.mesos.TaskInfo\022-\n\007updates\030\004" +
-      " \003(\0132\034.mesos.internal.StatusUpdate\"\"\n\017Sh",
-      "utdownMessage\022\017\n\007message\030\001 \001(\t\"\"\n\023Authen" +
-      "ticateMessage\022\013\n\003pid\030\001 \002(\t\"5\n\037Authentica" +
-      "tionMechanismsMessage\022\022\n\nmechanisms\030\001 \003(" +
-      "\t\"=\n\032AuthenticationStartMessage\022\021\n\tmecha" +
-      "nism\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\")\n\031Authenticati" +
-      "onStepMessage\022\014\n\004data\030\001 \002(\014\" \n\036Authentic" +
-      "ationCompletedMessage\"\035\n\033AuthenticationF" +
-      "ailedMessage\"+\n\032AuthenticationErrorMessa" +
-      "ge\022\r\n\005error\030\001 \001(\t\"\255\001\n\007Archive\0225\n\nframewo" +
-      "rks\030\001 \003(\0132!.mesos.internal.Archive.Frame",
-      "work\032k\n\tFramework\022,\n\016framework_info\030\001 \002(" +
-      "\0132\024.mesos.FrameworkInfo\022\013\n\003pid\030\002 \001(\t\022#\n\005" +
-      "tasks\030\003 \003(\0132\024.mesos.internal.Task\"{\n\020Tas" +
-      "kHealthStatus\022\036\n\007task_id\030\001 \002(\0132\r.mesos.T" +
-      "askID\022\017\n\007healthy\030\002 \002(\010\022\030\n\tkill_task\030\003 \001(" +
-      "\010:\005false\022\034\n\024consecutive_failures\030\004 \001(\005"
+      "torID\022\014\n\004data\030\004 \002(\014\"C\n\030RegisterFramework" +
+      "Message\022\'\n\tframework\030\001 \002(\0132\024.mesos.Frame" +
+      "workInfo\"W\n\032ReregisterFrameworkMessage\022\'" +
+      "\n\tframework\030\002 \002(\0132\024.mesos.FrameworkInfo\022" +
+      "\020\n\010failover\030\003 \002(\010\"n\n\032FrameworkRegistered" +
+      "Message\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Fr" +
+      "ameworkID\022&\n\013master_info\030\002 \002(\0132\021.mesos.M" +
+      "asterInfo\"p\n\034FrameworkReregisteredMessag" +
+      "e\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Framewor",
+      "kID\022&\n\013master_info\030\002 \002(\0132\021.mesos.MasterI" +
+      "nfo\"F\n\032UnregisterFrameworkMessage\022(\n\014fra" +
+      "mework_id\030\001 \002(\0132\022.mesos.FrameworkID\"F\n\032D" +
+      "eactivateFrameworkMessage\022(\n\014framework_i" +
+      "d\030\001 \002(\0132\022.mesos.FrameworkID\"d\n\026ResourceR" +
+      "equestMessage\022(\n\014framework_id\030\001 \002(\0132\022.me" +
+      "sos.FrameworkID\022 \n\010requests\030\002 \003(\0132\016.meso" +
+      "s.Request\"C\n\025ResourceOffersMessage\022\034\n\006of" +
+      "fers\030\001 \003(\0132\014.mesos.Offer\022\014\n\004pids\030\002 \003(\t\"\242" +
+      "\001\n\022LaunchTasksMessage\022(\n\014framework_id\030\001 ",
+      "\002(\0132\022.mesos.FrameworkID\022\036\n\005tasks\030\003 \003(\0132\017" +
+      ".mesos.TaskInfo\022\037\n\007filters\030\005 \002(\0132\016.mesos" +
+      ".Filters\022!\n\toffer_ids\030\006 \003(\0132\016.mesos.Offe" +
+      "rID\"?\n\033RescindResourceOfferMessage\022 \n\010of" +
+      "fer_id\030\001 \002(\0132\016.mesos.OfferID\"?\n\023ReviveOf" +
+      "fersMessage\022(\n\014framework_id\030\001 \002(\0132\022.meso" +
+      "s.FrameworkID\"\217\001\n\016RunTaskMessage\022(\n\014fram" +
+      "ework_id\030\001 \002(\0132\022.mesos.FrameworkID\022\'\n\tfr" +
+      "amework\030\002 \002(\0132\024.mesos.FrameworkInfo\022\013\n\003p" +
+      "id\030\003 \002(\t\022\035\n\004task\030\004 \002(\0132\017.mesos.TaskInfo\"",
+      "[\n\017KillTaskMessage\022(\n\014framework_id\030\001 \002(\013" +
+      "2\022.mesos.FrameworkID\022\036\n\007task_id\030\002 \002(\0132\r." +
+      "mesos.TaskID\"P\n\023StatusUpdateMessage\022,\n\006u" +
+      "pdate\030\001 \002(\0132\034.mesos.internal.StatusUpdat" +
+      "e\022\013\n\003pid\030\002 \001(\t\"\236\001\n\"StatusUpdateAcknowled" +
+      "gementMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos." +
+      "SlaveID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Fr" +
+      "ameworkID\022\036\n\007task_id\030\003 \002(\0132\r.mesos.TaskI" +
+      "D\022\014\n\004uuid\030\004 \002(\014\"4\n\020LostSlaveMessage\022 \n\010s" +
+      "lave_id\030\001 \002(\0132\016.mesos.SlaveID\"f\n\025Reconci",
+      "leTasksMessage\022(\n\014framework_id\030\001 \002(\0132\022.m" +
+      "esos.FrameworkID\022#\n\010statuses\030\002 \003(\0132\021.mes" +
+      "os.TaskStatus\"(\n\025FrameworkErrorMessage\022\017" +
+      "\n\007message\030\002 \002(\t\"H\n\024RegisterSlaveMessage\022" +
+      "\037\n\005slave\030\001 \002(\0132\020.mesos.SlaveInfo\022\017\n\007vers" +
+      "ion\030\002 \001(\t\"\377\001\n\026ReregisterSlaveMessage\022 \n\010" +
+      "slave_id\030\001 \001(\0132\016.mesos.SlaveID\022\037\n\005slave\030" +
+      "\002 \002(\0132\020.mesos.SlaveInfo\022+\n\016executor_info" +
+      "s\030\004 \003(\0132\023.mesos.ExecutorInfo\022#\n\005tasks\030\003 " +
+      "\003(\0132\024.mesos.internal.Task\022?\n\024completed_f",
+      "rameworks\030\005 \003(\0132!.mesos.internal.Archive" +
+      ".Framework\022\017\n\007version\030\006 \001(\t\":\n\026SlaveRegi" +
+      "steredMessage\022 \n\010slave_id\030\001 \002(\0132\016.mesos." +
+      "SlaveID\"|\n\030SlaveReregisteredMessage\022 \n\010s" +
+      "lave_id\030\001 \002(\0132\016.mesos.SlaveID\022>\n\017reconci" +
+      "liations\030\002 \003(\0132%.mesos.internal.Reconcil" +
+      "eTasksMessage\":\n\026UnregisterSlaveMessage\022" +
+      " \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\"%\n\020Pin" +
+      "gSlaveMessage\022\021\n\tconnected\030\001 \002(\010\"\022\n\020Pong" +
+      "SlaveMessage\"D\n\030ShutdownFrameworkMessage",
+      "\022(\n\014framework_id\030\001 \002(\0132\022.mesos.Framework" +
+      "ID\"\031\n\027ShutdownExecutorMessage\"O\n\026UpdateF" +
+      "rameworkMessage\022(\n\014framework_id\030\001 \002(\0132\022." +
+      "mesos.FrameworkID\022\013\n\003pid\030\002 \002(\t\"k\n\027Regist" +
+      "erExecutorMessage\022(\n\014framework_id\030\001 \002(\0132" +
+      "\022.mesos.FrameworkID\022&\n\013executor_id\030\002 \002(\013" +
+      "2\021.mesos.ExecutorID\"\347\001\n\031ExecutorRegister" +
+      "edMessage\022*\n\rexecutor_info\030\002 \002(\0132\023.mesos" +
+      ".ExecutorInfo\022(\n\014framework_id\030\003 \002(\0132\022.me" +
+      "sos.FrameworkID\022,\n\016framework_info\030\004 \002(\0132",
+      "\024.mesos.FrameworkInfo\022 \n\010slave_id\030\005 \002(\0132" +
+      "\016.mesos.SlaveID\022$\n\nslave_info\030\006 \002(\0132\020.me" +
+      "sos.SlaveInfo\"e\n\033ExecutorReregisteredMes" +
+      "sage\022 \n\010slave_id\030\001 \002(\0132\016.mesos.SlaveID\022$" +
+      "\n\nslave_info\030\002 \002(\0132\020.mesos.SlaveInfo\"\233\001\n" +
+      "\025ExitedExecutorMessage\022 \n\010slave_id\030\001 \002(\013" +
+      "2\016.mesos.SlaveID\022(\n\014framework_id\030\002 \002(\0132\022" +
+      ".mesos.FrameworkID\022&\n\013executor_id\030\003 \002(\0132" +
+      "\021.mesos.ExecutorID\022\016\n\006status\030\004 \002(\005\"<\n\030Re" +
+      "connectExecutorMessage\022 \n\010slave_id\030\001 \002(\013",
+      "2\016.mesos.SlaveID\"\274\001\n\031ReregisterExecutorM" +
+      "essage\022&\n\013executor_id\030\001 \002(\0132\021.mesos.Exec" +
+      "utorID\022(\n\014framework_id\030\002 \002(\0132\022.mesos.Fra" +
+      "meworkID\022\036\n\005tasks\030\003 \003(\0132\017.mesos.TaskInfo" +
+      "\022-\n\007updates\030\004 \003(\0132\034.mesos.internal.Statu" +
+      "sUpdate\"\"\n\017ShutdownMessage\022\017\n\007message\030\001 " +
+      "\001(\t\"\"\n\023AuthenticateMessage\022\013\n\003pid\030\001 \002(\t\"" +
+      "5\n\037AuthenticationMechanismsMessage\022\022\n\nme" +
+      "chanisms\030\001 \003(\t\"=\n\032AuthenticationStartMes" +
+      "sage\022\021\n\tmechanism\030\001 \002(\t\022\014\n\004data\030\002 \001(\t\")\n",
+      "\031AuthenticationStepMessage\022\014\n\004data\030\001 \002(\014" +
+      "\" \n\036AuthenticationCompletedMessage\"\035\n\033Au" +
+      "thenticationFailedMessage\"+\n\032Authenticat" +
+      "ionErrorMessage\022\r\n\005error\030\001 \001(\t\"\255\001\n\007Archi" +
+      "ve\0225\n\nframeworks\030\001 \003(\0132!.mesos.internal." +
+      "Archive.Framework\032k\n\tFramework\022,\n\016framew" +
+      "ork_info\030\001 \002(\0132\024.mesos.FrameworkInfo\022\013\n\003" +
+      "pid\030\002 \001(\t\022#\n\005tasks\030\003 \003(\0132\024.mesos.interna" +
+      "l.Task\"{\n\020TaskHealthStatus\022\036\n\007task_id\030\001 " +
+      "\002(\0132\r.mesos.TaskID\022\017\n\007healthy\030\002 \002(\010\022\030\n\tk",
+      "ill_task\030\003 \001(\010:\005false\022\034\n\024consecutive_fai" +
+      "lures\030\004 \001(\005\"\334\001\n\007Modules\0222\n\tlibraries\030\001 \003" +
+      "(\0132\037.mesos.internal.Modules.Library\032\234\001\n\007" +
+      "Library\022\014\n\004file\030\001 \001(\t\022\014\n\004name\030\002 \001(\t\0227\n\007m" +
+      "odules\030\003 \003(\0132&.mesos.internal.Modules.Li" +
+      "brary.Module\032<\n\006Module\022\014\n\004name\030\001 \001(\t\022$\n\n" +
+      "parameters\030\002 \003(\0132\020.mesos.Parameter"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -40262,7 +44377,7 @@ public final class Messages {
           internal_static_mesos_internal_Task_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_Task_descriptor,
-              new java.lang.String[] { "Name", "TaskId", "FrameworkId", "ExecutorId", "SlaveId", "State", "Resources", "Statuses", });
+              new java.lang.String[] { "Name", "TaskId", "FrameworkId", "ExecutorId", "SlaveId", "State", "Resources", "Statuses", "StatusUpdateState", "StatusUpdateUuid", });
           internal_static_mesos_internal_RoleInfo_descriptor =
             getDescriptor().getMessageTypes().get(1);
           internal_static_mesos_internal_RoleInfo_fieldAccessorTable = new
@@ -40274,7 +44389,7 @@ public final class Messages {
           internal_static_mesos_internal_StatusUpdate_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_StatusUpdate_descriptor,
-              new java.lang.String[] { "FrameworkId", "ExecutorId", "SlaveId", "Status", "Timestamp", "Uuid", });
+              new java.lang.String[] { "FrameworkId", "ExecutorId", "SlaveId", "Status", "Timestamp", "Uuid", "LatestState", });
           internal_static_mesos_internal_StatusUpdateRecord_descriptor =
             getDescriptor().getMessageTypes().get(3);
           internal_static_mesos_internal_StatusUpdateRecord_fieldAccessorTable = new
@@ -40418,13 +44533,13 @@ public final class Messages {
           internal_static_mesos_internal_RegisterSlaveMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_RegisterSlaveMessage_descriptor,
-              new java.lang.String[] { "Slave", });
+              new java.lang.String[] { "Slave", "Version", });
           internal_static_mesos_internal_ReregisterSlaveMessage_descriptor =
             getDescriptor().getMessageTypes().get(27);
           internal_static_mesos_internal_ReregisterSlaveMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_ReregisterSlaveMessage_descriptor,
-              new java.lang.String[] { "SlaveId", "Slave", "ExecutorInfos", "Tasks", "CompletedFrameworks", });
+              new java.lang.String[] { "SlaveId", "Slave", "ExecutorInfos", "Tasks", "CompletedFrameworks", "Version", });
           internal_static_mesos_internal_SlaveRegisteredMessage_descriptor =
             getDescriptor().getMessageTypes().get(28);
           internal_static_mesos_internal_SlaveRegisteredMessage_fieldAccessorTable = new
@@ -40436,7 +44551,7 @@ public final class Messages {
           internal_static_mesos_internal_SlaveReregisteredMessage_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_SlaveReregisteredMessage_descriptor,
-              new java.lang.String[] { "SlaveId", });
+              new java.lang.String[] { "SlaveId", "Reconciliations", });
           internal_static_mesos_internal_UnregisterSlaveMessage_descriptor =
             getDescriptor().getMessageTypes().get(30);
           internal_static_mesos_internal_UnregisterSlaveMessage_fieldAccessorTable = new
@@ -40575,6 +44690,24 @@ public final class Messages {
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_TaskHealthStatus_descriptor,
               new java.lang.String[] { "TaskId", "Healthy", "KillTask", "ConsecutiveFailures", });
+          internal_static_mesos_internal_Modules_descriptor =
+            getDescriptor().getMessageTypes().get(52);
+          internal_static_mesos_internal_Modules_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_mesos_internal_Modules_descriptor,
+              new java.lang.String[] { "Libraries", });
+          internal_static_mesos_internal_Modules_Library_descriptor =
+            internal_static_mesos_internal_Modules_descriptor.getNestedTypes().get(0);
+          internal_static_mesos_internal_Modules_Library_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_mesos_internal_Modules_Library_descriptor,
+              new java.lang.String[] { "File", "Name", "Modules", });
+          internal_static_mesos_internal_Modules_Library_Module_descriptor =
+            internal_static_mesos_internal_Modules_Library_descriptor.getNestedTypes().get(0);
+          internal_static_mesos_internal_Modules_Library_Module_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_mesos_internal_Modules_Library_Module_descriptor,
+              new java.lang.String[] { "Name", "Parameters", });
           return null;
         }
       };

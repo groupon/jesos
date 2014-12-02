@@ -115,6 +115,9 @@ message ContainerID {
  * in authentication. This field is used for framework API rate
  * exporting and limiting and should be set even if authentication is
  * not enabled if these features are desired.
+ * The webui_url field allows a framework to advertise its web UI, so
+ * that the Mesos web UI can link to it. It is expected to be a full
+ * URL, for example http://my-scheduler.example.com:8080/.
  */
 message FrameworkInfo {
   required string user = 1;
@@ -125,6 +128,7 @@ message FrameworkInfo {
   optional string role = 6 [default = "*"];
   optional string hostname = 7;
   optional string principal = 8;
+  optional string webui_url = 9;
 }
 
 
@@ -431,6 +435,13 @@ message ResourceStatistics {
   optional uint64 net_tx_bytes = 19;
   optional uint64 net_tx_errors = 20;
   optional uint64 net_tx_dropped = 21;
+
+  // The kernel keeps track of RTT (round-trip time) for its TCP
+  // sockets. RTT is a way to tell the latency of a container.
+  optional double net_tcp_rtt_microsecs_p50 = 22;
+  optional double net_tcp_rtt_microsecs_p90 = 23;
+  optional double net_tcp_rtt_microsecs_p95 = 24;
+  optional double net_tcp_rtt_microsecs_p99 = 25;
 }
 
 
@@ -596,15 +607,16 @@ message TaskInfo {
  * another task).
  */
 enum TaskState {
-  TASK_STAGING = 6;  // Initial state. Framework status updates should not use.
+  TASK_STAGING = 6; // Initial state. Framework status updates should not use.
   TASK_STARTING = 0;
   TASK_RUNNING = 1;
-  TASK_FINISHED = 2; // TERMINAL.
-  TASK_FAILED = 3;   // TERMINAL.
-  TASK_KILLED = 4;   // TERMINAL.
-  TASK_LOST = 5;     // TERMINAL.
-
-  // TODO(benh): TASK_ERROR = 7; // TERMINAL.
+  TASK_FINISHED = 2; // TERMINAL. The task finished successfully.
+  TASK_FAILED = 3; // TERMINAL. The task failed to finish successfully.
+  TASK_KILLED = 4; // TERMINAL. The task was killed by the executor.
+  TASK_LOST = 5; // TERMINAL. The task failed but can be rescheduled.
+  // TASK_ERROR is currently unused but will be introduced in 0.22.0.
+  // TODO(dhamon): Start using TASK_ERROR.
+  TASK_ERROR = 7; // TERMINAL. The task description contains an error.
 }
 
 
@@ -612,9 +624,39 @@ enum TaskState {
  * Describes the current status of a task.
  */
 message TaskStatus {
+  /** Describes the source of the task status update. */
+  enum Source {
+    SOURCE_MASTER = 0;
+    SOURCE_SLAVE = 1;
+    SOURCE_EXECUTOR = 2;
+  }
+
+  /** Detailed reason for the task status update. */
+  enum Reason {
+    REASON_COMMAND_EXECUTOR_FAILED = 0;
+    REASON_EXECUTOR_TERMINATED = 1;
+    REASON_EXECUTOR_UNREGISTERED = 2;
+    REASON_FRAMEWORK_REMOVED = 3;
+    REASON_GC_ERROR = 4;
+    REASON_INVALID_FRAMEWORKID = 5;
+    REASON_INVALID_OFFERS = 6;
+    REASON_MASTER_DISCONNECTED = 7;
+    REASON_MEMORY_LIMIT = 8;
+    REASON_RECONCILIATION = 9;
+    REASON_SLAVE_DISCONNECTED = 10;
+    REASON_SLAVE_REMOVED = 11;
+    REASON_SLAVE_RESTARTED = 12;
+    REASON_SLAVE_UNKNOWN = 13;
+    REASON_TASK_INVALID = 14;
+    REASON_TASK_UNAUTHORIZED = 15;
+    REASON_TASK_UNKNOWN = 16;
+  }
+
   required TaskID task_id = 1;
   required TaskState state = 2;
   optional string message = 4; // Possible message explaining state.
+  optional Source source = 9;
+  optional Reason reason = 10;
   optional bytes data = 3;
   optional SlaveID slave_id = 5;
   optional ExecutorID executor_id = 7; // TODO(benh): Use in master/slave.
@@ -826,7 +868,8 @@ message Volume {
   // Absolute path pointing to a directory or file in the container.
   required string container_path = 1;
 
-  // Absolute path pointing to a directory or file on the host.
+  // Absolute path pointing to a directory or file on the host or a path
+  // relative to the container work directory.
   optional string host_path = 2;
 
   enum Mode {
@@ -840,12 +883,13 @@ message Volume {
 
 /**
  * Describes a container configuration and allows extensible
- * configurations for different container implementation.
+ * configurations for different container implementations.
  */
 message ContainerInfo {
   // All container implementation types.
   enum Type {
     DOCKER = 1;
+    MESOS = 2;
   }
 
   message DockerInfo {
@@ -856,6 +900,7 @@ message ContainerInfo {
     enum Network {
       HOST = 1;
       BRIDGE = 2;
+      NONE = 3;
     }
 
     optional Network network = 2 [default = HOST];
@@ -868,10 +913,19 @@ message ContainerInfo {
     }
 
     repeated PortMapping port_mappings = 3;
+
+    optional bool privileged = 4 [default = false];
+
+    // Allowing arbitrary parameters to be passed to docker CLI.
+    // Note that anything passed to this field is not guranteed
+    // to be supported moving forward, as we might move away from
+    // the docker CLI.
+    repeated Parameter parameters = 5;
   }
 
   required Type type = 1;
   repeated Volume volumes = 2;
+  optional string hostname = 4;
 
   optional DockerInfo docker = 3;
 }

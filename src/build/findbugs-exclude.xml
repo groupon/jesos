@@ -257,7 +257,16 @@
         <Class name='mesos.internal.state.State$Operation' />
     </Match>
     <Match>
-        <Class name='mesos.internal.state.State$Operation' />
+        <Class name='mesos.internal.state.State$Operation$Diff' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$Modules' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$Modules$Library' />
+    </Match>
+    <Match>
+        <Class name='mesos.internal.Messages$Modules$Library$Module' />
     </Match>
     <Match>
         <Class name='mesos.internal.Messages$PingSlaveMessage' />

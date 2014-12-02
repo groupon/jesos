@@ -706,6 +706,20 @@ public final class State {
      */
     mesos.internal.state.State.Operation.SnapshotOrBuilder getSnapshotOrBuilder();
 
+    // optional .mesos.internal.state.Operation.Diff diff = 4;
+    /**
+     * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+     */
+    boolean hasDiff();
+    /**
+     * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+     */
+    mesos.internal.state.State.Operation.Diff getDiff();
+    /**
+     * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+     */
+    mesos.internal.state.State.Operation.DiffOrBuilder getDiffOrBuilder();
+
     // optional .mesos.internal.state.Operation.Expunge expunge = 3;
     /**
      * <code>optional .mesos.internal.state.Operation.Expunge expunge = 3;</code>
@@ -801,13 +815,26 @@ public final class State {
             }
             case 26: {
               mesos.internal.state.State.Operation.Expunge.Builder subBuilder = null;
-              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+              if (((bitField0_ & 0x00000008) == 0x00000008)) {
                 subBuilder = expunge_.toBuilder();
               }
               expunge_ = input.readMessage(mesos.internal.state.State.Operation.Expunge.PARSER, extensionRegistry);
               if (subBuilder != null) {
                 subBuilder.mergeFrom(expunge_);
                 expunge_ = subBuilder.buildPartial();
+              }
+              bitField0_ |= 0x00000008;
+              break;
+            }
+            case 34: {
+              mesos.internal.state.State.Operation.Diff.Builder subBuilder = null;
+              if (((bitField0_ & 0x00000004) == 0x00000004)) {
+                subBuilder = diff_.toBuilder();
+              }
+              diff_ = input.readMessage(mesos.internal.state.State.Operation.Diff.PARSER, extensionRegistry);
+              if (subBuilder != null) {
+                subBuilder.mergeFrom(diff_);
+                diff_ = subBuilder.buildPartial();
               }
               bitField0_ |= 0x00000004;
               break;
@@ -861,15 +888,23 @@ public final class State {
        */
       SNAPSHOT(0, 1),
       /**
+       * <code>DIFF = 3;</code>
+       */
+      DIFF(1, 3),
+      /**
        * <code>EXPUNGE = 2;</code>
        */
-      EXPUNGE(1, 2),
+      EXPUNGE(2, 2),
       ;
 
       /**
        * <code>SNAPSHOT = 1;</code>
        */
       public static final int SNAPSHOT_VALUE = 1;
+      /**
+       * <code>DIFF = 3;</code>
+       */
+      public static final int DIFF_VALUE = 3;
       /**
        * <code>EXPUNGE = 2;</code>
        */
@@ -881,6 +916,7 @@ public final class State {
       public static Type valueOf(int value) {
         switch (value) {
           case 1: return SNAPSHOT;
+          case 3: return DIFF;
           case 2: return EXPUNGE;
           default: return null;
         }
@@ -1464,6 +1500,541 @@ public final class State {
       // @@protoc_insertion_point(class_scope:mesos.internal.state.Operation.Snapshot)
     }
 
+    public interface DiffOrBuilder
+        extends com.google.protobuf.MessageOrBuilder {
+
+      // required .mesos.internal.state.Entry entry = 1;
+      /**
+       * <code>required .mesos.internal.state.Entry entry = 1;</code>
+       */
+      boolean hasEntry();
+      /**
+       * <code>required .mesos.internal.state.Entry entry = 1;</code>
+       */
+      mesos.internal.state.State.Entry getEntry();
+      /**
+       * <code>required .mesos.internal.state.Entry entry = 1;</code>
+       */
+      mesos.internal.state.State.EntryOrBuilder getEntryOrBuilder();
+    }
+    /**
+     * Protobuf type {@code mesos.internal.state.Operation.Diff}
+     *
+     * <pre>
+     * Describes a "diff" operation where the 'value' of the entry is
+     * just the diff itself, but the 'uuid' represents the UUID of the
+     * entry after applying this diff.
+     * </pre>
+     */
+    public static final class Diff extends
+        com.google.protobuf.GeneratedMessage
+        implements DiffOrBuilder {
+      // Use Diff.newBuilder() to construct.
+      private Diff(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+        super(builder);
+        this.unknownFields = builder.getUnknownFields();
+      }
+      private Diff(boolean noInit) { this.unknownFields = com.google.protobuf.UnknownFieldSet.getDefaultInstance(); }
+
+      private static final Diff defaultInstance;
+      public static Diff getDefaultInstance() {
+        return defaultInstance;
+      }
+
+      public Diff getDefaultInstanceForType() {
+        return defaultInstance;
+      }
+
+      private final com.google.protobuf.UnknownFieldSet unknownFields;
+      @java.lang.Override
+      public final com.google.protobuf.UnknownFieldSet
+          getUnknownFields() {
+        return this.unknownFields;
+      }
+      private Diff(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        initFields();
+        int mutable_bitField0_ = 0;
+        com.google.protobuf.UnknownFieldSet.Builder unknownFields =
+            com.google.protobuf.UnknownFieldSet.newBuilder();
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              default: {
+                if (!parseUnknownField(input, unknownFields,
+                                       extensionRegistry, tag)) {
+                  done = true;
+                }
+                break;
+              }
+              case 10: {
+                mesos.internal.state.State.Entry.Builder subBuilder = null;
+                if (((bitField0_ & 0x00000001) == 0x00000001)) {
+                  subBuilder = entry_.toBuilder();
+                }
+                entry_ = input.readMessage(mesos.internal.state.State.Entry.PARSER, extensionRegistry);
+                if (subBuilder != null) {
+                  subBuilder.mergeFrom(entry_);
+                  entry_ = subBuilder.buildPartial();
+                }
+                bitField0_ |= 0x00000001;
+                break;
+              }
+            }
+          }
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(this);
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(
+              e.getMessage()).setUnfinishedMessage(this);
+        } finally {
+          this.unknownFields = unknownFields.build();
+          makeExtensionsImmutable();
+        }
+      }
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return mesos.internal.state.State.internal_static_mesos_internal_state_Operation_Diff_descriptor;
+      }
+
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return mesos.internal.state.State.internal_static_mesos_internal_state_Operation_Diff_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                mesos.internal.state.State.Operation.Diff.class, mesos.internal.state.State.Operation.Diff.Builder.class);
+      }
+
+      public static com.google.protobuf.Parser<Diff> PARSER =
+          new com.google.protobuf.AbstractParser<Diff>() {
+        public Diff parsePartialFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws com.google.protobuf.InvalidProtocolBufferException {
+          return new Diff(input, extensionRegistry);
+        }
+      };
+
+      @java.lang.Override
+      public com.google.protobuf.Parser<Diff> getParserForType() {
+        return PARSER;
+      }
+
+      private int bitField0_;
+      // required .mesos.internal.state.Entry entry = 1;
+      public static final int ENTRY_FIELD_NUMBER = 1;
+      private mesos.internal.state.State.Entry entry_;
+      /**
+       * <code>required .mesos.internal.state.Entry entry = 1;</code>
+       */
+      public boolean hasEntry() {
+        return ((bitField0_ & 0x00000001) == 0x00000001);
+      }
+      /**
+       * <code>required .mesos.internal.state.Entry entry = 1;</code>
+       */
+      public mesos.internal.state.State.Entry getEntry() {
+        return entry_;
+      }
+      /**
+       * <code>required .mesos.internal.state.Entry entry = 1;</code>
+       */
+      public mesos.internal.state.State.EntryOrBuilder getEntryOrBuilder() {
+        return entry_;
+      }
+
+      private void initFields() {
+        entry_ = mesos.internal.state.State.Entry.getDefaultInstance();
+      }
+      private byte memoizedIsInitialized = -1;
+      public final boolean isInitialized() {
+        byte isInitialized = memoizedIsInitialized;
+        if (isInitialized != -1) return isInitialized == 1;
+
+        if (!hasEntry()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        if (!getEntry().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+        memoizedIsInitialized = 1;
+        return true;
+      }
+
+      public void writeTo(com.google.protobuf.CodedOutputStream output)
+                          throws java.io.IOException {
+        getSerializedSize();
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          output.writeMessage(1, entry_);
+        }
+        getUnknownFields().writeTo(output);
+      }
+
+      private int memoizedSerializedSize = -1;
+      public int getSerializedSize() {
+        int size = memoizedSerializedSize;
+        if (size != -1) return size;
+
+        size = 0;
+        if (((bitField0_ & 0x00000001) == 0x00000001)) {
+          size += com.google.protobuf.CodedOutputStream
+            .computeMessageSize(1, entry_);
+        }
+        size += getUnknownFields().getSerializedSize();
+        memoizedSerializedSize = size;
+        return size;
+      }
+
+      private static final long serialVersionUID = 0L;
+      @java.lang.Override
+      protected java.lang.Object writeReplace()
+          throws java.io.ObjectStreamException {
+        return super.writeReplace();
+      }
+
+      public static mesos.internal.state.State.Operation.Diff parseFrom(
+          com.google.protobuf.ByteString data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseFrom(
+          com.google.protobuf.ByteString data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseFrom(byte[] data)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseFrom(
+          byte[] data,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        return PARSER.parseFrom(data, extensionRegistry);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseDelimitedFrom(java.io.InputStream input)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseDelimitedFrom(
+          java.io.InputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseDelimitedFrom(input, extensionRegistry);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseFrom(
+          com.google.protobuf.CodedInputStream input)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input);
+      }
+      public static mesos.internal.state.State.Operation.Diff parseFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        return PARSER.parseFrom(input, extensionRegistry);
+      }
+
+      public static Builder newBuilder() { return Builder.create(); }
+      public Builder newBuilderForType() { return newBuilder(); }
+      public static Builder newBuilder(mesos.internal.state.State.Operation.Diff prototype) {
+        return newBuilder().mergeFrom(prototype);
+      }
+      public Builder toBuilder() { return newBuilder(this); }
+
+      @java.lang.Override
+      protected Builder newBuilderForType(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        Builder builder = new Builder(parent);
+        return builder;
+      }
+      /**
+       * Protobuf type {@code mesos.internal.state.Operation.Diff}
+       *
+       * <pre>
+       * Describes a "diff" operation where the 'value' of the entry is
+       * just the diff itself, but the 'uuid' represents the UUID of the
+       * entry after applying this diff.
+       * </pre>
+       */
+      public static final class Builder extends
+          com.google.protobuf.GeneratedMessage.Builder<Builder>
+         implements mesos.internal.state.State.Operation.DiffOrBuilder {
+        public static final com.google.protobuf.Descriptors.Descriptor
+            getDescriptor() {
+          return mesos.internal.state.State.internal_static_mesos_internal_state_Operation_Diff_descriptor;
+        }
+
+        protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+            internalGetFieldAccessorTable() {
+          return mesos.internal.state.State.internal_static_mesos_internal_state_Operation_Diff_fieldAccessorTable
+              .ensureFieldAccessorsInitialized(
+                  mesos.internal.state.State.Operation.Diff.class, mesos.internal.state.State.Operation.Diff.Builder.class);
+        }
+
+        // Construct using mesos.internal.state.State.Operation.Diff.newBuilder()
+        private Builder() {
+          maybeForceBuilderInitialization();
+        }
+
+        private Builder(
+            com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+          super(parent);
+          maybeForceBuilderInitialization();
+        }
+        private void maybeForceBuilderInitialization() {
+          if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
+            getEntryFieldBuilder();
+          }
+        }
+        private static Builder create() {
+          return new Builder();
+        }
+
+        public Builder clear() {
+          super.clear();
+          if (entryBuilder_ == null) {
+            entry_ = mesos.internal.state.State.Entry.getDefaultInstance();
+          } else {
+            entryBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000001);
+          return this;
+        }
+
+        public Builder clone() {
+          return create().mergeFrom(buildPartial());
+        }
+
+        public com.google.protobuf.Descriptors.Descriptor
+            getDescriptorForType() {
+          return mesos.internal.state.State.internal_static_mesos_internal_state_Operation_Diff_descriptor;
+        }
+
+        public mesos.internal.state.State.Operation.Diff getDefaultInstanceForType() {
+          return mesos.internal.state.State.Operation.Diff.getDefaultInstance();
+        }
+
+        public mesos.internal.state.State.Operation.Diff build() {
+          mesos.internal.state.State.Operation.Diff result = buildPartial();
+          if (!result.isInitialized()) {
+            throw newUninitializedMessageException(result);
+          }
+          return result;
+        }
+
+        public mesos.internal.state.State.Operation.Diff buildPartial() {
+          mesos.internal.state.State.Operation.Diff result = new mesos.internal.state.State.Operation.Diff(this);
+          int from_bitField0_ = bitField0_;
+          int to_bitField0_ = 0;
+          if (((from_bitField0_ & 0x00000001) == 0x00000001)) {
+            to_bitField0_ |= 0x00000001;
+          }
+          if (entryBuilder_ == null) {
+            result.entry_ = entry_;
+          } else {
+            result.entry_ = entryBuilder_.build();
+          }
+          result.bitField0_ = to_bitField0_;
+          onBuilt();
+          return result;
+        }
+
+        public Builder mergeFrom(com.google.protobuf.Message other) {
+          if (other instanceof mesos.internal.state.State.Operation.Diff) {
+            return mergeFrom((mesos.internal.state.State.Operation.Diff)other);
+          } else {
+            super.mergeFrom(other);
+            return this;
+          }
+        }
+
+        public Builder mergeFrom(mesos.internal.state.State.Operation.Diff other) {
+          if (other == mesos.internal.state.State.Operation.Diff.getDefaultInstance()) return this;
+          if (other.hasEntry()) {
+            mergeEntry(other.getEntry());
+          }
+          this.mergeUnknownFields(other.getUnknownFields());
+          return this;
+        }
+
+        public final boolean isInitialized() {
+          if (!hasEntry()) {
+            
+            return false;
+          }
+          if (!getEntry().isInitialized()) {
+            
+            return false;
+          }
+          return true;
+        }
+
+        public Builder mergeFrom(
+            com.google.protobuf.CodedInputStream input,
+            com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+            throws java.io.IOException {
+          mesos.internal.state.State.Operation.Diff parsedMessage = null;
+          try {
+            parsedMessage = PARSER.parsePartialFrom(input, extensionRegistry);
+          } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+            parsedMessage = (mesos.internal.state.State.Operation.Diff) e.getUnfinishedMessage();
+            throw e;
+          } finally {
+            if (parsedMessage != null) {
+              mergeFrom(parsedMessage);
+            }
+          }
+          return this;
+        }
+        private int bitField0_;
+
+        // required .mesos.internal.state.Entry entry = 1;
+        private mesos.internal.state.State.Entry entry_ = mesos.internal.state.State.Entry.getDefaultInstance();
+        private com.google.protobuf.SingleFieldBuilder<
+            mesos.internal.state.State.Entry, mesos.internal.state.State.Entry.Builder, mesos.internal.state.State.EntryOrBuilder> entryBuilder_;
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        public boolean hasEntry() {
+          return ((bitField0_ & 0x00000001) == 0x00000001);
+        }
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        public mesos.internal.state.State.Entry getEntry() {
+          if (entryBuilder_ == null) {
+            return entry_;
+          } else {
+            return entryBuilder_.getMessage();
+          }
+        }
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        public Builder setEntry(mesos.internal.state.State.Entry value) {
+          if (entryBuilder_ == null) {
+            if (value == null) {
+              throw new NullPointerException();
+            }
+            entry_ = value;
+            onChanged();
+          } else {
+            entryBuilder_.setMessage(value);
+          }
+          bitField0_ |= 0x00000001;
+          return this;
+        }
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        public Builder setEntry(
+            mesos.internal.state.State.Entry.Builder builderForValue) {
+          if (entryBuilder_ == null) {
+            entry_ = builderForValue.build();
+            onChanged();
+          } else {
+            entryBuilder_.setMessage(builderForValue.build());
+          }
+          bitField0_ |= 0x00000001;
+          return this;
+        }
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        public Builder mergeEntry(mesos.internal.state.State.Entry value) {
+          if (entryBuilder_ == null) {
+            if (((bitField0_ & 0x00000001) == 0x00000001) &&
+                entry_ != mesos.internal.state.State.Entry.getDefaultInstance()) {
+              entry_ =
+                mesos.internal.state.State.Entry.newBuilder(entry_).mergeFrom(value).buildPartial();
+            } else {
+              entry_ = value;
+            }
+            onChanged();
+          } else {
+            entryBuilder_.mergeFrom(value);
+          }
+          bitField0_ |= 0x00000001;
+          return this;
+        }
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        public Builder clearEntry() {
+          if (entryBuilder_ == null) {
+            entry_ = mesos.internal.state.State.Entry.getDefaultInstance();
+            onChanged();
+          } else {
+            entryBuilder_.clear();
+          }
+          bitField0_ = (bitField0_ & ~0x00000001);
+          return this;
+        }
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        public mesos.internal.state.State.Entry.Builder getEntryBuilder() {
+          bitField0_ |= 0x00000001;
+          onChanged();
+          return getEntryFieldBuilder().getBuilder();
+        }
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        public mesos.internal.state.State.EntryOrBuilder getEntryOrBuilder() {
+          if (entryBuilder_ != null) {
+            return entryBuilder_.getMessageOrBuilder();
+          } else {
+            return entry_;
+          }
+        }
+        /**
+         * <code>required .mesos.internal.state.Entry entry = 1;</code>
+         */
+        private com.google.protobuf.SingleFieldBuilder<
+            mesos.internal.state.State.Entry, mesos.internal.state.State.Entry.Builder, mesos.internal.state.State.EntryOrBuilder> 
+            getEntryFieldBuilder() {
+          if (entryBuilder_ == null) {
+            entryBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                mesos.internal.state.State.Entry, mesos.internal.state.State.Entry.Builder, mesos.internal.state.State.EntryOrBuilder>(
+                    entry_,
+                    getParentForChildren(),
+                    isClean());
+            entry_ = null;
+          }
+          return entryBuilder_;
+        }
+
+        // @@protoc_insertion_point(builder_scope:mesos.internal.state.Operation.Diff)
+      }
+
+      static {
+        defaultInstance = new Diff(true);
+        defaultInstance.initFields();
+      }
+
+      // @@protoc_insertion_point(class_scope:mesos.internal.state.Operation.Diff)
+    }
+
     public interface ExpungeOrBuilder
         extends com.google.protobuf.MessageOrBuilder {
 
@@ -1990,6 +2561,28 @@ public final class State {
       return snapshot_;
     }
 
+    // optional .mesos.internal.state.Operation.Diff diff = 4;
+    public static final int DIFF_FIELD_NUMBER = 4;
+    private mesos.internal.state.State.Operation.Diff diff_;
+    /**
+     * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+     */
+    public boolean hasDiff() {
+      return ((bitField0_ & 0x00000004) == 0x00000004);
+    }
+    /**
+     * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+     */
+    public mesos.internal.state.State.Operation.Diff getDiff() {
+      return diff_;
+    }
+    /**
+     * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+     */
+    public mesos.internal.state.State.Operation.DiffOrBuilder getDiffOrBuilder() {
+      return diff_;
+    }
+
     // optional .mesos.internal.state.Operation.Expunge expunge = 3;
     public static final int EXPUNGE_FIELD_NUMBER = 3;
     private mesos.internal.state.State.Operation.Expunge expunge_;
@@ -1997,7 +2590,7 @@ public final class State {
      * <code>optional .mesos.internal.state.Operation.Expunge expunge = 3;</code>
      */
     public boolean hasExpunge() {
-      return ((bitField0_ & 0x00000004) == 0x00000004);
+      return ((bitField0_ & 0x00000008) == 0x00000008);
     }
     /**
      * <code>optional .mesos.internal.state.Operation.Expunge expunge = 3;</code>
@@ -2015,6 +2608,7 @@ public final class State {
     private void initFields() {
       type_ = mesos.internal.state.State.Operation.Type.SNAPSHOT;
       snapshot_ = mesos.internal.state.State.Operation.Snapshot.getDefaultInstance();
+      diff_ = mesos.internal.state.State.Operation.Diff.getDefaultInstance();
       expunge_ = mesos.internal.state.State.Operation.Expunge.getDefaultInstance();
     }
     private byte memoizedIsInitialized = -1;
@@ -2028,6 +2622,12 @@ public final class State {
       }
       if (hasSnapshot()) {
         if (!getSnapshot().isInitialized()) {
+          memoizedIsInitialized = 0;
+          return false;
+        }
+      }
+      if (hasDiff()) {
+        if (!getDiff().isInitialized()) {
           memoizedIsInitialized = 0;
           return false;
         }
@@ -2051,8 +2651,11 @@ public final class State {
       if (((bitField0_ & 0x00000002) == 0x00000002)) {
         output.writeMessage(2, snapshot_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         output.writeMessage(3, expunge_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        output.writeMessage(4, diff_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -2071,9 +2674,13 @@ public final class State {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, snapshot_);
       }
-      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+      if (((bitField0_ & 0x00000008) == 0x00000008)) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(3, expunge_);
+      }
+      if (((bitField0_ & 0x00000004) == 0x00000004)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, diff_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSerializedSize = size;
@@ -2188,6 +2795,7 @@ public final class State {
       private void maybeForceBuilderInitialization() {
         if (com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders) {
           getSnapshotFieldBuilder();
+          getDiffFieldBuilder();
           getExpungeFieldBuilder();
         }
       }
@@ -2205,12 +2813,18 @@ public final class State {
           snapshotBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000002);
+        if (diffBuilder_ == null) {
+          diff_ = mesos.internal.state.State.Operation.Diff.getDefaultInstance();
+        } else {
+          diffBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
         if (expungeBuilder_ == null) {
           expunge_ = mesos.internal.state.State.Operation.Expunge.getDefaultInstance();
         } else {
           expungeBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
 
@@ -2254,6 +2868,14 @@ public final class State {
         if (((from_bitField0_ & 0x00000004) == 0x00000004)) {
           to_bitField0_ |= 0x00000004;
         }
+        if (diffBuilder_ == null) {
+          result.diff_ = diff_;
+        } else {
+          result.diff_ = diffBuilder_.build();
+        }
+        if (((from_bitField0_ & 0x00000008) == 0x00000008)) {
+          to_bitField0_ |= 0x00000008;
+        }
         if (expungeBuilder_ == null) {
           result.expunge_ = expunge_;
         } else {
@@ -2281,6 +2903,9 @@ public final class State {
         if (other.hasSnapshot()) {
           mergeSnapshot(other.getSnapshot());
         }
+        if (other.hasDiff()) {
+          mergeDiff(other.getDiff());
+        }
         if (other.hasExpunge()) {
           mergeExpunge(other.getExpunge());
         }
@@ -2295,6 +2920,12 @@ public final class State {
         }
         if (hasSnapshot()) {
           if (!getSnapshot().isInitialized()) {
+            
+            return false;
+          }
+        }
+        if (hasDiff()) {
+          if (!getDiff().isInitialized()) {
             
             return false;
           }
@@ -2480,6 +3111,123 @@ public final class State {
         return snapshotBuilder_;
       }
 
+      // optional .mesos.internal.state.Operation.Diff diff = 4;
+      private mesos.internal.state.State.Operation.Diff diff_ = mesos.internal.state.State.Operation.Diff.getDefaultInstance();
+      private com.google.protobuf.SingleFieldBuilder<
+          mesos.internal.state.State.Operation.Diff, mesos.internal.state.State.Operation.Diff.Builder, mesos.internal.state.State.Operation.DiffOrBuilder> diffBuilder_;
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      public boolean hasDiff() {
+        return ((bitField0_ & 0x00000004) == 0x00000004);
+      }
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      public mesos.internal.state.State.Operation.Diff getDiff() {
+        if (diffBuilder_ == null) {
+          return diff_;
+        } else {
+          return diffBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      public Builder setDiff(mesos.internal.state.State.Operation.Diff value) {
+        if (diffBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          diff_ = value;
+          onChanged();
+        } else {
+          diffBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      public Builder setDiff(
+          mesos.internal.state.State.Operation.Diff.Builder builderForValue) {
+        if (diffBuilder_ == null) {
+          diff_ = builderForValue.build();
+          onChanged();
+        } else {
+          diffBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      public Builder mergeDiff(mesos.internal.state.State.Operation.Diff value) {
+        if (diffBuilder_ == null) {
+          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+              diff_ != mesos.internal.state.State.Operation.Diff.getDefaultInstance()) {
+            diff_ =
+              mesos.internal.state.State.Operation.Diff.newBuilder(diff_).mergeFrom(value).buildPartial();
+          } else {
+            diff_ = value;
+          }
+          onChanged();
+        } else {
+          diffBuilder_.mergeFrom(value);
+        }
+        bitField0_ |= 0x00000004;
+        return this;
+      }
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      public Builder clearDiff() {
+        if (diffBuilder_ == null) {
+          diff_ = mesos.internal.state.State.Operation.Diff.getDefaultInstance();
+          onChanged();
+        } else {
+          diffBuilder_.clear();
+        }
+        bitField0_ = (bitField0_ & ~0x00000004);
+        return this;
+      }
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      public mesos.internal.state.State.Operation.Diff.Builder getDiffBuilder() {
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return getDiffFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      public mesos.internal.state.State.Operation.DiffOrBuilder getDiffOrBuilder() {
+        if (diffBuilder_ != null) {
+          return diffBuilder_.getMessageOrBuilder();
+        } else {
+          return diff_;
+        }
+      }
+      /**
+       * <code>optional .mesos.internal.state.Operation.Diff diff = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          mesos.internal.state.State.Operation.Diff, mesos.internal.state.State.Operation.Diff.Builder, mesos.internal.state.State.Operation.DiffOrBuilder> 
+          getDiffFieldBuilder() {
+        if (diffBuilder_ == null) {
+          diffBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              mesos.internal.state.State.Operation.Diff, mesos.internal.state.State.Operation.Diff.Builder, mesos.internal.state.State.Operation.DiffOrBuilder>(
+                  diff_,
+                  getParentForChildren(),
+                  isClean());
+          diff_ = null;
+        }
+        return diffBuilder_;
+      }
+
       // optional .mesos.internal.state.Operation.Expunge expunge = 3;
       private mesos.internal.state.State.Operation.Expunge expunge_ = mesos.internal.state.State.Operation.Expunge.getDefaultInstance();
       private com.google.protobuf.SingleFieldBuilder<
@@ -2488,7 +3236,7 @@ public final class State {
        * <code>optional .mesos.internal.state.Operation.Expunge expunge = 3;</code>
        */
       public boolean hasExpunge() {
-        return ((bitField0_ & 0x00000004) == 0x00000004);
+        return ((bitField0_ & 0x00000008) == 0x00000008);
       }
       /**
        * <code>optional .mesos.internal.state.Operation.Expunge expunge = 3;</code>
@@ -2513,7 +3261,7 @@ public final class State {
         } else {
           expungeBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
@@ -2527,7 +3275,7 @@ public final class State {
         } else {
           expungeBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
@@ -2535,7 +3283,7 @@ public final class State {
        */
       public Builder mergeExpunge(mesos.internal.state.State.Operation.Expunge value) {
         if (expungeBuilder_ == null) {
-          if (((bitField0_ & 0x00000004) == 0x00000004) &&
+          if (((bitField0_ & 0x00000008) == 0x00000008) &&
               expunge_ != mesos.internal.state.State.Operation.Expunge.getDefaultInstance()) {
             expunge_ =
               mesos.internal.state.State.Operation.Expunge.newBuilder(expunge_).mergeFrom(value).buildPartial();
@@ -2546,7 +3294,7 @@ public final class State {
         } else {
           expungeBuilder_.mergeFrom(value);
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         return this;
       }
       /**
@@ -2559,14 +3307,14 @@ public final class State {
         } else {
           expungeBuilder_.clear();
         }
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         return this;
       }
       /**
        * <code>optional .mesos.internal.state.Operation.Expunge expunge = 3;</code>
        */
       public mesos.internal.state.State.Operation.Expunge.Builder getExpungeBuilder() {
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return getExpungeFieldBuilder().getBuilder();
       }
@@ -2624,6 +3372,11 @@ public final class State {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_mesos_internal_state_Operation_Snapshot_fieldAccessorTable;
   private static com.google.protobuf.Descriptors.Descriptor
+    internal_static_mesos_internal_state_Operation_Diff_descriptor;
+  private static
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_mesos_internal_state_Operation_Diff_fieldAccessorTable;
+  private static com.google.protobuf.Descriptors.Descriptor
     internal_static_mesos_internal_state_Operation_Expunge_descriptor;
   private static
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -2639,14 +3392,17 @@ public final class State {
     java.lang.String[] descriptorData = {
       "\n\013state.proto\022\024mesos.internal.state\"2\n\005E" +
       "ntry\022\014\n\004name\030\001 \002(\t\022\014\n\004uuid\030\002 \002(\014\022\r\n\005valu" +
-      "e\030\003 \002(\014\"\251\002\n\tOperation\0222\n\004type\030\001 \002(\0162$.me" +
+      "e\030\003 \002(\014\"\233\003\n\tOperation\0222\n\004type\030\001 \002(\0162$.me" +
       "sos.internal.state.Operation.Type\022:\n\010sna" +
       "pshot\030\002 \001(\0132(.mesos.internal.state.Opera" +
-      "tion.Snapshot\0228\n\007expunge\030\003 \001(\0132\'.mesos.i" +
-      "nternal.state.Operation.Expunge\0326\n\010Snaps" +
-      "hot\022*\n\005entry\030\001 \002(\0132\033.mesos.internal.stat" +
-      "e.Entry\032\027\n\007Expunge\022\014\n\004name\030\001 \002(\t\"!\n\004Type" +
-      "\022\014\n\010SNAPSHOT\020\001\022\013\n\007EXPUNGE\020\002"
+      "tion.Snapshot\0222\n\004diff\030\004 \001(\0132$.mesos.inte" +
+      "rnal.state.Operation.Diff\0228\n\007expunge\030\003 \001" +
+      "(\0132\'.mesos.internal.state.Operation.Expu" +
+      "nge\0326\n\010Snapshot\022*\n\005entry\030\001 \002(\0132\033.mesos.i" +
+      "nternal.state.Entry\0322\n\004Diff\022*\n\005entry\030\001 \002",
+      "(\0132\033.mesos.internal.state.Entry\032\027\n\007Expun" +
+      "ge\022\014\n\004name\030\001 \002(\t\"+\n\004Type\022\014\n\010SNAPSHOT\020\001\022\010" +
+      "\n\004DIFF\020\003\022\013\n\007EXPUNGE\020\002"
     };
     com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner assigner =
       new com.google.protobuf.Descriptors.FileDescriptor.InternalDescriptorAssigner() {
@@ -2664,15 +3420,21 @@ public final class State {
           internal_static_mesos_internal_state_Operation_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_state_Operation_descriptor,
-              new java.lang.String[] { "Type", "Snapshot", "Expunge", });
+              new java.lang.String[] { "Type", "Snapshot", "Diff", "Expunge", });
           internal_static_mesos_internal_state_Operation_Snapshot_descriptor =
             internal_static_mesos_internal_state_Operation_descriptor.getNestedTypes().get(0);
           internal_static_mesos_internal_state_Operation_Snapshot_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_state_Operation_Snapshot_descriptor,
               new java.lang.String[] { "Entry", });
-          internal_static_mesos_internal_state_Operation_Expunge_descriptor =
+          internal_static_mesos_internal_state_Operation_Diff_descriptor =
             internal_static_mesos_internal_state_Operation_descriptor.getNestedTypes().get(1);
+          internal_static_mesos_internal_state_Operation_Diff_fieldAccessorTable = new
+            com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+              internal_static_mesos_internal_state_Operation_Diff_descriptor,
+              new java.lang.String[] { "Entry", });
+          internal_static_mesos_internal_state_Operation_Expunge_descriptor =
+            internal_static_mesos_internal_state_Operation_descriptor.getNestedTypes().get(2);
           internal_static_mesos_internal_state_Operation_Expunge_fieldAccessorTable = new
             com.google.protobuf.GeneratedMessage.FieldAccessorTable(
               internal_static_mesos_internal_state_Operation_Expunge_descriptor,
