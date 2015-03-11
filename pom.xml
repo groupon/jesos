@@ -18,7 +18,7 @@
     <parent>
         <groupId>org.basepom</groupId>
         <artifactId>basepom-standard-oss</artifactId>
-        <version>7</version>
+        <version>11</version>
     </parent>
 
     <groupId>com.groupon.mesos</groupId>
@@ -63,8 +63,8 @@
         <dep.leveldb.version>0.7</dep.leveldb.version>
         <dep.guava.version>17.0</dep.guava.version>
 
-        <dep.basepom-policy.version>3</dep.basepom-policy.version>
-        <dep.kitei-rules.version>4</dep.kitei-rules.version>
+        <dep.basepom-policy.version>4</dep.basepom-policy.version>
+        <dep.kitei-rules.version>5</dep.kitei-rules.version>
     </properties>
 
     <dependencies>
@@ -229,7 +229,7 @@
                     <groupId>com.mycila</groupId>
                     <artifactId>license-maven-plugin</artifactId>
                     <dependencies>
-                        <dependency>    
+                        <dependency>
                             <groupId>org.basepom</groupId>
                             <artifactId>basepom-policy</artifactId>
                             <version>${dep.basepom-policy.version}</version>
@@ -240,7 +240,11 @@
                         <header>license/basepom-apache-license-header.txt</header>
                         <excludes>
                             <exclude>src/main/generated-sources/protobuf/**</exclude>
+                            <excludes>src/main/protobuf/**</excludes>
                         </excludes>
+                        <mapping combine.children="append">
+                            <proto>SLASHSTAR_STYLE</proto>
+                        </mapping>
                     </configuration>
                 </plugin>
             </plugins>
