@@ -310,6 +310,17 @@
             </build>
         </profile>
         <profile>
+            <id>travis</id>
+            <activation>
+                <property>
+                    <name>env.TRAVIS</name>
+                </property>
+            </activation>
+            <properties>
+                <project.jdk7.home>${env.JAVA_HOME}</project.jdk7.home>
+            </properties>
+        </profile>
+        <profile>
             <id>cross-compile</id>
             <activation>
                 <jdk>(1.7,]</jdk>
