@@ -38,6 +38,7 @@ import java.util.concurrent.ConcurrentMap;
 
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import com.google.protobuf.ExtensionRegistryLite;
 
 import io.undertow.Undertow;
 import io.undertow.server.HttpHandler;
@@ -69,6 +70,8 @@ public class HttpProtocolReceiver
     private final Set<String> typesSeen = Sets.newConcurrentHashSet();
     private final ConcurrentMap<String, Method> parseMethodMap = Maps.newConcurrentMap();
     private final ConcurrentMap<String, Constructor<?>> constructorMap = Maps.newConcurrentMap();
+
+    private final ExtensionRegistryLite extensionRegistry = ProtobufRegistry.INSTANCE.getExtensionRegistry();
 
     public HttpProtocolReceiver(final UPID localAddress,
                                 final Class<?> messageBaseClass,
@@ -148,7 +151,7 @@ public class HttpProtocolReceiver
         else {
             try {
                 final Class<?> clazz = Class.forName(Messages.class.getName() + "$" + name);
-                parseFromMethod = clazz.getMethod("parseFrom", InputStream.class);
+                parseFromMethod = clazz.getMethod("parseFrom", InputStream.class, ExtensionRegistryLite.class);
                 // This implies that for all messages delivered, an Envelope class exists, which is an inner
                 // class of the messageBaseClass and ends with 'Envelope'.
                 final Class<?> envelopeClazz = Class.forName(messageBaseClass.getName() + "$" + name + "Envelope");
@@ -167,7 +170,7 @@ public class HttpProtocolReceiver
         }
 
         try {
-            final Object o = parseFromMethod.invoke(null, exchange.getInputStream());
+            final Object o = parseFromMethod.invoke(null, exchange.getInputStream(), extensionRegistry);
             // Local delivery of the message.
             eventBus.post(envelopeConstructor.newInstance(sender, localAddress, o));
             LOG.debug("Received from %s: %s", sender.asString(), o);

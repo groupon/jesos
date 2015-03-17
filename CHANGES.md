@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 1.2
+
+* 2015-03-16 - Add Extension registry to allow extension parsing for
+               protobuf messages.
+
 ## Version 1.1
 
 * 2014-12-01 - Upgrade Mesos dependencies to 0.21.0
