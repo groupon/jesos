@@ -24,13 +24,13 @@
     <groupId>com.groupon.mesos</groupId>
     <artifactId>jesos</artifactId>
     <packaging>jar</packaging>
-    <version>1.2-SNAPSHOT</version>
+    <version>1.2</version>
 
     <scm>
         <connection>scm:git:git://github.com/groupon/jesos.git</connection>
         <developerConnection>scm:git:git@github.com:groupon/jesos.git</developerConnection>
         <url>https://github.com/groupon/jesos</url>
-        <tag>HEAD</tag>
+        <tag>jesos-1.2</tag>
     </scm>
 
 
