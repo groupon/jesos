@@ -1,8 +1,12 @@
 # Changelog
 
-## Version 1.3
+## Version 1.4
 
 * 2015-03-24 - Add new Mesos 0.22.0 API call (acknowledgeStatusUpdate)
+
+## Version 1.3
+
+retracted. Do not use.
 
 ## Version 1.2
 
