@@ -41,7 +41,7 @@ public class JesosSchedulerDriver
                                 final FrameworkInfo frameworkInfo,
                                 final String master) throws IOException
     {
-        super(scheduler, frameworkInfo, master, null);
+        super(scheduler, frameworkInfo, master, true, null);
     }
 
     public JesosSchedulerDriver(final Scheduler scheduler,
@@ -50,6 +50,24 @@ public class JesosSchedulerDriver
                                 final Credential credential)
                     throws IOException
     {
-        super(scheduler, frameworkInfo, master, credential);
+        super(scheduler, frameworkInfo, master, true, credential);
+    }
+
+    public JesosSchedulerDriver(final Scheduler scheduler,
+                                final FrameworkInfo frameworkInfo,
+                                final String master,
+                                boolean implicitAcknowledges) throws IOException
+    {
+        super(scheduler, frameworkInfo, master, implicitAcknowledges, null);
+    }
+
+    public JesosSchedulerDriver(final Scheduler scheduler,
+                                final FrameworkInfo frameworkInfo,
+                                final String master,
+                                boolean implicitAcknowledges,
+                                final Credential credential)
+                    throws IOException
+    {
+        super(scheduler, frameworkInfo, master, implicitAcknowledges, credential);
     }
 }

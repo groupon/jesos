@@ -64,12 +64,15 @@ class LocalSchedulerMessageProcessor
 
     private final SchedulerDriverContext context;
     private final ManagedEventBus eventBus;
+    private final boolean implicitAcknowledgements;
 
     LocalSchedulerMessageProcessor(final SchedulerDriverContext context,
-                                   final ManagedEventBus eventBus)
+                                   final ManagedEventBus eventBus,
+                                   final boolean implicitAcknowledgements)
     {
         this.context = checkNotNull(context, "context is null");
         this.eventBus = checkNotNull(eventBus, "eventBus is null");
+        this.implicitAcknowledgements = implicitAcknowledgements;
     }
 
     @Subscribe
@@ -217,12 +220,25 @@ class LocalSchedulerMessageProcessor
         }
 
         final StatusUpdateMessage statusUpdateMessage = envelope.getMessage();
-        final TaskStatus taskStatus = statusUpdateMessage.getUpdate().getStatus();
 
         final FrameworkID frameworkId = context.getFrameworkId();
         final FrameworkID messageFrameworkId = statusUpdateMessage.getUpdate().getFrameworkId();
 
         checkState(frameworkId.equals(messageFrameworkId), "Received Message for framework %s, but local id is %s", messageFrameworkId, frameworkId);
+
+        final TaskStatus.Builder taskStatusBuilder = TaskStatus.newBuilder(statusUpdateMessage.getUpdate().getStatus());
+        final TaskStatus taskStatus;
+
+        // If the update is driver-generated or master-generated, it does not require acknowledgement (from Mesos source code, sched.cpp).
+
+        final boolean noAckRequired = envelope.getSender().equals(context.getDriverUPID()) || envelope.getSender().equals(context.getMasterUPID());
+
+        if (noAckRequired) {
+            taskStatus = taskStatusBuilder.clearUuid().build();
+        }
+        else {
+            taskStatus = taskStatusBuilder.setUuid(statusUpdateMessage.getUpdate().getUuid()).build();
+        }
 
         eventBus.post(new SchedulerCallback() {
             @Override
@@ -238,7 +254,7 @@ class LocalSchedulerMessageProcessor
             }
         });
 
-        if (statusUpdateMessage.hasPid()) {
+        if (implicitAcknowledgements && !noAckRequired) {
             final StatusUpdateAcknowledgementMessage statusUpdateAcknowledgementMessage = StatusUpdateAcknowledgementMessage.newBuilder()
                 .setFrameworkId(frameworkId)
                 .setSlaveId(statusUpdateMessage.getUpdate().getSlaveId())

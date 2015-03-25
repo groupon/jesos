@@ -57,7 +57,7 @@
         <project.jdk7.home>${env.JAVA7_HOME}</project.jdk7.home>
         <project.build.targetJdk>1.7</project.build.targetJdk>
 
-        <dep.mesos.version>0.21.0</dep.mesos.version>
+        <dep.mesos.version>0.22.0</dep.mesos.version>
         <dep.zkclient.version>0.4</dep.zkclient.version>
         <dep.zookeeper.version>3.3.6</dep.zookeeper.version>
         <dep.undertow.version>1.0.16.Final</dep.undertow.version>

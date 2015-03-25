@@ -14,10 +14,8 @@
 package com.groupon.mesos.scheduler;
 
 import static java.lang.String.format;
-
 import static com.google.common.base.Preconditions.checkNotNull;
 import static com.google.common.base.Preconditions.checkState;
-
 import static org.apache.mesos.Protos.Status.DRIVER_ABORTED;
 import static org.apache.mesos.Protos.Status.DRIVER_NOT_STARTED;
 import static org.apache.mesos.Protos.Status.DRIVER_RUNNING;
@@ -56,6 +54,8 @@ import com.groupon.mesos.util.TimeUtil;
 import com.groupon.mesos.util.UPID;
 import com.groupon.mesos.util.UUIDUtil;
 import com.groupon.mesos.zookeeper.ZookeeperMasterDetector;
+
+import mesos.internal.Messages.StatusUpdateAcknowledgementMessage;
 
 import org.apache.mesos.Protos;
 import org.apache.mesos.Protos.Credential;
@@ -98,6 +98,7 @@ public abstract class InternalSchedulerDriver
 
     private final Scheduler scheduler;
     private final Credential credential;
+    private final boolean implicitAcknowledges;
 
     private final ZookeeperMasterDetector detector;
     private final LocalSchedulerMessageProcessor localMessageProcessor;
@@ -125,12 +126,14 @@ public abstract class InternalSchedulerDriver
     protected InternalSchedulerDriver(final Scheduler scheduler,
                                       final FrameworkInfo frameworkInfo,
                                       final String master,
+                                      boolean implicitAcknowledges,
                                       final Credential credential)
                     throws IOException
     {
         this.scheduler = checkNotNull(scheduler, "scheduler is null");
         checkNotNull(frameworkInfo, "frameworkInfo is null");
         checkNotNull(master, "master is null");
+        this.implicitAcknowledges = implicitAcknowledges;
         this.credential = credential;
 
         checkState(!master.equals("local"), "Java client can not launch a local cluster!");
@@ -152,7 +155,7 @@ public abstract class InternalSchedulerDriver
 
         this.eventBus = new ManagedEventBus("scheduler");
 
-        this.localMessageProcessor = new LocalSchedulerMessageProcessor(context, eventBus);
+        this.localMessageProcessor = new LocalSchedulerMessageProcessor(context, eventBus, implicitAcknowledges);
 
         // Closer closes in reverse registration order.
 
@@ -542,6 +545,28 @@ public abstract class InternalSchedulerDriver
             .setFrameworkId(context.getFrameworkId())
             .addAllRequests(requests)
             .build();
+        eventBus.post(new RemoteMessageEnvelope(context.getDriverUPID(), context.getMasterUPID(), message));
+
+        return context.getStateMachine();
+    }
+
+    @Override
+    public Status acknowledgeStatusUpdate(final TaskStatus taskStatus)
+    {
+        checkNotNull(taskStatus, "taskStatus is null");
+        checkState(!implicitAcknowledges, "Can not call acknowledgeStatusUpdate with implicitAcknowledges turned off");
+
+        if (!context.isStateMachine(DRIVER_RUNNING)) {
+            return context.getStateMachine();
+        }
+
+        final StatusUpdateAcknowledgementMessage message = StatusUpdateAcknowledgementMessage.newBuilder()
+            .setFrameworkId(context.getFrameworkId())
+            .setSlaveId(taskStatus.getSlaveId())
+            .setTaskId(taskStatus.getTaskId())
+            .setUuid(taskStatus.getUuid())
+            .build();
+
         eventBus.post(new RemoteMessageEnvelope(context.getDriverUPID(), context.getMasterUPID(), message));
 
         return context.getStateMachine();
