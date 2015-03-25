@@ -5,6 +5,8 @@
 
   * Version 1.0 is built against Apache Mesos 0.20.1
   * Version 1.1 is built against Apache Mesos 0.21.0
+  * Version 1.2 is built against Apache Mesos 0.21.0
+  * Version 1.3 is built against Apache Mesos 0.22.0
 
   Any version will work any older version of Apache Mesos, as
   long as it supports the HTTP protocol (which is the 0.19.0 release
