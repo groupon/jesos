@@ -42,5 +42,7 @@
 
 
 ----
-Copyright (C) 2014, Groupon, Inc.
+Copyright (C) 2014-2015, Groupon, Inc.
 Licensed under the Apache Software License V2 (see the LICENSE file in this folder).
+
+[![Build Status](https://travis-ci.org/groupon/jesos.svg?branch=master)](https://travis-ci.org/groupon/jesos)
