@@ -21,6 +21,7 @@ import static org.apache.mesos.Protos.Status.DRIVER_ABORTED;
 import java.io.IOException;
 import java.util.List;
 
+import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import com.google.common.eventbus.Subscribe;
@@ -231,7 +232,8 @@ class LocalSchedulerMessageProcessor
 
         // If the update is driver-generated or master-generated, it does not require acknowledgement (from Mesos source code, sched.cpp).
 
-        final boolean noAckRequired = envelope.getSender().equals(context.getDriverUPID()) || envelope.getSender().equals(context.getMasterUPID());
+        final Optional<UPID> pid = statusUpdateMessage.hasPid() ? Optional.of(UPID.create(statusUpdateMessage.getPid())) : Optional.<UPID>absent();
+        final boolean noAckRequired = envelope.getSender().equals(context.getDriverUPID()) || pid.isPresent() && pid.get().equals(context.getDriverUPID());
 
         if (noAckRequired) {
             taskStatus = taskStatusBuilder.clearUuid().build();
@@ -262,9 +264,7 @@ class LocalSchedulerMessageProcessor
                 .setUuid(statusUpdateMessage.getUpdate().getUuid())
                 .build();
 
-            final UPID pid = UPID.create(statusUpdateMessage.getPid());
-
-            eventBus.post(new RemoteMessageEnvelope(context.getDriverUPID(), pid, statusUpdateAcknowledgementMessage));
+            eventBus.post(new RemoteMessageEnvelope(context.getDriverUPID(), context.getMasterUPID(), statusUpdateAcknowledgementMessage));
         }
     }
 
