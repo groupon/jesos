@@ -84,24 +84,6 @@ public class JZookeeperState implements State, Closeable
         path = path.endsWith("/") ? path.substring(0, path.length() - 1) : path;
 
         this.path = path;
-
-        try {
-            if (client.exists(path, false) == null) {
-                LOG.debug("Creating Zookeeper path: %s", path);
-                try {
-                    client.create(path, new byte[0], Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
-                }
-                catch (final NodeExistsException e) {
-                    LOG.debug("Node %s already exists", path);
-                }
-            }
-        }
-        catch (final KeeperException e) {
-            LOG.warn(e, "While creating path %s", path);
-        }
-        catch (final InterruptedException e) {
-            Thread.currentThread().interrupt();
-        }
     }
 
     @Override
@@ -173,7 +155,7 @@ public class JZookeeperState implements State, Closeable
                     if (current == null) {
                         LOG.debug("Node %s does not exist", fullName);
                         try {
-                            client.create(fullName, update.asBytes(), Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+                            createNodeRecursively(fullName, update.asBytes());
                             LOG.debug("Node %s successfully created", fullName);
                             return update;
                         }
@@ -288,6 +270,14 @@ public class JZookeeperState implements State, Closeable
     private String getFullPath(final String name)
     {
         return String.format("%s/%s", path, name);
+    }
+
+    private void createNodeRecursively(final String path, final byte[] data) throws KeeperException, InterruptedException {
+        if (!path.isEmpty() && client.exists(path, false) == null) {
+            final String parent = path.substring(0, path.lastIndexOf('/'));
+            createNodeRecursively(parent, new byte[0]);
+            client.create(path, data, Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
+        }
     }
 
     private static class StateWatcher implements Watcher
